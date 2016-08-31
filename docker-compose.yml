@@ -27,7 +27,7 @@ services:
       - EMAIL_PORT=1025
 
   db:
-    image: postgres:9.5.2
+    image: postgis
     volumes_from:
       - data
     environment:

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load leaflet_tags bootstrap3 %}
+
+{% block body %}
+
+<div class="row">
+
+<div class="col-sm-8">
+{% leaflet_map "yourmap" %}
+</div>
+<div class="col-sm-4">
+<form action="" method="get">
+	{% bootstrap_form filter.form %}
+	{% buttons %}
+    <button type="submit" class="btn btn-primary btn-block">
+      Filtrer
+    </button>
+  {% endbuttons %}
+</form>
+</div>
+</div>
+
+<h1>{{ filter.qs|length }} projets</h1>
+
+<ul>
+{% for obj in filter %}
+    <li>{{ obj }}</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

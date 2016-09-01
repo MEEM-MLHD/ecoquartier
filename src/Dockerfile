@@ -10,6 +10,9 @@ RUN apt-get update
 # gettext
 RUN apt-get install -y gettext
 
+# GIS lib
+RUN apt-get install binutils libproj-dev gdal-bin
+
 # uWSGI
 RUN pip install pip
 RUN pip install uwsgi

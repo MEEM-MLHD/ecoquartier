@@ -117,8 +117,7 @@ STATIC_ROOT = '/var/www/static'
 
 
 LEAFLET_CONFIG = {
-    'SPATIAL_EXTENT': (0.0, 42.0, 5.5, 50.),
-    'DEFAULT_CENTER': (7.0, 45.0),
+    'DEFAULT_CENTER': (47, 2.0),
     'DEFAULT_ZOOM': 6,
     'MIN_ZOOM': 3,
     'MAX_ZOOM': 18,

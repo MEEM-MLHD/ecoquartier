@@ -18,6 +18,8 @@ class ZonageINSEE(models.Model):
 
 class Commune(models.Model):
     label = models.CharField(max_length=255)
+    code_insee = models.CharField(max_length=255)
+    charte_ecoquartier = models.BooleanField()
     def __unicode__(self):
         return self.label
 
@@ -70,7 +72,6 @@ class Project(models.Model):
     statut = models.ForeignKey(Statut, null=True)
     zonage_insee = models.ForeignKey(ZonageINSEE, null=True)
     commune = models.ForeignKey(Commune, null=True)
-    code_insee = models.TextField()
     population = models.TextField()
     departement = models.ForeignKey(Departement, null=True)
     region = models.ForeignKey(Region, null=True)
@@ -416,6 +417,7 @@ class Charte(models.Model):
     nom_dept = models.TextField()
     code_insee = models.TextField()
     ville = models.TextField()
+    commune = models.ForeignKey(Commune, null=True)
     nom_ecoquartier = models.TextField()
     population = models.TextField()
     commune_rurale_ou_urbaine = models.TextField()

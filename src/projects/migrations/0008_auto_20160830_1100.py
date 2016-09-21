@@ -16,6 +16,10 @@ def geo_data(apps, schema_editor):
             project.save()
 
 
+def reverse_func(apps, schema_editor):
+    pass
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -23,5 +27,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(geo_data),
+        migrations.RunPython(geo_data, reverse_func),
     ]

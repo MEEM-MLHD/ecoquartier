@@ -21,6 +21,10 @@ def import_data(apps, schema_editor):
             project = Project.objects.create(**dict(zip(project_fields, row)))
 
 
+def reverse_func(apps, schema_editor):
+    pass
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -28,5 +32,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-    	migrations.RunPython(import_data),
+    	migrations.RunPython(import_data, reverse_func),
     ]

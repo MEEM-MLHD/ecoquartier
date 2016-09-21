@@ -12,6 +12,10 @@ def change_non_to_autre(apps, schema_editor):
     label.save()
 
 
+def reverse_func(apps, schema_editor):
+    pass
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -19,5 +23,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-    	migrations.RunPython(change_non_to_autre),
+    	migrations.RunPython(change_non_to_autre, reverse_func),
     ]

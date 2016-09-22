@@ -24,7 +24,7 @@
 
 <ul>
 {% for obj in filter %}
-    <li>{{ obj }}</li>
+    <li>{{ obj }} {% if obj.commune.charte_ecoquartier %}<span class="tag tag-success">Charte Ecoquartier</span>{% else %}<span class="tag tag-warning">Pas de charte</span>{% endif %}</li>
 {% endfor %}
 </ul>
 

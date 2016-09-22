@@ -9,7 +9,7 @@ class CharteAdmin(admin.ModelAdmin):
 
 
 class CommuneAdmin(admin.ModelAdmin):
-    list_display = ('label', 'code_insee',)
+    list_display = ('label', 'code_insee', 'charte_ecoquartier')
 
 
 admin.site.register(Project)

@@ -1,17 +1,20 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.utils.text import Truncator
 from django.contrib.gis.db import models
 
 
 class Statut(models.Model):
     label = models.CharField(max_length=255)
+
     def __unicode__(self):
         return self.label
 
 
 class ZonageINSEE(models.Model):
     label = models.CharField(max_length=255)
+
     def __unicode__(self):
         return self.label
 
@@ -20,48 +23,56 @@ class Commune(models.Model):
     label = models.CharField(max_length=255)
     code_insee = models.CharField(max_length=255)
     charte_ecoquartier = models.BooleanField()
+
     def __unicode__(self):
         return self.label
 
 
 class Departement(models.Model):
     label = models.CharField(max_length=255)
+
     def __unicode__(self):
         return self.label
 
 
 class Region(models.Model):
     label = models.CharField(max_length=255)
+
     def __unicode__(self):
         return self.label
 
 
 class ContexteCommune(models.Model):
     label = models.CharField(max_length=255)
+
     def __unicode__(self):
         return self.label
 
 
 class TypeOperation(models.Model):
     label = models.CharField(max_length=255)
+
     def __unicode__(self):
         return self.label
 
 
 class Vocation(models.Model):
     label = models.CharField(max_length=255)
+
     def __unicode__(self):
         return self.label
 
 
 class LabelEcoQuartier(models.Model):
     label = models.CharField(max_length=255)
+
     def __unicode__(self):
         return self.label
 
 
 class Procedure(models.Model):
     label = models.CharField(max_length=255)
+
     def __unicode__(self):
         return self.label
 
@@ -405,6 +416,14 @@ class Project(models.Model):
     commentaires = models.TextField()
 
     objects = models.GeoManager()
+
+    @property
+    def commune_label(self):
+        return self.commune.label
+
+    @property
+    def short_description(self):
+        return Truncator(self.description).words(50, html=False, truncate=' ...')
 
     def __unicode__(self):
         return "%s (%s, %s)" % (self.nom, self.commune, self.region)

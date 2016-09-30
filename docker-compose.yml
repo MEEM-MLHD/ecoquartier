@@ -3,7 +3,7 @@ services:
   data:
     image: debian:jessie
     volumes:
-      - ./data/media:/srv/data/media
+      - ./data/media:/var/www/media
       - /var/www/static
       - ./data/backup:/srv/data/backup
       - ./data/log:/var/log

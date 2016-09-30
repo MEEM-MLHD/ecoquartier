@@ -429,6 +429,13 @@ class Project(models.Model):
         return "%s (%s, %s)" % (self.nom, self.commune, self.region)
 
 
+class ProjectPhoto(models.Model):
+    project = models.ForeignKey(Project)
+    order = models.PositiveIntegerField()
+    title = models.CharField(max_length=255, blank=True)
+    photo = models.ImageField(upload_to='photos/%Y/%m/%d', max_length=1500)
+
+
 class Charte(models.Model):
     region = models.TextField()
     ancienne_region = models.TextField()

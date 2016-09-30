@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 
-from .models import Project, Statut, ZonageINSEE, Commune, Departement, Region, ContexteCommune, TypeOperation, Vocation, LabelEcoQuartier, Procedure, Charte
+from .models import Project, ProjectPhoto, Statut, ZonageINSEE, Commune, Departement, Region, ContexteCommune, TypeOperation, Vocation, LabelEcoQuartier, Procedure, Charte
 
 
 class CharteAdmin(admin.ModelAdmin):
@@ -13,6 +13,7 @@ class CommuneAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Project)
+admin.site.register(ProjectPhoto)
 admin.site.register(Statut)
 admin.site.register(ZonageINSEE)
 admin.site.register(Commune, CommuneAdmin)

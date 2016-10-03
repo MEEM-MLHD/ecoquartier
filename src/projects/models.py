@@ -1,8 +1,9 @@
 from __future__ import unicode_literals
 
+from django.contrib.gis.db import models
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.text import Truncator
-from django.contrib.gis.db import models
 
 
 class Statut(models.Model):
@@ -28,14 +29,14 @@ class Commune(models.Model):
         return self.label
 
 
-class Departement(models.Model):
+class Region(models.Model):
     label = models.CharField(max_length=255)
 
     def __unicode__(self):
         return self.label
 
 
-class Region(models.Model):
+class Departement(models.Model):
     label = models.CharField(max_length=255)
 
     def __unicode__(self):
@@ -427,7 +428,6 @@ class Project(models.Model):
 
     @property
     def feature(self):
-        #return "prout"
         return self.photos[0] if len(self.photos) > 0 else None
 
     @property
@@ -440,7 +440,6 @@ class Project(models.Model):
 
     @property
     def url(self):
-        from django.core.urlresolvers import reverse
         return reverse('detail', kwargs={'pk':self.id})
 
     def __unicode__(self):

@@ -67,7 +67,7 @@
           if(feature.properties.feature !== null){
           var content_img = "<img src='"+feature.properties.feature+"' style='width:100%' />"
           }
-          var content = content_img+'<b>'+feature.properties.nom+" ("+feature.properties.commune_label+") </b><br>"+feature.properties.short_description;
+          var content = content_img+'<b>'+feature.properties.nom+" ("+feature.properties.commune_label+") </b><br>"+feature.properties.short_description + "<br/><br/><div> <a target='_blank' href='"+feature.properties.url+"' class='btn btn-outline-primary btn-block btn-sm' role='button'>Détail</a> </div>";
 
           layer.bindPopup(content);
           }

@@ -434,6 +434,14 @@ class Project(models.Model):
     def photos(self):
         return [photo.photo.url for photo in self.projectphoto_set.exclude(photo__isnull=True)]
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('detail', (), {'pk': self.pk})
+
+    @property
+    def url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('detail', kwargs={'pk':self.id})
 
     def __unicode__(self):
         return "%s (%s, %s)" % (self.nom, self.commune, self.region)

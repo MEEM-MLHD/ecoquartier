@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load leaflet_tags bootstrap3 %}
+
+{% block body %}
+
+<h2>{{ object.nom }}</h2>
+
+{{ object.description }}
+
+<div>
+{% for photo in object.projectphoto_set.all %}
+<img height="200px" src="{{ photo.photo.url }}" />
+{% endfor %}
+</div>
+
+{% endblock %}

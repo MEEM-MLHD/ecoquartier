@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load leaflet_tags bootstrap3 %}
+
+{% block body %}
+
+<form action="" method="post">{% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+    <button type="submit" class="btn btn-primary btn-block">
+      Soumettre votre projet d'écoquartier
+    </button>
+  {% endbuttons %}
+</form>
+
+{% endblock %}

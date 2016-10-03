@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from djgeojson.serializers import Serializer as GeoJSONSerializer
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 
 from .models import Project
 from .filters import ProjectFilter
@@ -17,5 +18,9 @@ def home(request):
 
 
 class ProjectDetailView(DetailView):
-
     model = Project
+
+
+class ProjectCreateView(CreateView):
+    model = Project
+    fields = ['nom', 'departement', 'description']

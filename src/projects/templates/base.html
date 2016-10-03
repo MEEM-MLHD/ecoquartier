@@ -26,8 +26,12 @@
 <div class="container">
   <nav class="navbar navbar-dark">
     <a class="navbar-brand" href="/">Ecoquartiers</a>
+
+    <ul class="nav navbar-nav pull-xs-right ">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'create' %}">Ajouter votre projet d'écoquartier</a>
+      </li>
     {% comment %}
-    <ul class="nav navbar-nav pull-xs-right">
       {% if user.is_authenticated %}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'auth_logout' %}">Déconnexion </a>
@@ -40,8 +44,9 @@
         <a class="nav-link" href="{% url 'auth_login' %}">Connexion</a>
       </li>
       {% endif %}
-    </ul>
     {% endcomment %}
+    </ul>
+
   </nav>
   </div>
   </div>

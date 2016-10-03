@@ -425,6 +425,16 @@ class Project(models.Model):
     def short_description(self):
         return Truncator(self.description).words(50, html=False, truncate=' ...')
 
+    @property
+    def feature(self):
+        #return "prout"
+        return self.photos[0] if len(self.photos) > 0 else None
+
+    @property
+    def photos(self):
+        return [photo.photo.url for photo in self.projectphoto_set.exclude(photo__isnull=True)]
+
+
     def __unicode__(self):
         return "%s (%s, %s)" % (self.nom, self.commune, self.region)
 

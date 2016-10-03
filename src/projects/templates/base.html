@@ -63,7 +63,13 @@
   $(window).on('map:init', function (e) {
       function onEachFeature(feature, layer) {
       if (feature.properties) {
-          layer.bindPopup('<b>'+feature.properties.nom+" ("+feature.properties.commune_label+") </b><br>"+feature.properties.short_description);
+          var content_img = '';
+          if(feature.properties.feature !== null){
+          var content_img = "<img src='"+feature.properties.feature+"' style='width:100%' />"
+          }
+          var content = content_img+'<b>'+feature.properties.nom+" ("+feature.properties.commune_label+") </b><br>"+feature.properties.short_description;
+
+          layer.bindPopup(content);
           }
       }
       var detail = e.originalEvent ?

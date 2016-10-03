@@ -12,7 +12,7 @@ def update_commune_charte(apps, schema_editor):
     signed_charte = [u"Charte seule", u"Engagé", u"Label"]
     for charte in chartes:
         if charte.avancement_dans_la_demarche in signed_charte:
-            print charte.avancement_dans_la_demarche
+            # print charte.avancement_dans_la_demarche
             commune = charte.commune
             commune.charte_ecoquartier = True
             commune.save()

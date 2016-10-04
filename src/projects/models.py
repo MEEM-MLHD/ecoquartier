@@ -1,8 +1,8 @@
 from __future__ import unicode_literals
 
-from django.contrib.gis.db import models
 from django.core.urlresolvers import reverse
-from django.db import models
+#from django.db import models
+from django.contrib.gis.db import models
 from django.utils.text import Truncator
 
 
@@ -20,15 +20,6 @@ class ZonageINSEE(models.Model):
         return self.label
 
 
-class Commune(models.Model):
-    label = models.CharField(max_length=255)
-    code_insee = models.CharField(max_length=255)
-    charte_ecoquartier = models.BooleanField()
-
-    def __unicode__(self):
-        return self.label
-
-
 class Region(models.Model):
     label = models.CharField(max_length=255)
 
@@ -38,6 +29,17 @@ class Region(models.Model):
 
 class Departement(models.Model):
     label = models.CharField(max_length=255)
+    region = models.ForeignKey(Region, null=True)
+
+    def __unicode__(self):
+        return self.label
+
+
+class Commune(models.Model):
+    label = models.CharField(max_length=255)
+    code_insee = models.CharField(max_length=255)
+    charte_ecoquartier = models.BooleanField()
+    departement = models.ForeignKey(Departement, null=True)
 
     def __unicode__(self):
         return self.label
@@ -79,21 +81,19 @@ class Procedure(models.Model):
 
 
 class Project(models.Model):
-    nom = models.TextField()
-    mise_a_jour = models.TextField()
+    nom = models.CharField(max_length=255)
+    mise_a_jour = models.DateField()
     statut = models.ForeignKey(Statut, null=True)
     zonage_insee = models.ForeignKey(ZonageINSEE, null=True)
     commune = models.ForeignKey(Commune, null=True)
-    population = models.TextField()
-    departement = models.ForeignKey(Departement, null=True)
-    region = models.ForeignKey(Region, null=True)
+    population = models.IntegerField()
     description = models.TextField()
     contexte_commune = models.ForeignKey(ContexteCommune, null=True)
-    littorale = models.TextField()
-    montagne = models.TextField()
+    littorale = models.BooleanField()
+    montagne = models.BooleanField()
     autres_communes = models.TextField()
     adresse = models.TextField()
-    systeme_projection = models.TextField()
+    systeme_projection = models.CharField(max_length=255)
     coordonnees_geographiques = models.GeometryCollectionField(blank=True, null=True)
     site = models.TextField()
     contexte_site = models.TextField()
@@ -101,8 +101,8 @@ class Project(models.Model):
     type_operation_autre = models.TextField()
     vocation = models.ForeignKey(Vocation, null=True)
     vocation_autre = models.TextField()
-    superficieha = models.TextField()
-    surface_nonbatie = models.TextField()
+    superficieha = models.FloatField(null=True)
+    surface_nonbatie = models.FloatField(null=True)
     habitants = models.TextField()
     logements = models.TextField()
     shon_logementsm = models.TextField()
@@ -126,7 +126,7 @@ class Project(models.Model):
     nomine = models.TextField()
     laureat = models.TextField()
     resultats_palmares = models.TextField()
-    candidat_label = models.TextField()
+    candidat_label = models.BooleanField()
     annee_candidature = models.TextField()
     label_ecoquartier = models.ForeignKey(LabelEcoQuartier, null=True)
     annee_label = models.TextField()
@@ -443,7 +443,7 @@ class Project(models.Model):
         return reverse('detail', kwargs={'pk':self.id})
 
     def __unicode__(self):
-        return "%s (%s, %s)" % (self.nom, self.commune, self.region)
+        return "%s (%s, %s)" % (self.nom, self.commune, self.commune.departement.region)
 
 
 class ProjectPhoto(models.Model):

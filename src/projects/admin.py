@@ -9,10 +9,14 @@ class CharteAdmin(admin.ModelAdmin):
 
 
 class CommuneAdmin(admin.ModelAdmin):
-    list_display = ('label', 'code_insee', 'charte_ecoquartier')
+    list_display = ('label', 'code_insee', 'charte_ecoquartier', 'departement')
 
 
-admin.site.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('nom', 'commune', 'mise_a_jour', 'population', 'littorale', 'montagne', 'candidat_label', 'superficieha', 'surface_nonbatie', 'eau', 'dechets', 'biodiversite', 'mobilite', 'sobriete_energetique_et_energie_renouvelable', 'densite_et_formes_urbaines', 'ecoconstruction', 'autres', 'demarches_et_processus', 'cadre_de_vie_et_usages')
+
+
+admin.site.register(Project, ProjectAdmin)
 admin.site.register(ProjectPhoto)
 admin.site.register(Statut)
 admin.site.register(ZonageINSEE)

@@ -23,4 +23,4 @@ class ProjectDetailView(DetailView):
 
 class ProjectCreateView(CreateView):
     model = Project
-    fields = ['nom', 'departement', 'description']
+    fields = ['nom', 'commune', 'description']

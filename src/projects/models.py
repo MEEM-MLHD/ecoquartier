@@ -1,8 +1,8 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.core.urlresolvers import reverse
-#from django.db import models
 from django.contrib.gis.db import models
+from django.core.urlresolvers import reverse
 from django.utils.text import Truncator
 
 
@@ -81,90 +81,155 @@ class Procedure(models.Model):
 
 
 class Project(models.Model):
-    nom = models.CharField(max_length=255)
-    mise_a_jour = models.DateField()
-    statut = models.ForeignKey(Statut, null=True)
-    zonage_insee = models.ForeignKey(ZonageINSEE, null=True)
-    commune = models.ForeignKey(Commune, null=True)
-    population = models.IntegerField()
-    description = models.TextField()
-    contexte_commune = models.ForeignKey(ContexteCommune, null=True)
-    littorale = models.BooleanField()
-    montagne = models.BooleanField()
+    nom = models.CharField(max_length=255) #
+    mise_a_jour = models.DateField() #
+    statut = models.ForeignKey(Statut, null=True) #
+    zonage_insee = models.ForeignKey(ZonageINSEE, null=True) #
+    commune = models.ForeignKey(Commune, null=True) #
+    population = models.IntegerField() #
+    description = models.TextField() #
+    contexte_commune = models.ForeignKey(ContexteCommune, null=True) #
+    littorale = models.BooleanField() #
+    montagne = models.BooleanField() #
     autres_communes = models.TextField()
-    adresse = models.TextField()
-    systeme_projection = models.CharField(max_length=255)
-    coordonnees_geographiques = models.GeometryCollectionField(blank=True, null=True)
-    site = models.TextField()
-    contexte_site = models.TextField()
-    type_operation = models.ForeignKey(TypeOperation, null=True)
-    type_operation_autre = models.TextField()
-    vocation = models.ForeignKey(Vocation, null=True)
-    vocation_autre = models.TextField()
-    superficieha = models.FloatField(null=True)
-    surface_nonbatie = models.FloatField(null=True)
-    habitants = models.TextField()
-    logements = models.TextField()
-    shon_logementsm = models.TextField()
-    logements_sociau = models.TextField()
-    equipements_publics = models.TextField()
-    shon_equipementsm = models.TextField()
-    commerces_services = models.TextField()
-    shon_commercesm = models.TextField()
+    adresse = models.TextField() #
+    systeme_projection = models.CharField(max_length=255) #
+    coordonnees_geographiques = models.GeometryCollectionField(blank=True, null=True) #
+    site = models.TextField() #
+    contexte_site = models.TextField() #
+    type_operation = models.ForeignKey(TypeOperation, null=True) #
+    type_operation_autre = models.TextField() #
+    vocation = models.ForeignKey(Vocation, null=True) #
+    vocation_autre = models.TextField() #
+    superficieha = models.FloatField(null=True) #
+    surface_nonbatie = models.FloatField(null=True) #
+    habitants = models.IntegerField() #
+    logements = models.IntegerField() #
+    shon_logementsm = models.IntegerField() #
+    logements_sociau = models.IntegerField(null=True, blank=True) #
+    equipements_publics = models.TextField() #
+    shon_equipementsm = models.IntegerField(null=True, blank=True) #
+    commerces_services = models.TextField() #
+    shon_commercesm = models.IntegerField(null=True, blank=True)
     bureaux_activites = models.TextField()
-    shon_bureauxm = models.TextField()
-    programme_detail = models.TextField()
-    densite_brute = models.TextField()
-    densite_brute_logements = models.TextField()
-    densite_logements = models.TextField()
-    projet_social = models.TextField()
-    economie_circulaire = models.TextField()
-    attenuation_changement_climatique = models.TextField()
-    label_demarche = models.TextField()
-    participation_2009 = models.TextField()
-    participation_2011 = models.TextField()
-    nomine = models.TextField()
-    laureat = models.TextField()
-    resultats_palmares = models.TextField()
-    candidat_label = models.BooleanField()
-    annee_candidature = models.TextField()
-    label_ecoquartier = models.ForeignKey(LabelEcoQuartier, null=True)
-    annee_label = models.TextField()
-    procedure = models.ForeignKey(Procedure, null=True)
-    procedure_detail = models.TextField()
-    aspects_fonciers = models.TextField()
-    etudes_prealables = models.TextField()
-    concertation = models.TextField()
-    collectivite_ou_epci_porteur = models.TextField()
-    maitrise_ouvrage = models.TextField()
-    maitrise_oeuvre = models.TextField()
-    partenariats = models.TextField()
-    opacrations_marquantes = models.TextField()
-    engagement = models.TextField()
-    creation = models.TextField()
-    realisation = models.TextField()
-    autorisation = models.TextField()
-    permis = models.TextField()
-    debut = models.TextField()
-    livraison = models.TextField()
-    achevement = models.TextField()
-    complementaire = models.TextField()
-    coats = models.TextField()
-    sources = models.TextField()
-    sources_details = models.TextField()
-    contact = models.TextField()
-    sites_enlien = models.TextField()
-    documents = models.TextField()
-    eau = models.TextField()
-    dechets = models.TextField()
-    biodiversite = models.TextField()
-    mobilite = models.TextField()
-    sobriete_energetique_et_energie_renouvelable = models.TextField()
-    densite_et_formes_urbaines = models.TextField()
-    ecoconstruction = models.TextField()
-    autres = models.TextField()
-    demarches_et_processus = models.TextField()
-    cadre_de_vie_et_usages = models.TextField()
+    shon_bureauxm = models.IntegerField(null=True, blank=True)
+    programme_detail = models.TextField() #
+    densite_brute = models.IntegerField(null=True, blank=True) #
+    densite_brute_logements = models.IntegerField(null=True, blank=True) #
+    densite_logements = models.IntegerField(null=True, blank=True) #
+    projet_social = models.TextField() #
+    economie_circulaire = models.TextField() #
+
+    def is_economie_circulaire(self):
+        return True if self.economie_circulaire != '' else False
+    is_economie_circulaire.boolean = True
+    is_economie_circulaire.short_description = u'économie circulaire'
+
+    attenuation_changement_climatique = models.TextField() #
+
+    def is_attenuation_changement_climatique(self):
+        return True if self.attenuation_changement_climatique != '' else False
+    is_attenuation_changement_climatique.boolean = True
+    is_attenuation_changement_climatique.short_description = u'atténuation du changement climatique'
+
+    label_demarche = models.TextField() #
+    def is_label_demarche(self):
+        return True if self.label_demarche != '' else False
+    is_label_demarche.boolean = True
+    is_label_demarche.short_description = u'label démarche'
+
+
+    participation_2009 = models.BooleanField() #
+    participation_2011 = models.BooleanField() #
+    nomine = models.BooleanField() #
+    laureat = models.BooleanField() #
+    resultats_palmares = models.TextField() #
+    candidat_label = models.BooleanField() #
+    annee_candidature = models.IntegerField(null=True, blank=True) #
+    label_ecoquartier = models.ForeignKey(LabelEcoQuartier, null=True) #
+    annee_label = models.IntegerField(null=True, blank=True) #
+    procedure = models.ForeignKey(Procedure, null=True) #
+    procedure_detail = models.TextField() #
+    aspects_fonciers = models.TextField() #
+    etudes_prealables = models.TextField() #
+    concertation = models.TextField() #
+    collectivite_ou_epci_porteur = models.CharField(max_length=500) #
+    maitrise_ouvrage = models.TextField() #
+    maitrise_oeuvre = models.TextField() #
+    partenariats = models.TextField() #
+    opacrations_marquantes = models.TextField() #
+    engagement = models.IntegerField(null=True, blank=True) #
+    creation = models.IntegerField(null=True, blank=True) #
+    realisation = models.IntegerField(null=True, blank=True) #
+    autorisation = models.IntegerField(null=True, blank=True) #
+    permis = models.IntegerField(null=True, blank=True) #
+    debut = models.IntegerField(null=True, blank=True) #
+    livraison = models.IntegerField(null=True, blank=True) #
+    achevement = models.IntegerField(null=True, blank=True) #
+    complementaire = models.IntegerField(null=True, blank=True) #
+    coats = models.TextField() #
+    sources = models.TextField() #
+    sources_details = models.TextField() #
+    contact = models.TextField() #
+    sites_enlien = models.TextField() #
+    documents = models.TextField() #
+
+    eau = models.TextField() #
+    dechets = models.TextField() #
+    biodiversite = models.TextField() #
+    mobilite = models.TextField() #
+    sobriete_energetique_et_energie_renouvelable = models.TextField() #
+    densite_et_formes_urbaines = models.TextField() #
+    ecoconstruction = models.TextField() #
+    autres = models.TextField() #
+    demarches_et_processus = models.TextField() #
+    cadre_de_vie_et_usages = models.TextField() #
+
+    def is_eau(self):
+        return True if self.eau != '' else False
+    is_eau.boolean = True
+    is_eau.short_description = 'eau'
+
+    def is_dechets(self):
+        return True if self.dechets != '' else False
+    is_dechets.boolean = True
+    is_dechets.short_description = 'dechets'
+
+    def is_biodiversite(self):
+        return True if self.biodiversite != '' else False
+    is_biodiversite.boolean = True
+    is_biodiversite.short_description = 'biodiversite'
+
+    def is_mobilite(self):
+        return True if self.mobilite != '' else False
+    is_mobilite.boolean = True
+    is_mobilite.short_description = 'mobilite'
+
+    def is_sobriete_energetique_et_energie_renouvelable(self):
+        return True if self.sobriete_energetique_et_energie_renouvelable != '' else False
+    is_sobriete_energetique_et_energie_renouvelable.boolean = True
+    is_sobriete_energetique_et_energie_renouvelable.short_description = 'sobriete energetique et energie renouvelable'
+
+    def is_densite_et_formes_urbaines(self):
+        return True if self.densite_et_formes_urbaines != '' else False
+    is_densite_et_formes_urbaines.boolean = True
+    is_densite_et_formes_urbaines.short_description = 'densite et formes urbaines'
+
+    def is_ecoconstruction(self):
+        return True if self.ecoconstruction != '' else False
+    is_ecoconstruction.boolean = True
+    is_ecoconstruction.short_description = 'ecoconstruction'
+
+    def is_demarches_et_processus(self):
+        return True if self.demarches_et_processus != '' else False
+    is_demarches_et_processus.boolean = True
+    is_demarches_et_processus.short_description = 'demarches et processus'
+
+    def is_cadre_de_vie_et_usages(self):
+        return True if self.cadre_de_vie_et_usages != '' else False
+    is_cadre_de_vie_et_usages.boolean = True
+    is_cadre_de_vie_et_usages.short_description = 'cadre de vie et usages'
+
     commentaires_demarche_et_processus = models.TextField()
     ambition_1 = models.TextField()
     ambition_2 = models.TextField()
@@ -213,107 +278,7 @@ class Project(models.Model):
     engagement_18 = models.TextField()
     engagement_19 = models.TextField()
     engagement_20 = models.TextField()
-    commission_nationale_cn2016 = models.TextField()
-    decision_cn2016 = models.TextField()
-    demarche_processus_cn2016 = models.TextField()
-    cadre_vie_usage_cn2016 = models.TextField()
-    developpement_territorial_cn2016 = models.TextField()
-    ressources_climat_cn2016 = models.TextField()
-    etat_avancement_cn2016 = models.TextField()
-    commission_regionale_cr2016 = models.TextField()
-    proposition_cr2016 = models.TextField()
-    demarche_processus_cr2016 = models.TextField()
-    cadre_vie_usage_cr2016 = models.TextField()
-    developpement_territorial_cr2016 = models.TextField()
-    ressources_climat_cr2016 = models.TextField()
-    etat_avancement_cr2016 = models.TextField()
-    avis_triple_expert_te2016 = models.TextField()
-    proposition_te2016 = models.TextField()
-    expert_interne_ei2016 = models.TextField()
-    avis_general_ei2016 = models.TextField()
-    expert_externe_ee2016 = models.TextField()
-    avis_general_ee2016 = models.TextField()
-    expert_territ_et2016 = models.TextField()
-    synthese_avis_et2016 = models.TextField()
-    synthese_avis_opportunite_dd2016 = models.TextField()
-    commission_nationale_cn2015 = models.TextField()
-    decision_cn2015 = models.TextField()
-    demarche_processus_cn2015 = models.TextField()
-    cadre_vie_usage_cn2015 = models.TextField()
-    developpement_territorial_cn2015 = models.TextField()
-    ressources_climat_cn2015 = models.TextField()
-    etat_avancement_cn2015 = models.TextField()
-    commission_regionale_cr2015 = models.TextField()
-    proposition_cr2015 = models.TextField()
-    demarche_processus_cr2015 = models.TextField()
-    cadre_vie_usage_cr2015 = models.TextField()
-    developpement_territorial_cr2015 = models.TextField()
-    ressources_climat_cr2015 = models.TextField()
-    etat_avancement_cr2015 = models.TextField()
-    avis_triple_expert_te2015 = models.TextField()
-    proposition_te2015 = models.TextField()
-    expert_interne_ei2015 = models.TextField()
-    avis_general_ei2015 = models.TextField()
-    expert_externe_ee2015 = models.TextField()
-    avis_general_ee2015 = models.TextField()
-    expert_territ_et2015 = models.TextField()
-    synthese_avis_et2015 = models.TextField()
-    synthese_avis_opportunite_dd2015 = models.TextField()
-    commission_nationale_cn2014 = models.TextField()
-    decision_cn2014 = models.TextField()
-    demarche_processus_cn2014 = models.TextField()
-    cadre_vie_usage_cn2014 = models.TextField()
-    developpement_territorial_cn2014 = models.TextField()
-    ressources_climat_cn2014 = models.TextField()
-    etat_avancement_cn2014 = models.TextField()
-    commission_regionale_cr2014 = models.TextField()
-    proposition_cr2014 = models.TextField()
-    demarche_processus_cr2014 = models.TextField()
-    cadre_vie_usage_cr2014 = models.TextField()
-    developpement_territorial_cr2014 = models.TextField()
-    ressources_climat_cr2014 = models.TextField()
-    etat_avancement_cr2014 = models.TextField()
-    avis_triple_expert_te2014 = models.TextField()
-    expert_interne_ei2014 = models.TextField()
-    avis_general_ei2014 = models.TextField()
-    expert_externe_ee2014 = models.TextField()
-    avis_general_ee2014 = models.TextField()
-    expert_territ_et2014 = models.TextField()
-    synthese_avis_et2014 = models.TextField()
-    synthese_avis_opportunite_dd2014 = models.TextField()
-    demarche_processus_el2013 = models.TextField()
-    cadre_vie_usage_el2013 = models.TextField()
-    developpement_territorial_el2013 = models.TextField()
-    ressources_climat_el2013 = models.TextField()
-    synthese_avis_el2013 = models.TextField()
-    proposition_el2013 = models.TextField()
-    expert_interne_ei2011 = models.TextField()
-    avis_general_ei2011 = models.TextField()
-    propositions_prix_ei2011 = models.TextField()
-    demarche_processus_ei2011 = models.TextField()
-    cadre_vie_usage_ei2011 = models.TextField()
-    developpement_territorial_ei2011 = models.TextField()
-    ressources_climat_ei2011 = models.TextField()
-    approche_integree_ei2011 = models.TextField()
-    etat_avancement_ei2011 = models.TextField()
-    expert_externe_ee2011 = models.TextField()
-    avis_general_ee2011 = models.TextField()
-    propositions_prix_ee2011 = models.TextField()
-    demarche_processus_ee2011 = models.TextField()
-    cadre_vie_usage_ee2011 = models.TextField()
-    developpement_territorial_ee2011 = models.TextField()
-    ressources_climat_ee2011 = models.TextField()
-    approche_integree_ee2011 = models.TextField()
-    etat_avancement_ee2011 = models.TextField()
-    expert_local_el2011 = models.TextField()
-    synthese_avis_el2011 = models.TextField()
-    propositions_prix_el2011 = models.TextField()
-    alerte_el2011 = models.TextField()
-    expertise_2009_e2009 = models.TextField()
-    avis_e2009 = models.TextField()
-    propositions_prix_e2009 = models.TextField()
-    etat_avancement_e2009 = models.TextField()
-    points_vigilance_e2009 = models.TextField()
+
     indicateur_i1 = models.TextField()
     valeur_i1 = models.TextField()
     indicateur_i2 = models.TextField()
@@ -414,6 +379,7 @@ class Project(models.Model):
     valeur_i49 = models.TextField()
     indicateur_i50 = models.TextField()
     valeur_i50 = models.TextField()
+
     commentaires = models.TextField()
 
     objects = models.GeoManager()
@@ -509,3 +475,129 @@ class Charte(models.Model):
     contact_7_mail = models.TextField()
     contact_7_titre = models.TextField()
     contact_7_prenom_nom = models.TextField()
+
+
+class CommissionNationale2016(models.Model):
+    project = models.OneToOneField(Project)
+    commission_nationale_cn2016 = models.TextField()
+    decision_cn2016 = models.TextField()
+    demarche_processus_cn2016 = models.TextField()
+    cadre_vie_usage_cn2016 = models.TextField()
+    developpement_territorial_cn2016 = models.TextField()
+    ressources_climat_cn2016 = models.TextField()
+    etat_avancement_cn2016 = models.TextField()
+    commission_regionale_cr2016 = models.TextField()
+    proposition_cr2016 = models.TextField()
+    demarche_processus_cr2016 = models.TextField()
+    cadre_vie_usage_cr2016 = models.TextField()
+    developpement_territorial_cr2016 = models.TextField()
+    ressources_climat_cr2016 = models.TextField()
+    etat_avancement_cr2016 = models.TextField()
+    avis_triple_expert_te2016 = models.TextField()
+    proposition_te2016 = models.TextField()
+    expert_interne_ei2016 = models.TextField()
+    avis_general_ei2016 = models.TextField()
+    expert_externe_ee2016 = models.TextField()
+    avis_general_ee2016 = models.TextField()
+    expert_territ_et2016 = models.TextField()
+    synthese_avis_et2016 = models.TextField()
+    synthese_avis_opportunite_dd2016 = models.TextField()
+
+
+class CommissionNationale2015(models.Model):
+    project = models.OneToOneField(Project)
+    commission_nationale_cn2015 = models.TextField()
+    decision_cn2015 = models.TextField()
+    demarche_processus_cn2015 = models.TextField()
+    cadre_vie_usage_cn2015 = models.TextField()
+    developpement_territorial_cn2015 = models.TextField()
+    ressources_climat_cn2015 = models.TextField()
+    etat_avancement_cn2015 = models.TextField()
+    commission_regionale_cr2015 = models.TextField()
+    proposition_cr2015 = models.TextField()
+    demarche_processus_cr2015 = models.TextField()
+    cadre_vie_usage_cr2015 = models.TextField()
+    developpement_territorial_cr2015 = models.TextField()
+    ressources_climat_cr2015 = models.TextField()
+    etat_avancement_cr2015 = models.TextField()
+    avis_triple_expert_te2015 = models.TextField()
+    proposition_te2015 = models.TextField()
+    expert_interne_ei2015 = models.TextField()
+    avis_general_ei2015 = models.TextField()
+    expert_externe_ee2015 = models.TextField()
+    avis_general_ee2015 = models.TextField()
+    expert_territ_et2015 = models.TextField()
+    synthese_avis_et2015 = models.TextField()
+    synthese_avis_opportunite_dd2015 = models.TextField()
+
+
+class CommissionNationale2014(models.Model):
+    project = models.OneToOneField(Project)
+    commission_nationale_cn2014 = models.TextField()
+    decision_cn2014 = models.TextField()
+    demarche_processus_cn2014 = models.TextField()
+    cadre_vie_usage_cn2014 = models.TextField()
+    developpement_territorial_cn2014 = models.TextField()
+    ressources_climat_cn2014 = models.TextField()
+    etat_avancement_cn2014 = models.TextField()
+    commission_regionale_cr2014 = models.TextField()
+    proposition_cr2014 = models.TextField()
+    demarche_processus_cr2014 = models.TextField()
+    cadre_vie_usage_cr2014 = models.TextField()
+    developpement_territorial_cr2014 = models.TextField()
+    ressources_climat_cr2014 = models.TextField()
+    etat_avancement_cr2014 = models.TextField()
+    avis_triple_expert_te2014 = models.TextField()
+    expert_interne_ei2014 = models.TextField()
+    avis_general_ei2014 = models.TextField()
+    expert_externe_ee2014 = models.TextField()
+    avis_general_ee2014 = models.TextField()
+    expert_territ_et2014 = models.TextField()
+    synthese_avis_et2014 = models.TextField()
+    synthese_avis_opportunite_dd2014 = models.TextField()
+
+
+class CommissionNationale2013(models.Model):
+    project = models.OneToOneField(Project)
+    demarche_processus_el2013 = models.TextField()
+    cadre_vie_usage_el2013 = models.TextField()
+    developpement_territorial_el2013 = models.TextField()
+    ressources_climat_el2013 = models.TextField()
+    synthese_avis_el2013 = models.TextField()
+    proposition_el2013 = models.TextField()
+
+
+class CommissionNationale2011(models.Model):
+    project = models.OneToOneField(Project)
+    expert_interne_ei2011 = models.TextField()
+    avis_general_ei2011 = models.TextField()
+    propositions_prix_ei2011 = models.TextField()
+    demarche_processus_ei2011 = models.TextField()
+    cadre_vie_usage_ei2011 = models.TextField()
+    developpement_territorial_ei2011 = models.TextField()
+    ressources_climat_ei2011 = models.TextField()
+    approche_integree_ei2011 = models.TextField()
+    etat_avancement_ei2011 = models.TextField()
+    expert_externe_ee2011 = models.TextField()
+    avis_general_ee2011 = models.TextField()
+    propositions_prix_ee2011 = models.TextField()
+    demarche_processus_ee2011 = models.TextField()
+    cadre_vie_usage_ee2011 = models.TextField()
+    developpement_territorial_ee2011 = models.TextField()
+    ressources_climat_ee2011 = models.TextField()
+    approche_integree_ee2011 = models.TextField()
+    etat_avancement_ee2011 = models.TextField()
+    expert_local_el2011 = models.TextField()
+    synthese_avis_el2011 = models.TextField()
+    propositions_prix_el2011 = models.TextField()
+    alerte_el2011 = models.TextField()
+
+
+class CommissionNationale2009(models.Model):
+    project = models.OneToOneField(Project)
+    expertise_2009_e2009 = models.TextField()
+    avis_e2009 = models.TextField()
+    propositions_prix_e2009 = models.TextField()
+    etat_avancement_e2009 = models.TextField()
+    points_vigilance_e2009 = models.TextField()
+

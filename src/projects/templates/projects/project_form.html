@@ -3,6 +3,13 @@
 
 {% block body %}
 
+<div class="container">
+<div class="row">
+
+<div class="col-md-8">
+
+<h4>Ajouter un projet d'Ecoquartier</h4>
+
 <form action="" method="post">{% csrf_token %}
     {% bootstrap_form form %}
     {% buttons %}
@@ -11,5 +18,29 @@
     </button>
   {% endbuttons %}
 </form>
+</div>
+
+<div class="col-md-4">
+<div class="alert alert-warning" role="alert">
+  <h5 class="alert-heading">Besoin d’informations ?</h5>
+  <p>Vos référents EQ à la DREAL/DDT peuvent vous aider</p>
+  <ul class="m-b-0">
+  <li>Contact DREAL :  XXX</li>
+  <li>Contact DDT : XXX</li>
+  </ul>
+</div>
+<div class="alert alert-warning" role="alert">
+  <p class="m-b-0">Je rejoins le club EQ de ma région</p>
+</div>
+<div class="alert alert-warning" role="alert">
+  <p class="m-b-0">Ils font la ville et les territoires durables dans votre région !</p>
+</div>
+<div class="alert alert-warning" role="alert">
+  <p class="m-b-0">Agenda Ville durable</p>
+</div>
+</div>
+
+</div>
+</div>
 
 {% endblock %}

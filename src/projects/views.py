@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView
 
 from .models import Project
 from .filters import ProjectFilter
+from .forms import ProjectForm
 
 
 def home(request):
@@ -23,4 +24,4 @@ class ProjectDetailView(DetailView):
 
 class ProjectCreateView(CreateView):
     model = Project
-    fields = ['nom', 'commune', 'description']
+    form_class = ProjectForm

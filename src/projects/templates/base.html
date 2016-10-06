@@ -80,7 +80,10 @@
       var detail = e.originalEvent ?
                    e.originalEvent.detail : e.detail;
       L.geoJson({{ geojson|safe }}, {
-        onEachFeature: onEachFeature
+        onEachFeature: onEachFeature,
+        pointToLayer: function(feature, latlng) {
+          return new L.CircleMarker(latlng, {radius: 1, fillOpacity: 0.85});
+        }
       }).addTo(detail.map);
   });
 </script>

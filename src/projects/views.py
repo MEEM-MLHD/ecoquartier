@@ -17,6 +17,12 @@ def home(request):
         'filter': f, 'geojson': geojson
     })
 
+def profile(request):
+    user = request.user
+    return render(request, 'profile.html', {
+        'user': user,
+    })
+
 
 class ProjectDetailView(DetailView):
     model = Project

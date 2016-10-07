@@ -3,12 +3,16 @@
 
 {% block body %}
 
+<div>
+<a class="btn btn-success" href="{% url 'create' %}">Ajouter votre projet d'écoquartier</a>
+</div>
+
 <div class="row">
 
-<div class="col-sm-8">
+<div class="col-md-8">
 {% leaflet_map "yourmap" %}
 </div>
-<div class="col-sm-4">
+<div class="col-md-4">
 <form action="" method="get">
 	{% bootstrap_form filter.form %}
 	{% buttons %}

@@ -13,8 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 
 from djgeojson.views import GeoJSONLayerView
 
@@ -25,7 +26,9 @@ from projects.models import Project
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
+    url(r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^accounts/profile/', views.profile, name='profile'),
     url(r'^detail/(?P<pk>\d+)', views.ProjectDetailView.as_view(), name='detail'),
-    url(r'^create/$', views.ProjectCreateView.as_view(), name='create'),
+    url(r'^create/$', login_required(views.ProjectCreateView.as_view()), name='create'),
     url(r'^data.geojson$', GeoJSONLayerView.as_view(model=Project, geometry_field='coordonnees_geographiques'), name='data')
 ]

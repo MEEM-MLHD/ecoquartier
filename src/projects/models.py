@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.contrib.auth.models import User
 from django.contrib.gis.db import models
 from django.core.urlresolvers import reverse
 from django.utils.text import Truncator
@@ -81,6 +82,10 @@ class Procedure(models.Model):
 
 
 class Project(models.Model):
+
+    owner = models.ForeignKey(User, null=True, blank=True, related_name="owner")
+    editors = models.ManyToManyField(User, related_name="editors")
+
     nom = models.CharField(max_length=255) #
     mise_a_jour = models.DateField() #
     statut = models.ForeignKey(Statut, null=True) #
@@ -119,6 +124,7 @@ class Project(models.Model):
     densite_logements = models.IntegerField(null=True, blank=True) #
     projet_social = models.TextField() #
     economie_circulaire = models.TextField() #
+
 
     def is_economie_circulaire(self):
         return True if self.economie_circulaire != '' else False

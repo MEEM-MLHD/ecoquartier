@@ -7,6 +7,12 @@ from django.core.urlresolvers import reverse
 from django.utils.text import Truncator
 
 
+class Person(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    mail = models.EmailField()
+
+
 class Statut(models.Model):
     label = models.CharField(max_length=255)
 
@@ -23,17 +29,31 @@ class ZonageINSEE(models.Model):
 
 class Region(models.Model):
     label = models.CharField(max_length=255)
+    stringers = models.ManyToManyField(Person, through="DREALStringer")
 
     def __unicode__(self):
         return self.label
+
+
+class DREALStringer(models.Model):
+    person = models.ForeignKey(Person)
+    region = models.ForeignKey(Region)
+    order = models.PositiveIntegerField()
 
 
 class Departement(models.Model):
     label = models.CharField(max_length=255)
     region = models.ForeignKey(Region, null=True)
+    stringers = models.ManyToManyField(Person, through="DDTStringer")
 
     def __unicode__(self):
         return self.label
+
+
+class DDTStringer(models.Model):
+    person = models.ForeignKey(Person)
+    departement = models.ForeignKey(Departement)
+    order = models.PositiveIntegerField()
 
 
 class Commune(models.Model):

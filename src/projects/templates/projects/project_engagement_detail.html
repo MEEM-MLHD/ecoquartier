@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load leaflet_tags bootstrap3 %}
+
+{% block body %}
+
+<h2>{{ project.nom }}</h2>
+
+<h3>Engagement {{ engagement_id }} </h3>
+
+{{ project.description }}
+
+
+
+{% endblock %}

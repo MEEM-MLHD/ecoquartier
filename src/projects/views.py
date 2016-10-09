@@ -17,10 +17,19 @@ def home(request):
         'filter': f, 'geojson': geojson
     })
 
+
 def profile(request):
     user = request.user
     return render(request, 'profile.html', {
         'user': user,
+    })
+
+
+def engagement(request, pk, id):
+    project = Project.objects.get(id=pk)
+    return render(request, 'projects/project_engagement_detail.html', {
+        'project': project,
+        'engagement_id': id
     })
 
 

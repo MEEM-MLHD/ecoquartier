@@ -1,8 +1,19 @@
 from django.contrib import admin
 
 
-from .models import Project, ProjectPhoto, Statut, ZonageINSEE, Commune, Departement, Region, ContexteCommune, TypeOperation, Vocation, LabelEcoQuartier, Procedure, Charte
+from .models import Person, Project, ProjectPhoto, Statut, ZonageINSEE, Commune, Departement, Region, ContexteCommune, TypeOperation, Vocation, LabelEcoQuartier, Procedure, Charte, DREALStringer
 from .models import CommissionNationale2009, CommissionNationale2011, CommissionNationale2013, CommissionNationale2014, CommissionNationale2015, CommissionNationale2016
+
+
+class DREALStringerInline(admin.TabularInline):
+    model = DREALStringer
+
+
+class RegionAdmin(admin.ModelAdmin):
+	inlines = [
+        DREALStringerInline,
+    ]
+
 
 class CharteAdmin(admin.ModelAdmin):
     list_display = ('region', 'ville', 'nom_ecoquartier', 'code_insee')
@@ -29,10 +40,11 @@ admin.site.register(Statut)
 admin.site.register(ZonageINSEE)
 admin.site.register(Commune, CommuneAdmin)
 admin.site.register(Departement)
-admin.site.register(Region)
+admin.site.register(Region, RegionAdmin)
 admin.site.register(ContexteCommune)
 admin.site.register(TypeOperation)
 admin.site.register(Vocation)
 admin.site.register(LabelEcoQuartier)
 admin.site.register(Procedure)
+admin.site.register(Person)
 admin.site.register(Charte, CharteAdmin)

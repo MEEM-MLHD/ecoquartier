@@ -28,7 +28,8 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^accounts/profile/', views.profile, name='profile'),
-    url(r'^detail/(?P<pk>\d+)', views.ProjectDetailView.as_view(), name='detail'),
+    url(r'^detail/(?P<pk>\d+)$', views.ProjectDetailView.as_view(), name='detail'),
+    url(r'^detail/(?P<pk>\d+)/engagement/(?P<id>\d+)', views.engagement, name='engagement'),
     url(r'^create/$', login_required(views.ProjectCreateView.as_view()), name='create'),
     url(r'^data.geojson$', GeoJSONLayerView.as_view(model=Project, geometry_field='coordonnees_geographiques'), name='data')
 ]

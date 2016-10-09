@@ -1,12 +1,17 @@
-#from django.forms import ModelForm
+from dal import autocomplete
 from django import forms
 
-from .models import Project
+from .models import Project, Commune
 
 
 class ProjectForm(forms.ModelForm):
     charte = forms.FileField(required=False)
     european_network = forms.BooleanField(required=False)
+    commune = forms.ModelChoiceField(
+        queryset=Commune.objects.all(),
+        widget=autocomplete.ModelSelect2(url='commune-autocomplete')
+    )
+
 
     class Meta:
         model = Project

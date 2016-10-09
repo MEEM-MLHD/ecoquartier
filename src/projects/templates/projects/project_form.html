@@ -44,3 +44,8 @@
 </div>
 
 {% endblock %}
+
+{% block after-body %}
+  {{ block.super }}
+  {{ form.media }}
+{% endblock %}

@@ -128,7 +128,7 @@ LEAFLET_CONFIG = {
     'DEFAULT_ZOOM': 6,
     'MIN_ZOOM': 3,
     'MAX_ZOOM': 18,
-    'TILES': 'http://tile.stamen.com/toner-background/{z}/{x}/{y}.png'
+    'TILES': 'http://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
 }
 
 FILTERS_HELP_TEXT_FILTER = None

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load leaflet_tags bootstrap3 %}
+{% load leaflet_tags bootstrap3 l10n %}
 
 {% block body %}
 
@@ -8,25 +8,104 @@
 <div class="col-md-12">
 <div class="alert alert-success" role="alert">
 
-<ul>
-<li>
-{{ label_ecoquartier }} ÉcoQuartiers officiellement labellisés par l'État
-</li>
-<li>
-{{ engaged_ecoquartier }} projets d'ÉcoQuartiers sont diplômés "Engagés dans la labellisation"
-</li>
-<li>
-{{ logements.logements__sum }} logements construits ou rénovés
-</li>
-<li>
-{{ percent_renouvellement_urbain }} % des ÉcoQuartiers sont en renouvellement urbain, xx % en extension maîtrisée
-</li>
-<li>
-xx% de production d'énergie à partir de ressources renouvelables et xx% d'économies d'énergie
-</li>
-</ul>
-<hr>
-<p><a class="alert-link" href="{% url 'create' %}">Ajouter votre projet d'ÉcoQuartier</a></p>
+<div class="row">
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-block">
+      <h4 class="card-title">{{ label_ecoquartier }}</h4>
+      <p class="card-text">ÉcoQuartiers officiellement labellisés par l'État</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-block">
+      <h4 class="card-title">{{ engaged_ecoquartier }}</h4>
+      <p class="card-text">projets d'ÉcoQuartiers sont diplômés "Engagés dans la labellisation"</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-block">
+      <h4 class="card-title">{{ logements.logements__sum|localize }}</h4>
+      <p class="card-text">logements construits ou rénovés</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-block">
+      <h4 class="card-title">{{ percent_renouvellement_urbain }} %</h4>
+      <p class="card-text">des ÉcoQuartiers sont en renouvellement urbain, xx % en extension maîtrisée</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-block">
+      <h4 class="card-title">xx %</h4>
+      <p class="card-text">de production d'énergie à partir de ressources renouvelables et xx% d'économies d'énergie</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-block">
+      <h4 class="card-title">Projets labellisés</h4>
+      <canvas id="myChart" width="400" height="100"></canvas>
+<script>
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [{% for a in annee_label %}{{ a.annee_label }}{% if forloop.last%}{% else %},{% endif %}{% endfor %}],
+        datasets: [{
+            data: [{% for a in annee_label %}{{ a.annee_label__count }}{% if forloop.last%}{% else %},{% endif %}{% endfor %}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+      legend: {
+    display: false,
+},
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card card-inverse" style="background-color: #333; border-color: #333;">
+      <div class="card-block">
+      <h4 class="card-title">Un ÉcoQuartier ?</h4>
+      <a href="{% url 'create' %}" class="btn btn-success">Enregistrez votre projet</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 </div>
 </div>
@@ -40,7 +119,7 @@ xx% de production d'énergie à partir de ressources renouvelables et xx% d'éco
 <form action="" method="get">
 	{% bootstrap_form filter.form %}
 	{% buttons %}
-    <button type="submit" class="btn btn-primary btn-block">
+    <button type="submit" class="btn btn-block">
       Filtrer
     </button>
   {% endbuttons %}
@@ -48,20 +127,25 @@ xx% de production d'énergie à partir de ressources renouvelables et xx% d'éco
 </div>
 </div>
 
+<br>
+
+<div class="row">
+<div class="col-md-12">
 <table class="table table-striped table-condensed">
 <tr>
-  <th>{{ filter.qs|length }} projets</th>
+  <th>{{ filter.qs|length }} projets d'ÉcoQuartier</th>
   <th></th>
 </tr>
 {% for obj in filter %}
     <tr>
-    <td>{{ obj }}</td>
+    <td><a href="{% url 'detail' obj.id %}">{{ obj }}</a></td>
     <td>{% if obj.commune.charte_ecoquartier %}<span class="label label-success">Charte Ecoquartier</span>{% else %}<span class="label label-warning">Pas de charte</span>{% endif %}
     </td>
     </tr>
 {% endfor %}
 </table>
-
+</div>
+</div>
 {% endblock %}
 
 {% block after-body %}

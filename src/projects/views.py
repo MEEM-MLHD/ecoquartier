@@ -2,7 +2,7 @@ from django.shortcuts import render
 from djgeojson.serializers import Serializer as GeoJSONSerializer
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from django.db.models import Sum
+from django.db.models import Count, Sum
 
 from .models import Project
 from .filters import ProjectFilter
@@ -17,6 +17,7 @@ def home(request):
     renouvellement_urbain = Project.objects.filter(type_operation__id=2).count()
     total = Project.objects.all().count()
     percent_renouvellement_urbain = int(renouvellement_urbain/float(total)*100)
+    annee_label = Project.objects.exclude(annee_label__isnull=True).order_by('annee_label').values('annee_label').annotate(Count('annee_label'))
     geojson = GeoJSONSerializer().serialize(f.qs,
           geometry_field='coordonnees_geographiques',
           properties=('nom', 'commune', 'description', 'commune_label', 'short_description', 'feature', 'url', 'state'))
@@ -25,7 +26,8 @@ def home(request):
         'label_ecoquartier':label_ecoquartier,
         'engaged_ecoquartier':engaged_ecoquartier,
         'logements': logements,
-        'percent_renouvellement_urbain': percent_renouvellement_urbain
+        'percent_renouvellement_urbain': percent_renouvellement_urbain,
+        'annee_label': annee_label
     })
 
 

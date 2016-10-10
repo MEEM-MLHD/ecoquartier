@@ -3,6 +3,8 @@
 
 {% block body %}
 
+<div class="container">
+
 <h2>{{ object.nom }}</h2>
 
 {{ object.description }}
@@ -51,5 +53,7 @@
 	<td class="bg-success"><a href="{% url 'engagement' object.id 20 %}">Engagement 20</a></td>
 </tr>
 </table>
+
+</div>
 
 {% endblock %}

@@ -107,15 +107,15 @@ class Project(models.Model):
     editors = models.ManyToManyField(User, related_name="editors")
 
     nom = models.CharField(max_length=255) #
-    mise_a_jour = models.DateField() #
+    mise_a_jour = models.DateField(auto_now_add=True) #
     statut = models.ForeignKey(Statut, null=True) #
     zonage_insee = models.ForeignKey(ZonageINSEE, null=True) #
     commune = models.ForeignKey(Commune, null=True) #
-    population = models.IntegerField() #
+    population = models.IntegerField(default=0) #
     description = models.TextField() #
     contexte_commune = models.ForeignKey(ContexteCommune, null=True) #
-    littorale = models.BooleanField() #
-    montagne = models.BooleanField() #
+    littorale = models.BooleanField(default=False) #
+    montagne = models.BooleanField(default=False) #
     autres_communes = models.TextField()
     adresse = models.TextField() #
     systeme_projection = models.CharField(max_length=255) #
@@ -128,9 +128,9 @@ class Project(models.Model):
     vocation_autre = models.TextField() #
     superficieha = models.FloatField(null=True) #
     surface_nonbatie = models.FloatField(null=True) #
-    habitants = models.IntegerField() #
-    logements = models.IntegerField() #
-    shon_logementsm = models.IntegerField() #
+    habitants = models.IntegerField(default=0) #
+    logements = models.IntegerField(default=0) #
+    shon_logementsm = models.IntegerField(default=0) #
     logements_sociau = models.IntegerField(null=True, blank=True) #
     equipements_publics = models.TextField() #
     shon_equipementsm = models.IntegerField(null=True, blank=True) #
@@ -165,12 +165,12 @@ class Project(models.Model):
     is_label_demarche.short_description = u'label démarche'
 
 
-    participation_2009 = models.BooleanField() #
-    participation_2011 = models.BooleanField() #
-    nomine = models.BooleanField() #
-    laureat = models.BooleanField() #
+    participation_2009 = models.BooleanField(default=False) #
+    participation_2011 = models.BooleanField(default=False) #
+    nomine = models.BooleanField(default=False) #
+    laureat = models.BooleanField(default=False) #
     resultats_palmares = models.TextField() #
-    candidat_label = models.BooleanField() #
+    candidat_label = models.BooleanField(default=False) #
     annee_candidature = models.IntegerField(null=True, blank=True) #
     label_ecoquartier = models.ForeignKey(LabelEcoQuartier, null=True) #
     annee_label = models.IntegerField(null=True, blank=True) #

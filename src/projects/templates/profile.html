@@ -4,4 +4,29 @@
 
 <h2>Votre profil</h2>
 
+{{ user.username }}
+{{ user.email }}
+
+<ul>
+<li>changer le mot de passe</li>
+</ul>
+
+
+{% if projects_owner %}
+<h3>Les projets portés par vous</h3>
+
+{% for project in projects_owner %}
+	<a href="{% url 'detail' project.id %}">{{ project }}</a> <a href="{% url 'editors' project.id %}">Editer les droits</a>
+{% endfor %}
+{% endif %}
+
+{% if projects_editor %}
+<h3>Les projets auxquels vous contribuez</h3>
+
+{% for project in projects_editor %}
+	<a href="{% url 'detail' project.id %}">{{ project }}</a>
+{% endfor %}
+{% endif %}
+
+
 {% endblock %}

@@ -16,3 +16,13 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ['nom', 'commune', 'contact', 'adresse', 'contexte_commune', 'contexte_site', 'type_operation', 'vocation', 'zonage_insee', 'procedure', 'description']
+
+
+class ProjectEditorForm(forms.ModelForm):
+
+    class Meta:
+        model = Project
+        fields = ['editors', ]
+        widgets = {
+            'editors': autocomplete.ModelSelect2Multiple(url='editor-autocomplete')
+        }

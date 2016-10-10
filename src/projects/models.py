@@ -435,7 +435,10 @@ class Project(models.Model):
         return reverse('detail', kwargs={'pk':self.id})
 
     def __unicode__(self):
-        return "%s (%s, %s)" % (self.nom, self.commune, self.commune.departement.region)
+        if self.commune.departement:
+            return "%s (%s, %s)" % (self.nom, self.commune, self.commune.departement.region)
+        else:
+            return "%s (%s)" % (self.nom, self.commune)
 
 
 class ProjectPhoto(models.Model):

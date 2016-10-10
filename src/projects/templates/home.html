@@ -3,8 +3,32 @@
 
 {% block body %}
 
-<div>
-<a class="btn btn-success" href="{% url 'create' %}">Ajouter votre projet d'écoquartier</a>
+
+<div class="row">
+<div class="col-md-12">
+<div class="alert alert-success" role="alert">
+
+<ul>
+<li>
+{{ label_ecoquartier }} ÉcoQuartiers officiellement labellisés par l'État
+</li>
+<li>
+{{ engaged_ecoquartier }} projets d'ÉcoQuartiers sont diplômés "Engagés dans la labellisation"
+</li>
+<li>
+{{ logements.logements__sum }} logements construits ou rénovés
+</li>
+<li>
+{{ percent_renouvellement_urbain }} % des ÉcoQuartiers sont en renouvellement urbain, xx % en extension maîtrisée
+</li>
+<li>
+xx% de production d'énergie à partir de ressources renouvelables et xx% d'économies d'énergie
+</li>
+</ul>
+<hr>
+<p><a class="alert-link" href="{% url 'create' %}">Ajouter votre projet d'ÉcoQuartier</a></p>
+</div>
+</div>
 </div>
 
 <div class="row">
@@ -24,13 +48,19 @@
 </div>
 </div>
 
-<h1>{{ filter.qs|length }} projets</h1>
-
-<ul>
+<table class="table table-striped table-condensed">
+<tr>
+  <th>{{ filter.qs|length }} projets</th>
+  <th></th>
+</tr>
 {% for obj in filter %}
-    <li>{{ obj }} {% if obj.commune.charte_ecoquartier %}<span class="tag tag-success">Charte Ecoquartier</span>{% else %}<span class="tag tag-warning">Pas de charte</span>{% endif %}</li>
+    <tr>
+    <td>{{ obj }}</td>
+    <td>{% if obj.commune.charte_ecoquartier %}<span class="label label-success">Charte Ecoquartier</span>{% else %}<span class="label label-warning">Pas de charte</span>{% endif %}
+    </td>
+    </tr>
 {% endfor %}
-</ul>
+</table>
 
 {% endblock %}
 

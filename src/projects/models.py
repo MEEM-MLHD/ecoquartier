@@ -173,6 +173,18 @@ class Project(models.Model):
     candidat_label = models.BooleanField(default=False) #
     annee_candidature = models.IntegerField(null=True, blank=True) #
     label_ecoquartier = models.ForeignKey(LabelEcoQuartier, null=True) #
+
+    @property
+    def state(self):
+        if self.label_ecoquartier is None:
+            return 'none'
+        if self.label_ecoquartier.id == 3:
+            return 'labeled'
+        elif self.label_ecoquartier.id == 2:
+            return 'engaged'
+        else:
+            return 'none'
+
     annee_label = models.IntegerField(null=True, blank=True) #
     procedure = models.ForeignKey(Procedure, null=True) #
     procedure_detail = models.TextField() #

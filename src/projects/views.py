@@ -19,7 +19,7 @@ def home(request):
     percent_renouvellement_urbain = int(renouvellement_urbain/float(total)*100)
     geojson = GeoJSONSerializer().serialize(f.qs,
           geometry_field='coordonnees_geographiques',
-          properties=('nom', 'commune', 'description', 'commune_label', 'short_description', 'feature', 'url'))
+          properties=('nom', 'commune', 'description', 'commune_label', 'short_description', 'feature', 'url', 'state'))
     return render(request, 'home.html', {
         'filter': f, 'geojson': geojson,
         'label_ecoquartier':label_ecoquartier,

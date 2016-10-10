@@ -81,7 +81,15 @@ xx% de production d'énergie à partir de ressources renouvelables et xx% d'éco
       }
       var detail = e.originalEvent ?
                    e.originalEvent.detail : e.detail;
+
       L.geoJson({{ geojson|safe }}, {
+        style: function(feature) {
+          switch (feature.properties.state) {
+              case 'labeled': return {color: "#728C00", "opacity": 1};
+              case 'engaged':   return {color: "#999999", "opacity": 1};
+              case 'none': return {color: "#dddddd", "opacity": 1};
+          }
+        },
         onEachFeature: onEachFeature,
         pointToLayer: function(feature, latlng) {
           return new L.CircleMarker(latlng, {radius: 1, fillOpacity: 0.85});

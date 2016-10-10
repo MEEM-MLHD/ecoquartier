@@ -128,7 +128,7 @@ LEAFLET_CONFIG = {
     'DEFAULT_ZOOM': 6,
     'MIN_ZOOM': 3,
     'MAX_ZOOM': 18,
-    'TILES': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    'TILES': 'http://tile.stamen.com/toner-background/{z}/{x}/{y}.png'
 }
 
 FILTERS_HELP_TEXT_FILTER = None
@@ -138,4 +138,5 @@ REGISTRATION_AUTO_LOGIN = True
 
 
 SITE_ID = 1
+
 

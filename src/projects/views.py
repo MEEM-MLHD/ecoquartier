@@ -10,7 +10,7 @@ from .forms import ProjectForm, ProjectEditorForm
 
 
 def home(request):
-    f = ProjectFilter(request.GET, queryset=Project.objects.all())
+    f = ProjectFilter(request.GET, queryset=Project.objects.all().order_by('-mise_a_jour'))
     label_ecoquartier = Project.objects.filter(label_ecoquartier__id=3).count()
     engaged_ecoquartier = Project.objects.filter(label_ecoquartier__id=2).count()
     logements = Project.objects.aggregate(Sum('logements'))
@@ -53,6 +53,14 @@ def engagement(request, pk, id):
 class ProjectDetailView(DetailView):
     model = Project
 
+    def get_context_data(self, **kwargs):
+        current_object = self.get_object()
+        geojson = GeoJSONSerializer().serialize([current_object, ],
+          geometry_field='coordonnees_geographiques',
+          properties=('nom', 'description', 'commune_label', 'short_description', 'feature', 'url', 'state'))
+        context = super(ProjectDetailView, self).get_context_data(**kwargs)
+        context['geojson'] = geojson
+        return context
 
 class ProjectCreateView(CreateView):
     model = Project

@@ -1,13 +1,34 @@
 {% extends "base.html" %}
 {% load leaflet_tags bootstrap3 %}
 
+{% block header %}
+{% leaflet_js %}
+{% leaflet_css %}
+<style type="text/css">
+    .leaflet-container {
+      width:  100%;
+      height: 300px;
+    }
+</style>
+{% endblock %}
+
+
 {% block body %}
 
 <div class="container">
 
 <h2>{{ object.nom }}</h2>
 
+
+
+<div class="col-md-6">
+{% leaflet_map "yourmap" %}
+</div>
+
+<div class="col-md-6">
 {{ object.description }}
+</div>
+
 
 <div>
 {% for photo in object.projectphoto_set.all %}
@@ -57,3 +78,28 @@
 </div>
 
 {% endblock %}
+
+{% block after-body %}
+{{ block.super }}
+<script type="text/javascript">
+  $(window).on('map:init', function (e) {
+      var detail = e.originalEvent ?
+                   e.originalEvent.detail : e.detail;
+
+      var geojsonLayer = L.geoJson({{ geojson|safe }}, {
+        style: function(feature) {
+          switch (feature.properties.state) {
+              case 'labeled': return {color: "#728C00", "opacity": 1};
+              case 'engaged':   return {color: "#999999", "opacity": 1};
+              case 'none': return {color: "#dddddd", "opacity": 1};
+          }
+        },
+        pointToLayer: function(feature, latlng) {
+          return new L.CircleMarker(latlng, {radius: 1, fillOpacity: 0.85});
+        }
+      }).addTo(detail.map);
+      detail.map.fitBounds(geojsonLayer.getBounds());
+  });
+</script>
+{% endblock %}
+

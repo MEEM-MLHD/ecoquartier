@@ -109,7 +109,7 @@ class Project(models.Model):
     nom = models.CharField(max_length=255) #
     mise_a_jour = models.DateField(auto_now_add=True) #
     statut = models.ForeignKey(Statut, null=True) #
-    zonage_insee = models.ForeignKey(ZonageINSEE, null=True) #
+    zonage_insee = models.ForeignKey(ZonageINSEE, null=True, verbose_name="Zonage INSEE") #
     commune = models.ForeignKey(Commune, null=True) #
     population = models.IntegerField(default=0) #
     description = models.TextField() #
@@ -122,7 +122,7 @@ class Project(models.Model):
     coordonnees_geographiques = models.GeometryCollectionField(blank=True, null=True) #
     site = models.TextField() #
     contexte_site = models.TextField() #
-    type_operation = models.ForeignKey(TypeOperation, null=True) #
+    type_operation = models.ForeignKey(TypeOperation, null=True, verbose_name="Type d'opération") #
     type_operation_autre = models.TextField() #
     vocation = models.ForeignKey(Vocation, null=True) #
     vocation_autre = models.TextField() #
@@ -172,7 +172,7 @@ class Project(models.Model):
     resultats_palmares = models.TextField() #
     candidat_label = models.BooleanField(default=False) #
     annee_candidature = models.IntegerField(null=True, blank=True) #
-    label_ecoquartier = models.ForeignKey(LabelEcoQuartier, null=True) #
+    label_ecoquartier = models.ForeignKey(LabelEcoQuartier, null=True, verbose_name=u"Label ÉcoQuartier") #
 
     @property
     def state(self):

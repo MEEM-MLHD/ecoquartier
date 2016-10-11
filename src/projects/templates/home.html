@@ -187,9 +187,9 @@
       L.geoJson({{ geojson|safe }}, {
         style: function(feature) {
           switch (feature.properties.state) {
-              case 'labeled': return {color: "#728C00", "opacity": 1};
-              case 'engaged':   return {color: "#999999", "opacity": 1};
-              case 'none': return {color: "#dddddd", "opacity": 1};
+              case 'labeled': return {color: "#728C00", "opacity": 1, fillColor:"#728C00"};
+              case 'engaged':   return {color: "#999999", "opacity": 1, fillColor:"#999999"};
+              case 'none': return {color: "#dddddd", "opacity": 1, fillColor:"#dddddd"};
           }
         },
         onEachFeature: onEachFeature,

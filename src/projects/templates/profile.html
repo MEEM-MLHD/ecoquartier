@@ -2,6 +2,8 @@
 
 {% block body %}
 
+<div class="container">
+
 <h2>Votre profil</h2>
 
 {{ user.username }}
@@ -12,12 +14,21 @@
 </ul>
 
 
-{% if projects_owner %}
-<h3>Les projets portés par vous</h3>
+</div>
 
+
+<div class="container">
+{% if projects_owner %}
+<h3>Les projets que vous portez</h3>
+
+<table class="table">
 {% for project in projects_owner %}
-	<a href="{% url 'detail' project.id %}">{{ project }}</a> <a href="{% url 'editors' project.id %}">Editer les droits</a>
+<tr>
+	<td><a href="{% url 'detail' project.id %}">{{ project }}</a> </td>
+	<td><a href="{% url 'editors' project.id %}">Editer les droits</a> </td>
+</tr>
 {% endfor %}
+</table>
 {% endif %}
 
 {% if projects_editor %}
@@ -28,5 +39,6 @@
 {% endfor %}
 {% endif %}
 
+</div>
 
 {% endblock %}

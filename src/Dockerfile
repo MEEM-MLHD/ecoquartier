@@ -13,6 +13,9 @@ RUN apt-get install -y gettext
 # GIS lib
 RUN apt-get install -y binutils libproj-dev gdal-bin
 
+# sendmail
+RUN apt-get install -y sendmail
+
 # uWSGI
 RUN pip install pip
 RUN pip install uwsgi

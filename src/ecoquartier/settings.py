@@ -53,7 +53,7 @@ ROOT_URLCONF = 'ecoquartier.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
+        'DIRS': [os.path.join(BASE_DIR, 'ecoquartier', 'templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,4 +142,10 @@ SITE_ID = 1
 BOOTSTRAP3 = {
     'success_css_class': ''
 }
+
+EMAIL_HOST = 'in-v3.mailjet.com'
+EMAIL_HOST_PASSWORD = '174e2ae501eb46efa911e908e0b26487'
+EMAIL_HOST_USER = '2f86dfe1d9515812f45437ec221a2e25'
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL='samuel.goldszmidt@gmail.com'
 

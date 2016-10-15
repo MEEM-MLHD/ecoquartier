@@ -5,7 +5,7 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>ÉcoQuartiers</title>
+  <title>ÉcoQuartiers {% block title %}{% endblock %}</title>
   <meta name="description" content="ÉcoQuartiers">
   <meta name="author" content="Samuel Goldszmidt">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -53,8 +53,17 @@
   </div>
   <div class="container">
     {% block body %}
-    {% endblock %}
-    {% block content %}
+
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">{% comment %}this is boostrap3 way, I use boostrap4 but library bootstrap3 is in version '3'{% endcomment %}
+      <div class="card">
+      <div class="card-block">
+      {% block content %}
+      {% endblock %}
+      </div>
+      </div>
+      </div>
+    </div>
     {% endblock %}
   </div>
   <div class="container" style="margin-top:40px" >

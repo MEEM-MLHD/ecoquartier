@@ -10,7 +10,7 @@ class DREALStringerInline(admin.TabularInline):
 
 
 class RegionAdmin(admin.ModelAdmin):
-	inlines = [
+    inlines = [
         DREALStringerInline,
     ]
 
@@ -23,9 +23,19 @@ class CommuneAdmin(admin.ModelAdmin):
     list_display = ('label', 'code_insee', 'charte_ecoquartier', 'departement')
 
 
+def make_action(vocation):
+    name = 'mark_%s' % vocation
+    action = lambda modeladmin, req, qset: qset.update(vocation=vocation)
+    return (name, (action, name, "Mark selected as %s vocation" % vocation))
+
+
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('nom', 'valeur_i1', 'engagement', 'creation', 'realisation', 'permis', 'debut', 'livraison', 'achevement', 'complementaire', 'autorisation', 'commune', 'densite_brute', 'densite_brute_logements', 'densite_logements', 'bureaux_activites', 'shon_bureauxm', 'vocation', 'type_operation', 'mise_a_jour', 'population', 'littorale', 'montagne', 'candidat_label', 'superficieha', 'surface_nonbatie', 'is_eau', 'is_dechets', 'is_biodiversite', 'is_mobilite', 'is_sobriete_energetique_et_energie_renouvelable', 'is_densite_et_formes_urbaines', 'is_ecoconstruction', 'is_demarches_et_processus', 'is_cadre_de_vie_et_usages', 'is_economie_circulaire', 'is_attenuation_changement_climatique', 'is_label_demarche')
-    list_filter = ('vocation', 'type_operation', 'littorale', 'montagne')
+    list_display = ('nom', 'engagement', 'creation', 'realisation', 'permis', 'debut', 'livraison', 'achevement', 'complementaire', 'autorisation', 'commune', 'densite_brute', 'densite_brute_logements', 'densite_logements', 'bureaux_activites', 'shon_bureauxm', 'vocation', 'type_operation', 'mise_a_jour', 'population', 'littorale', 'montagne', 'candidat_label', 'superficieha', 'surface_nonbatie', 'is_eau', 'is_dechets', 'is_biodiversite', 'is_mobilite', 'is_sobriete_energetique_et_energie_renouvelable', 'is_densite_et_formes_urbaines', 'is_ecoconstruction', 'is_demarches_et_processus', 'is_cadre_de_vie_et_usages', 'is_economie_circulaire', 'is_attenuation_changement_climatique', 'is_label_demarche')
+    list_filter = ('vocation', 'label_ecoquartier', 'type_operation', 'littorale', 'montagne')
+
+    def get_actions(self, request):
+        return dict([make_action(q) for q in Vocation.objects.all()])
+
 
 
 admin.site.register(Project, ProjectAdmin)

@@ -15,7 +15,7 @@ class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ['nom', 'commune', 'contact', 'adresse', 'contexte_commune', 'contexte_site', 'type_operation', 'vocation', 'zonage_insee', 'procedure', 'description']
+        fields = ['nom', 'commune', 'contact', 'adresse', 'contexte_commune', 'contexte_site', 'type_operation', 'vocation', 'description']
 
 
 class ProjectEditorForm(forms.ModelForm):

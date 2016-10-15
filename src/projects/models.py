@@ -122,7 +122,7 @@ class Project(models.Model):
     coordonnees_geographiques = models.GeometryCollectionField(blank=True, null=True) #
     site = models.TextField() #
     contexte_site = models.TextField() #
-    type_operation = models.ForeignKey(TypeOperation, null=True, verbose_name="Type d'opération") #
+    type_operations = models.ManyToManyField(TypeOperation, verbose_name="Type d'opérations") #
     type_operation_autre = models.TextField() #
     vocation = models.ForeignKey(Vocation, null=True) #
     vocation_autre = models.TextField() #
@@ -172,7 +172,7 @@ class Project(models.Model):
     resultats_palmares = models.TextField() #
     candidat_label = models.BooleanField(default=False) #
     annee_candidature = models.IntegerField(null=True, blank=True) #
-    label_ecoquartier = models.ForeignKey(LabelEcoQuartier, null=True, verbose_name=u"Label ÉcoQuartier") #
+    label_ecoquartier = models.ForeignKey(LabelEcoQuartier, null=True, verbose_name=u"État d'avancement") #
 
     @property
     def state(self):

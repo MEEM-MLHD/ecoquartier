@@ -31,7 +31,7 @@ def make_action(vocation):
 
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('nom', 'engagement', 'creation', 'realisation', 'permis', 'debut', 'livraison', 'achevement', 'complementaire', 'autorisation', 'commune', 'densite_brute', 'densite_brute_logements', 'densite_logements', 'bureaux_activites', 'shon_bureauxm', 'vocation', 'mise_a_jour', 'population', 'littorale', 'montagne', 'candidat_label', 'superficieha', 'surface_nonbatie', 'is_eau', 'is_dechets', 'is_biodiversite', 'is_mobilite', 'is_sobriete_energetique_et_energie_renouvelable', 'is_densite_et_formes_urbaines', 'is_ecoconstruction', 'is_demarches_et_processus', 'is_cadre_de_vie_et_usages', 'is_economie_circulaire', 'is_attenuation_changement_climatique', 'is_label_demarche')
-    list_filter = ('vocation', 'label_ecoquartier', 'type_operation', 'littorale', 'montagne')
+    list_filter = ('vocation', 'label_ecoquartier', 'type_operations', 'littorale', 'montagne')
 
     def get_actions(self, request):
         return dict([make_action(q) for q in Vocation.objects.all()])

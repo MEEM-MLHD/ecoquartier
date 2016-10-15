@@ -15,8 +15,8 @@ def home(request):
     label_ecoquartier_engage = Project.objects.filter(label_ecoquartier__id=2).count()
     engaged_ecoquartier = Project.objects.filter(label_ecoquartier__id=2).count()
     logements = Project.objects.filter(label_ecoquartier__id=3).aggregate(Sum('logements'))
-    renouvellement_urbain = Project.objects.filter(type_operation__id=2).filter(label_ecoquartier__id__in=[3, 2]).count()
-    anru = Project.objects.filter(type_operation__id=1).filter(label_ecoquartier__id__in=[3, 2]).count()
+    renouvellement_urbain = Project.objects.filter(type_operations__id=2).filter(label_ecoquartier__id__in=[3, 2]).count()
+    anru = Project.objects.filter(type_operations__id=1).filter(label_ecoquartier__id__in=[3, 2]).count()
     total = Project.objects.all().count()
     print '>>>>', renouvellement_urbain+anru
     print '>>>>', label_ecoquartier

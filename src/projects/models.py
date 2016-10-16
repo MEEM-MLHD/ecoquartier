@@ -101,6 +101,12 @@ class Procedure(models.Model):
         return self.label
 
 
+class Tag(models.Model):
+    label = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.label
+
 class Project(models.Model):
 
     owner = models.ForeignKey(User, null=True, blank=True, related_name="owner")
@@ -267,6 +273,8 @@ class Project(models.Model):
         return True if self.cadre_de_vie_et_usages != '' else False
     is_cadre_de_vie_et_usages.boolean = True
     is_cadre_de_vie_et_usages.short_description = 'cadre de vie et usages'
+
+    tags = models.ManyToManyField(Tag)
 
     commentaires_demarche_et_processus = models.TextField()
     ambition_1 = models.TextField()

@@ -10,7 +10,7 @@
 
 <h4>Ajouter un projet d'Ecoquartier</h4>
 
-<form action="" method="post">{% csrf_token %}
+<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
     {% bootstrap_form form %}
     {% buttons %}
     <button type="submit" class="btn btn-block">

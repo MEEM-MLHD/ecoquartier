@@ -5,7 +5,6 @@ from .models import Project, Commune
 
 
 class ProjectForm(forms.ModelForm):
-    charte = forms.FileField(required=False)
     european_network = forms.BooleanField(required=False)
     commune = forms.ModelChoiceField(
         queryset=Commune.objects.all(),
@@ -15,7 +14,7 @@ class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ['nom', 'commune', 'contact', 'adresse', 'contexte_commune', 'contexte_site', 'type_operations', 'vocation', 'description', 'tags']
+        fields = ['nom', 'commune', 'contact', 'adresse', 'contexte_commune', 'contexte_site', 'type_operations', 'vocation', 'description', 'tags', 'charte']
 
 
 class ProjectEditorForm(forms.ModelForm):

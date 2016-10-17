@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from datetime import date
 
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
@@ -151,6 +152,8 @@ class Project(models.Model):
     projet_social = models.TextField() #
     economie_circulaire = models.TextField() #
 
+    charte = models.FileField(upload_to='charte/%Y/%m/%d/', null=True, blank=True)
+    charte_date = models.DateField(null=True, blank=True)
 
     def is_economie_circulaire(self):
         return True if self.economie_circulaire != '' else False
@@ -459,6 +462,24 @@ class Project(models.Model):
             return "%s (%s, %s)" % (self.nom, self.commune, self.commune.departement.region)
         else:
             return "%s (%s)" % (self.nom, self.commune)
+
+    def save(self, *args, **kwargs):
+        # update charte_date when a charte is added
+        if self.pk is not None:
+            orig = Project.objects.get(pk=self.pk)
+            if orig.charte != self.charte:
+                self.charte_date = date.today()
+        else:
+            if self.charte:
+                self.charte_date = date.today()
+        # update label_ecoquartier ("état d'avancement")
+        if self.charte_date:
+            self.label_ecoquartier = LabelEcoQuartier.objects.get(id=5)
+            if self.annee_candidature:
+                self.label_ecoquartier = LabelEcoQuartier.objects.get(id=2)
+                if self.annee_label:
+                    self.label_ecoquartier = LabelEcoQuartier.objects.get(id=3)
+        super(Project, self).save(*args, **kwargs)
 
 
 class ProjectPhoto(models.Model):

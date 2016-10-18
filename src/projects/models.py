@@ -116,6 +116,13 @@ class Demarche(models.Model):
         return self.label
 
 
+class Echelle(models.Model):
+    label = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.label
+
+
 class Project(models.Model):
 
     owner = models.ForeignKey(User, null=True, blank=True, related_name="owner")
@@ -164,7 +171,7 @@ class Project(models.Model):
     charte = models.FileField(upload_to='charte/%Y/%m/%d/', null=True, blank=True)
     charte_date = models.DateField(null=True, blank=True)
     demarches = models.ManyToManyField(Demarche)
-
+    echelle = models.ForeignKey(Echelle, null=True, blank=True)
 
     def is_economie_circulaire(self):
         return True if self.economie_circulaire != '' else False

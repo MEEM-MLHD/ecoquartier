@@ -18,10 +18,10 @@ def home(request):
     label_ecoquartier_engage = Project.objects.filter(label_ecoquartier__id=2).count()
     engaged_ecoquartier = Project.objects.filter(label_ecoquartier__id=2).count()
     logements = Project.objects.filter(label_ecoquartier__id=3).aggregate(Sum('logements'))
-    renouvellement_urbain = Project.objects.filter(type_operations__id=2).filter(label_ecoquartier__id__in=[3, 2]).count()
-    anru = Project.objects.filter(type_operations__id=1).filter(label_ecoquartier__id__in=[3, 2]).count()
+    renouvellement_urbain = Project.objects.filter(type_operations__id=2).filter(label_ecoquartier__id__in=[3,]).count()
+    anru = Project.objects.filter(type_operations__id=1).filter(label_ecoquartier__id__in=[3,]).count()
     total = Project.objects.all().count()
-    percent_renouvellement_urbain = int((renouvellement_urbain+anru)/float(label_ecoquartier+label_ecoquartier_engage)*100)
+    percent_renouvellement_urbain = int((renouvellement_urbain+anru)/float(label_ecoquartier)*100)
 
     annee_label = Project.objects.exclude(annee_label__isnull=True).order_by('annee_label').values('annee_label').annotate(Count('annee_label'))
     annee_candidature = Project.objects.exclude(annee_candidature__isnull=True).order_by('annee_candidature').values('annee_candidature').annotate(Count('annee_candidature'))

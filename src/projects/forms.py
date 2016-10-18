@@ -10,11 +10,14 @@ class ProjectForm(forms.ModelForm):
         queryset=Commune.objects.all(),
         widget=autocomplete.ModelSelect2(url='commune-autocomplete')
     )
-
+    communes = forms.ModelChoiceField(
+        queryset=Commune.objects.all(),
+        widget=autocomplete.ModelSelect2Multiple(url='commune-autocomplete')
+    )
 
     class Meta:
         model = Project
-        fields = ['nom', 'commune', 'contact', 'adresse', 'contexte_commune', 'contexte_site', 'type_operations', 'vocation', 'description', 'tags', 'charte']
+        fields = ['nom', 'commune', 'communes', 'contact', 'adresse', 'contexte_commune', 'contexte_site', 'type_operations', 'vocation', 'description', 'tags', 'charte']
 
 
 class ProjectEditorForm(forms.ModelForm):

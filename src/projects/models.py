@@ -118,6 +118,7 @@ class Project(models.Model):
     statut = models.ForeignKey(Statut, null=True) #
     zonage_insee = models.ForeignKey(ZonageINSEE, null=True, verbose_name="Zonage INSEE") #
     commune = models.ForeignKey(Commune, null=True) #
+    communes = models.ManyToManyField(Commune, related_name="other_communes") #
     population = models.IntegerField(default=0) #
     description = models.TextField() #
     contexte_commune = models.ForeignKey(ContexteCommune, null=True) #

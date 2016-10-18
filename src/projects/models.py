@@ -192,7 +192,7 @@ class Project(models.Model):
         elif self.label_ecoquartier.id == 2:
             return 'engaged'
         else:
-            return 'none'
+            return 'charte'
 
     annee_label = models.IntegerField(null=True, blank=True) #
     procedure = models.ForeignKey(Procedure, null=True) #

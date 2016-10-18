@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """ecoquartier URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -37,3 +38,5 @@ urlpatterns = [
     url(r'^commune-autocomplete/$', CommuneAutocomplete.as_view(), name='commune-autocomplete'),
     url(r'^editor-autocomplete/$', EditorAutocomplete.as_view(), name='editor-autocomplete'),
 ]
+
+admin.site.site_header = "ÉcoQuartiers"

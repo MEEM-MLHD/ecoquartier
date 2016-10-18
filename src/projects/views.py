@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+import collections
+
 from django.shortcuts import render
 from djgeojson.serializers import Serializer as GeoJSONSerializer
 from django.views.generic.detail import DetailView
@@ -22,6 +25,30 @@ def home(request):
 
     annee_label = Project.objects.exclude(annee_label__isnull=True).order_by('annee_label').values('annee_label').annotate(Count('annee_label'))
     annee_candidature = Project.objects.exclude(annee_candidature__isnull=True).order_by('annee_candidature').values('annee_candidature').annotate(Count('annee_candidature'))
+    annee_charte = Project.objects.exclude(charte_date__isnull=True).extra(select={'year':"CAST(EXTRACT(YEAR FROM charte_date) AS INTEGER)"}).values('year').annotate(Count('id'))
+
+    chart_data = {}
+    labels = [annee['annee_candidature'] for annee in annee_candidature]
+    dataset_anne_candidature = [annee['annee_candidature__count'] for annee in annee_candidature]
+    chart_data["labels"] = labels
+
+
+    annee_label2 = {item['annee_label']: item['annee_label__count'] for item in annee_label}
+    annee_charte2 = {item['year']: item['id__count'] for item in annee_charte}
+    for year in labels:
+        if year not in annee_label2.keys():
+            annee_label2[year] = 0
+        if year not in annee_charte2.keys():
+            annee_charte2[year] = 0
+
+    annee_label_data = collections.OrderedDict(sorted(annee_label2.items()))
+    annee_charte_data = collections.OrderedDict(sorted(annee_charte2.items()))
+
+    chart_data["datasets"] = [
+        {"label": u"Charte signée", "data":annee_charte_data.values()},
+        {"label": u"Engagé", "data":dataset_anne_candidature},
+        {"label": u"Labellisé", "data":annee_label_data.values()},
+        ]
 
     geojson = GeoJSONSerializer().serialize(f.qs,
           geometry_field='coordonnees_geographiques',
@@ -32,7 +59,7 @@ def home(request):
         'engaged_ecoquartier':engaged_ecoquartier,
         'logements': logements,
         'percent_renouvellement_urbain': percent_renouvellement_urbain,
-        'annee_label': annee_label
+        'chart_data': chart_data
     })
 
 

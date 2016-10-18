@@ -66,35 +66,40 @@
   <div class="col-sm-6">
     <div class="card">
       <div class="card-block">
-      <h4 class="card-title">Projets labellisés</h4>
       <canvas id="myChart" width="400" height="100"></canvas>
       <script>
       var ctx = document.getElementById("myChart");
       var myChart = new Chart(ctx, {
           type: 'bar',
           data: {
-              labels: [{% for a in annee_label %}{{ a.annee_label }}{% if forloop.last%}{% else %},{% endif %}{% endfor %}],
+              labels: {{ chart_data.labels }},
               datasets: [{
-                  data: [{% for a in annee_label %}{{ a.annee_label__count }}{% if forloop.last%}{% else %},{% endif %}{% endfor %}],
-                  backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)',
-                      'rgba(54, 162, 235, 0.2)',
-                      'rgba(255, 206, 86, 0.2)'
-                  ],
-                  borderColor: [
-                      'rgba(255,99,132,1)',
-                      'rgba(54, 162, 235, 1)',
-                      'rgba(255, 206, 86, 1)'
-                  ],
+                  label: '{{ chart_data.datasets.0.label}}',
+                  data: {{ chart_data.datasets.0.data }},
+                  backgroundColor: 'rgba(99, 0, 132, 0.2)',
+                  borderColor: 'rgba(0, 0, 0, 1)',
+                  borderWidth: 1
+              },{
+                  label: '{{ chart_data.datasets.1.label}}',
+                  data: {{ chart_data.datasets.1.data }},
+                  backgroundColor: 'rgba(99, 125, 132, 0.4)',
+                  borderColor: 'rgba(0, 0, 0, 1)',
+                  borderWidth: 1
+              },{
+                  label: '{{ chart_data.datasets.2.label}}',
+                  data: {{ chart_data.datasets.2.data }},
+                  backgroundColor: 'rgba(99, 255, 132, 0.8)',
+                  borderColor: 'rgba(0, 0, 0, 1)',
                   borderWidth: 1
               }]
           },
           options: {
-            legend: {
-          display: false,
-      },
               scales: {
+                  xAxes: [{
+                    stacked: true
+                  }],
                   yAxes: [{
+                      stacked: true,
                       ticks: {
                           beginAtZero:true
                       }
@@ -187,9 +192,14 @@
       L.geoJson({{ geojson|safe }}, {
         style: function(feature) {
           switch (feature.properties.state) {
-              case 'labeled': return {color: "#728C00", "opacity": 1, fillColor:"#728C00"};
-              case 'engaged':   return {color: "#999999", "opacity": 1, fillColor:"#999999"};
-              case 'none': return {color: "#dddddd", "opacity": 1, fillColor:"#dddddd"};
+              case 'labeled':
+                return {color: "rgba(99, 255, 132, 0.8)", "opacity": 1, fillColor:"rgba(99, 255, 132, 0.8)"};
+              case 'engaged':
+                return {color: "rgba(99, 125, 132, 0.4)", "opacity": 1, fillColor:"rgba(99, 125, 132, 0.4)"};
+              case 'charte':
+                return {color: "rgba(99, 0, 132, 0.2)", "opacity": 1, fillColor:"#dddddd"};
+              case 'none':
+                return {color: "rgba(100, 100, 100, 0.2)", "opacity": 1, fillColor:"#dddddd"};
           }
         },
         onEachFeature: onEachFeature,

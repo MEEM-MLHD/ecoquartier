@@ -25,17 +25,26 @@ class CommuneAdmin(admin.ModelAdmin):
 
 def make_action(vocation):
     name = 'mark_%s' % vocation
-    action = lambda modeladmin, req, qset: qset.update(vocation=vocation)
+    def action(modeladmin, req, qset):
+        for q in qset:
+            q.vocations.add(vocation)
     return (name, (action, name, "Mark selected as %s vocation" % vocation))
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('nom', 'engagement', 'creation', 'realisation', 'permis', 'debut', 'livraison', 'achevement', 'complementaire', 'autorisation', 'commune', 'densite_brute', 'densite_brute_logements', 'densite_logements', 'bureaux_activites', 'shon_bureauxm', 'vocation', 'mise_a_jour', 'population', 'littorale', 'montagne', 'candidat_label', 'superficieha', 'surface_nonbatie', 'is_eau', 'is_dechets', 'is_biodiversite', 'is_mobilite', 'is_sobriete_energetique_et_energie_renouvelable', 'is_densite_et_formes_urbaines', 'is_ecoconstruction', 'is_demarches_et_processus', 'is_cadre_de_vie_et_usages', 'is_economie_circulaire', 'is_attenuation_changement_climatique', 'is_label_demarche')
-    list_filter = ('vocation', 'label_ecoquartier', 'type_operations', 'littorale', 'montagne')
+    list_display = ('nom', 'engagement', 'creation', 'realisation', 'permis', 'debut', 'livraison', 'achevement', 'complementaire', 'autorisation', 'commune', 'densite_brute', 'densite_brute_logements', 'densite_logements', 'bureaux_activites', 'shon_bureauxm', 'mise_a_jour', 'population', 'littorale', 'montagne', 'candidat_label', 'superficieha', 'surface_nonbatie', 'is_eau', 'is_dechets', 'is_biodiversite', 'is_mobilite', 'is_sobriete_energetique_et_energie_renouvelable', 'is_densite_et_formes_urbaines', 'is_ecoconstruction', 'is_demarches_et_processus', 'is_cadre_de_vie_et_usages', 'is_economie_circulaire', 'is_attenuation_changement_climatique', 'is_label_demarche')
+    list_filter = ('label_ecoquartier', 'type_operations', 'littorale', 'montagne')
 
     def get_actions(self, request):
         return dict([make_action(q) for q in Vocation.objects.all()])
 
+
+class TypeOperationAdmin(admin.ModelAdmin):
+    list_display = ('label', 'hide')
+
+
+class VocationAdmin(admin.ModelAdmin):
+    list_display = ('label', 'hide')
 
 
 admin.site.register(Project, ProjectAdmin)
@@ -52,8 +61,8 @@ admin.site.register(Commune, CommuneAdmin)
 admin.site.register(Departement)
 admin.site.register(Region, RegionAdmin)
 admin.site.register(ContexteCommune)
-admin.site.register(TypeOperation)
-admin.site.register(Vocation)
+admin.site.register(TypeOperation, TypeOperationAdmin)
+admin.site.register(Vocation, VocationAdmin)
 admin.site.register(LabelEcoQuartier)
 admin.site.register(Procedure)
 admin.site.register(Person)

@@ -37,6 +37,9 @@
 {% for project in projects_editor %}
 	<a href="{% url 'detail' project.id %}">{{ project }}</a>
 {% endfor %}
+
+{% else %}
+	<a href="{% url 'create' %}" class="btn btn-success">Déposer votre projet</a>
 {% endif %}
 
 </div>

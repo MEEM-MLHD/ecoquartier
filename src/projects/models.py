@@ -74,8 +74,16 @@ class ContexteCommune(models.Model):
         return self.label
 
 
+class HideManager(models.Manager):
+    def get_queryset(self):
+        return super(HideManager, self).get_queryset().filter(hide=False)
+
+
 class TypeOperation(models.Model):
     label = models.CharField(max_length=255)
+    hide = models.BooleanField(default=False)
+
+    objects = HideManager()
 
     def __unicode__(self):
         return self.label
@@ -83,6 +91,9 @@ class TypeOperation(models.Model):
 
 class Vocation(models.Model):
     label = models.CharField(max_length=255)
+    hide = models.BooleanField(default=False)
+
+    objects = HideManager()
 
     def __unicode__(self):
         return self.label
@@ -128,14 +139,14 @@ class Project(models.Model):
     owner = models.ForeignKey(User, null=True, blank=True, related_name="owner")
     editors = models.ManyToManyField(User, related_name="editors")
 
-    nom = models.CharField(max_length=255) #
+    nom = models.CharField(u"Nom de l'ÉcoQuartier", max_length=255) #
     mise_a_jour = models.DateField(auto_now_add=True) #
     statut = models.ForeignKey(Statut, null=True) #
     zonage_insee = models.ForeignKey(ZonageINSEE, null=True, verbose_name="Zonage INSEE") #
-    commune = models.ForeignKey(Commune, null=True) #
+    commune = models.ForeignKey(Commune, null=True, verbose_name="Commune principale", help_text=u"Sur quelle commune est situé l'ÉcoQuartier") #
     communes = models.ManyToManyField(Commune, related_name="other_communes") #
     population = models.IntegerField(default=0) #
-    description = models.TextField() #
+    description = models.TextField("Description du projet", help_text="10 lignes maximum") #
     contexte_commune = models.ForeignKey(ContexteCommune, null=True) #
     littorale = models.BooleanField(default=False) #
     montagne = models.BooleanField(default=False) #
@@ -147,7 +158,7 @@ class Project(models.Model):
     contexte_site = models.TextField() #
     type_operations = models.ManyToManyField(TypeOperation, verbose_name="Type d'opérations") #
     type_operation_autre = models.TextField() #
-    vocation = models.ForeignKey(Vocation, null=True) #
+    vocations = models.ManyToManyField(Vocation) #
     vocation_autre = models.TextField() #
     superficieha = models.FloatField(null=True) #
     surface_nonbatie = models.FloatField(null=True) #
@@ -168,9 +179,9 @@ class Project(models.Model):
     projet_social = models.TextField() #
     economie_circulaire = models.TextField() #
 
-    charte = models.FileField(upload_to='charte/%Y/%m/%d/', null=True, blank=True)
+    charte = models.FileField(upload_to='charte/%Y/%m/%d/', null=True, blank=True, verbose_name="Charte ÉcoQuartier")
     charte_date = models.DateField(null=True, blank=True)
-    demarches = models.ManyToManyField(Demarche)
+    demarches = models.ManyToManyField(Demarche, verbose_name=u"Engagement dans d'autres démarches de développement durable")
     echelle = models.ForeignKey(Echelle, null=True, blank=True)
 
     def is_economie_circulaire(self):
@@ -236,6 +247,12 @@ class Project(models.Model):
     sources = models.TextField() #
     sources_details = models.TextField() #
     contact = models.TextField() #
+    project_manager_lastname = models.CharField("Nom du chef de projet", max_length=255, null=True, blank=True)
+    project_manager_firstname = models.CharField("Prénom du chef de projet", max_length=255, null=True, blank=True)
+    project_manager_mail = models.EmailField("Mail du chef de projet", max_length=255, null=True, blank=True)
+    project_manager_structure = models.CharField("Structure du chef de projet", max_length=255, null=True, blank=True)
+
+
     sites_enlien = models.TextField() #
     documents = models.TextField() #
 
@@ -295,7 +312,7 @@ class Project(models.Model):
     is_cadre_de_vie_et_usages.boolean = True
     is_cadre_de_vie_et_usages.short_description = 'cadre de vie et usages'
 
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, verbose_name="Points forts du projet")
 
     commentaires_demarche_et_processus = models.TextField()
     ambition_1 = models.TextField()

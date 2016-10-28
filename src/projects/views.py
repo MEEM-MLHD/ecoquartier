@@ -76,7 +76,12 @@ def profile(request):
 
 def engagement(request, pk, id):
     project = Project.objects.get(id=pk)
-    form = eval('ProjectEngagement'+str(id)+'Form')()
+    if request.method == 'POST':
+        form = eval('ProjectEngagement'+str(id)+'Form')(request.POST, instance=project)
+        if form.is_valid():
+            form.save()
+    else:
+        form = eval('ProjectEngagement'+str(id)+'Form')(instance=project)
     return render(request, 'projects/project_engagement_detail.html', {
         'project': project,
         'engagement_id': int(id),

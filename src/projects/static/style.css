@@ -1,0 +1,33 @@
+.dimension-1-on {
+    background-color: rgb(0,141,177)
+}
+
+.dimension-1-off {
+    background-color: rgba(0,141,177, 0.5)
+}
+
+.dimension-2-on {
+    background-color: rgb(252,208,124)
+}
+
+.dimension-2-off {
+    background-color: rgba(252,208,124, 0.5)
+}
+
+.dimension-3-on {
+    background-color: rgb(252,180,176)
+}
+
+.dimension-3-off {
+    background-color: rgba(252,180,176, 0.5)
+}
+
+.dimension-4-on {
+    background-color: rgb(189,195,137)
+}
+
+.dimension-4-off {
+    background-color: rgba(189,195,137, 0.5)
+}
+
+

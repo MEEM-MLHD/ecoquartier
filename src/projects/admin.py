@@ -1,5 +1,5 @@
+# -*- coding: utf-8 -*-
 from django.contrib import admin
-
 
 from .models import Person, Project, ProjectPhoto, Statut, ZonageINSEE, Commune, Departement, Region, ContexteCommune, TypeOperation, Vocation, LabelEcoQuartier, Procedure, Charte, DREALStringer
 from .models import CommissionNationale2009, CommissionNationale2011, CommissionNationale2013, CommissionNationale2014, CommissionNationale2015, CommissionNationale2016
@@ -13,6 +13,17 @@ class RegionAdmin(admin.ModelAdmin):
     inlines = [
         DREALStringerInline,
     ]
+
+    actions = ['merge_regions', ]
+    def merge_regions(self, request, queryset):
+        region = queryset.first()
+        if region and queryset.count() > 1:
+            regions_to_delete = queryset.exclude(pk=region.id)
+            projects = Project.objects.filter(region__in=regions_to_delete).update(region=region)
+            regions_to_delete.delete()
+
+
+    merge_regions.short_description = u"Réunir des régions"
 
 
 class CharteAdmin(admin.ModelAdmin):

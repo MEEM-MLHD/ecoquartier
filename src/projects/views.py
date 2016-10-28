@@ -9,7 +9,7 @@ from django.db.models import Count, Sum
 
 from .models import Project
 from .filters import ProjectFilter
-from .forms import ProjectForm, ProjectEditorForm
+from .forms import ProjectForm, ProjectEditorForm, ProjectEngagement1Form, ProjectEngagement2Form, ProjectEngagement3Form, ProjectEngagement4Form, ProjectEngagement5Form, ProjectEngagement6Form, ProjectEngagement7Form, ProjectEngagement8Form, ProjectEngagement9Form, ProjectEngagement10Form, ProjectEngagement11Form, ProjectEngagement12Form, ProjectEngagement13Form, ProjectEngagement14Form, ProjectEngagement15Form, ProjectEngagement16Form, ProjectEngagement17Form, ProjectEngagement18Form, ProjectEngagement19Form, ProjectEngagement20Form
 
 
 def home(request):
@@ -76,9 +76,11 @@ def profile(request):
 
 def engagement(request, pk, id):
     project = Project.objects.get(id=pk)
+    form = eval('ProjectEngagement'+str(id)+'Form')()
     return render(request, 'projects/project_engagement_detail.html', {
         'project': project,
-        'engagement_id': id
+        'engagement_id': int(id),
+        'form': form
     })
 
 

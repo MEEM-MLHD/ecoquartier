@@ -1,0 +1,30 @@
+<table class="table table-sm">
+    <tr>
+        <th colspan="5" class="dimension-1-{% if engagement_id == 1 or engagement_id == 2 or engagement_id == 3 or engagement_id == 4 or engagement_id == 5 %}on{% else %}off{% endif %}">Démarche et processus</th>
+        <th colspan="5" class="dimension-2-{% if engagement_id == 6 or engagement_id == 7 or engagement_id == 8 or engagement_id == 9 or engagement_id == 10 %}on{% else %}off{% endif %}">Cadre de vie et usages</th>
+        <th colspan="5" class="dimension-3-{% if engagement_id == 11 or engagement_id == 12 or engagement_id == 13 or engagement_id == 14 or engagement_id == 15 %}on{% else %}off{% endif %}">Développement territorial</th>
+        <th colspan="5" class="dimension-4-{% if engagement_id == 16 or engagement_id == 17 or engagement_id == 18 or engagement_id == 19 or engagement_id == 20 %}on{% else %}off{% endif %}">Ressource et climat</th>
+    </tr>
+    <tr>
+        <td class="dimension-1-{% if engagement_id == 1 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 1 %}">1</a></td>
+        <td class="dimension-1-{% if engagement_id == 2 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 2 %}">2</a></td>
+        <td class="dimension-1-{% if engagement_id == 3 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 3 %}">3</a></td>
+        <td class="dimension-1-{% if engagement_id == 4 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 4 %}">4</a></td>
+        <td class="dimension-1-{% if engagement_id == 5 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 5 %}">5</a></td>
+        <td class="dimension-2-{% if engagement_id == 6 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 6 %}">6</a></td>
+        <td class="dimension-2-{% if engagement_id == 7 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 7 %}">7</a></td>
+        <td class="dimension-2-{% if engagement_id == 8 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 8 %}">8</a></td>
+        <td class="dimension-2-{% if engagement_id == 9 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 9 %}">9</a></td>
+        <td class="dimension-2-{% if engagement_id == 10 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 10 %}">10</a></td>
+        <td class="dimension-3-{% if engagement_id == 11 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 11 %}">11</a></td>
+        <td class="dimension-3-{% if engagement_id == 12 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 12 %}">12</a></td>
+        <td class="dimension-3-{% if engagement_id == 13 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 13 %}">13</a></td>
+        <td class="dimension-3-{% if engagement_id == 14 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 14 %}">14</a></td>
+        <td class="dimension-3-{% if engagement_id == 15 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 15 %}">15</a></td>
+        <td class="dimension-4-{% if engagement_id == 16 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 16 %}">16</a></td>
+        <td class="dimension-4-{% if engagement_id == 17 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 17 %}">17</a></td>
+        <td class="dimension-4-{% if engagement_id == 18 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 18 %}">18</a></td>
+        <td class="dimension-4-{% if engagement_id == 19 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 19 %}">19</a></td>
+        <td class="dimension-4-{% if engagement_id == 20 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 20 %}">20</a></td>
+    </tr>
+</table>

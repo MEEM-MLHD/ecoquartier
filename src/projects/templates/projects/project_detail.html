@@ -30,7 +30,53 @@
 {% endfor %}
 </div>
 
-{% include "projects/engagement_outline.html" %}
+
+{% if editable %}
+
+<div class="row">
+
+
+<div class="col-md-8">
+
+{% include "projects/engagement_outline_large.html" %}
+
+{% if object.dimensions_completed %}
+<div class="alert alert-info">
+Tous les engagements sont complétés,
+<br>
+je souhaite soumettre ma candidature à la démarche de labellisation EQ.
+<br>
+<input class="btn" type="submit" name="">
+</div>
+{% endif %}
+
+</div>
+
+<div class="col-md-4">
+  <div class="alert alert-warning" role="alert">
+    <h5 class="alert-heading">Besoin d’informations ?</h5>
+    <p>Vos référents EQ à la DREAL/DDT peuvent vous aider</p>
+    <ul class="m-b-0">
+    <li>Contact DREAL :  XXX</li>
+    <li>Contact DDT : XXX</li>
+    </ul>
+  </div>
+
+  <div class="alert alert-warning" role="alert">
+    <h5 class="alert-heading">La démarche de labellisation</h5>
+    <ul class="m-b-0">
+    <li>Plaquette « ensemble vers la ville durable »</li>
+    <li>Les enseignements des EcoQuartiers</li>
+    <li>Fiches projets labellisés</li>
+    <li>Grilles contextualisées</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+{% endif %}
+
+
 
 </div>
 

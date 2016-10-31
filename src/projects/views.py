@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import collections
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from djgeojson.serializers import Serializer as GeoJSONSerializer
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
@@ -84,6 +84,7 @@ def engagement(request, pk, id):
         form = eval('ProjectEngagement'+str(id)+'Form')(request.POST, instance=project)
         if form.is_valid():
             form.save()
+            return redirect('detail', pk=pk)
     else:
         form = eval('ProjectEngagement'+str(id)+'Form')(instance=project)
     return render(request, 'projects/project_engagement_detail.html', {
@@ -103,7 +104,10 @@ class ProjectDetailView(DetailView):
           properties=('nom', 'description', 'commune_label', 'short_description', 'feature', 'url', 'state'))
         context = super(ProjectDetailView, self).get_context_data(**kwargs)
         context['geojson'] = geojson
+        if self.request.user == current_object.owner or self.request.user in current_object.editors:
+            context['editable'] = True
         return context
+
 
 class ProjectCreateView(CreateView):
     model = Project

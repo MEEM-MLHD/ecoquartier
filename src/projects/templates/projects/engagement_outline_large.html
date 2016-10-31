@@ -1,0 +1,44 @@
+<table class="table table-sm">
+    <tr>
+        <th class="dimension-1-{% if engagement_id == 1 or engagement_id == 2 or engagement_id == 3 or engagement_id == 4 or engagement_id == 5 %}on{% else %}off{% endif %}">Démarche et processus</th>
+        <th class="dimension-2-{% if engagement_id == 6 or engagement_id == 7 or engagement_id == 8 or engagement_id == 9 or engagement_id == 10 %}on{% else %}off{% endif %}">Cadre de vie et usages</th>
+        <th class="dimension-3-{% if engagement_id == 11 or engagement_id == 12 or engagement_id == 13 or engagement_id == 14 or engagement_id == 15 %}on{% else %}off{% endif %}">Développement territorial</th>
+        <th class="dimension-4-{% if engagement_id == 16 or engagement_id == 17 or engagement_id == 18 or engagement_id == 19 or engagement_id == 20 %}on{% else %}off{% endif %}">Ressource et climat</th>
+    </tr>
+    <tr>
+        <td class="dimension-1-{% if object.engagement_1_completed == 1 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 1 %}">1</a></td>
+        <td class="dimension-2-{% if object.engagement_6_completed == 1 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 6 %}">6</a></td>
+        <td class="dimension-3-{% if object.engagement_11_completed == 1 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 11 %}">11</a></td>
+        <td class="dimension-4-{% if object.engagement_16_completed == 1 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 16 %}">16</a></td>
+    </tr>
+    <tr>
+        <td class="dimension-1-{% if object.engagement_2_completed == 1 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 2 %}">2</a></td>
+        <td class="dimension-2-{% if object.engagement_7_completed == 1 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 7 %}">7</a></td>
+        <td class="dimension-3-{% if object.engagement_12_completed == 1 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 12 %}">12</a></td>
+        <td class="dimension-4-{% if object.engagement_17_completed == 1 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 17 %}">17</a></td>
+    </tr>
+    <tr>
+        <td class="dimension-1-{% if object.engagement_3_completed == 1 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 3 %}">3</a></td>
+        <td class="dimension-2-{% if object.engagement_8_completed == 1 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 8 %}">8</a></td>
+        <td class="dimension-3-{% if object.engagement_13_completed == 1 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 13 %}">13</a></td>
+        <td class="dimension-4-{% if object.engagement_18_completed == 1 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 18 %}">18</a></td>
+    </tr>
+    <tr>
+        <td class="dimension-1-{% if object.engagement_4_completed == 1 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 4 %}">4</a></td>
+        <td class="dimension-2-{% if object.engagement_9_completed == 1 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 9 %}">9</a></td>
+        <td class="dimension-3-{% if object.engagement_14_completed == 1 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 14 %}">14</a></td>
+        <td class="dimension-4-{% if object.engagement_19_completed == 1 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 19 %}">19</a></td>
+    </tr>
+    </tr>
+        <td class="dimension-1-{% if object.engagement_5_completed == 1 %}on{% else %}off{% endif %}"> <a href="{% url 'engagement' project.id 5 %}">5</a></td>
+        <td class="dimension-2-{% if object.engagement_10_completed == 1 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 10 %}">10</a></td>
+        <td class="dimension-3-{% if object.engagement_15_completed == 1 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 15 %}">15</a></td>
+        <td class="dimension-4-{% if object.engagement_20_completed == 1 %}on{% else %}off{% endif %}"><a href="{% url 'engagement' project.id 20 %}">20</a></td>
+    </tr>
+    <tr>
+        <td><progress class="progress" value="{{ object.dimension_1_completed }}" max="5" aria-describedby="progression engagement 1"></progress></td>
+        <td><progress class="progress" value="{{ object.dimension_2_completed }}" max="5" aria-describedby="progression engagement 2"></progress></td>
+        <td><progress class="progress" value="{{ object.dimension_3_completed }}" max="5" aria-describedby="progression engagement 3"></progress></td>
+        <td><progress class="progress" value="{{ object.dimension_4_completed }}" max="5" aria-describedby="progression engagement 4"></progress></td>
+    </tr>
+</table>

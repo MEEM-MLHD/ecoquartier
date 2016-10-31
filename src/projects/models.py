@@ -484,6 +484,138 @@ class Project(models.Model):
     def photos(self):
         return [photo.photo.url for photo in self.projectphoto_set.exclude(photo__isnull=True)]
 
+    @property
+    def engagement_1_completed(self):
+        fields = ['site', 'contexte_site', 'superficieha', 'surface_nonbatie',  'engagement', 'creation', 'realisation', 'autorisation', 'permis', 'debut', 'livraison', 'achevement', 'complementaire', 'programme_detail', 'etudes_prealables', 'opacrations_marquantes', 'habitants', 'logements', 'shon_logementsm', 'logements_sociau', 'equipements_publics', 'shon_equipementsm', 'commerces_services', 'shon_commercesm', 'bureaux_activites', 'shon_bureauxm', 'engagement_1', ]
+        return self.completed(fields)
+
+    @property
+    def engagement_2_completed(self):
+        fields = ['procedure', 'procedure_detail', 'concertation', 'collectivite_ou_epci_porteur', 'maitrise_ouvrage', 'maitrise_oeuvre', 'partenariats', 'engagement_2']
+        return self.completed(fields)
+
+    @property
+    def engagement_3_completed(self):
+        fields = ['coats', 'engagement_3']
+        return self.completed(fields)
+
+    @property
+    def engagement_4_completed(self):
+        fields = ['engagement_4']
+        return self.completed(fields)
+
+    @property
+    def engagement_5_completed(self):
+        fields = ['engagement_5']
+        return self.completed(fields)
+
+    @property
+    def dimension_1_completed(self):
+        values = [self.engagement_1_completed, self.engagement_2_completed, self.engagement_3_completed, self.engagement_4_completed, self.engagement_5_completed]
+        return sum(values)
+
+    @property
+    def engagement_6_completed(self):
+        fields = ['aspects_fonciers', 'densite_brute', 'densite_brute_logements', 'densite_logements', 'surface_nonbatie', 'engagement_6']
+        return self.completed(fields)
+
+    @property
+    def engagement_7_completed(self):
+        fields = ['habitants', 'logements', 'shon_logementsm', 'logements_sociau', 'engagement_7']
+        return self.completed(fields)
+
+    @property
+    def engagement_8_completed(self):
+        fields = ['coats', 'engagement_8']
+        return self.completed(fields)
+
+    @property
+    def engagement_9_completed(self):
+        fields = ['opacrations_marquantes', 'engagement_9']
+        return self.completed(fields)
+
+    @property
+    def engagement_10_completed(self):
+        fields = ['contexte_site', 'engagement_10']
+        return self.completed(fields)
+
+    @property
+    def dimension_2_completed(self):
+        values = [self.engagement_6_completed, self.engagement_7_completed, self.engagement_8_completed, self.engagement_9_completed, self.engagement_10_completed, ]
+        return sum(values)
+
+    @property
+    def engagement_11_completed(self):
+        fields = ['equipements_publics', 'shon_equipementsm', 'commerces_services', 'shon_commercesm', 'bureaux_activites', 'shon_bureauxm', 'engagement_11']
+        return self.completed(fields)
+
+    @property
+    def engagement_12_completed(self):
+        fields = ['equipements_publics', 'shon_equipementsm', 'commerces_services', 'shon_commercesm', 'bureaux_activites', 'shon_bureauxm', 'engagement_12']
+        return self.completed(fields)
+
+    @property
+    def engagement_13_completed(self):
+        fields = ['engagement_13']
+        return self.completed(fields)
+
+    @property
+    def engagement_14_completed(self):
+        fields = ['engagement_14']
+        return self.completed(fields)
+
+    @property
+    def engagement_15_completed(self):
+        fields = ['engagement_15']
+        return self.completed(fields)
+
+    @property
+    def dimension_3_completed(self):
+        values = [self.engagement_11_completed, self.engagement_12_completed, self.engagement_13_completed, self.engagement_14_completed, self.engagement_15_completed, ]
+        return sum(values)
+
+    @property
+    def engagement_16_completed(self):
+        fields = ['engagement_16']
+        return self.completed(fields)
+
+    @property
+    def engagement_17_completed(self):
+        fields = ['engagement_17']
+        return self.completed(fields)
+
+    @property
+    def engagement_18_completed(self):
+        fields = ['engagement_18']
+        return self.completed(fields)
+
+    @property
+    def engagement_19_completed(self):
+        fields = ['engagement_19']
+        return self.completed(fields)
+
+    @property
+    def engagement_20_completed(self):
+        fields = ['engagement_20']
+        return self.completed(fields)
+
+    @property
+    def dimension_4_completed(self):
+        values = [self.engagement_16_completed, self.engagement_17_completed, self.engagement_18_completed, self.engagement_19_completed, self.engagement_20_completed]
+        return sum(values)
+
+    @property
+    def dimensions_completed(self):
+        values = [self.dimension_1_completed, self.dimension_2_completed, self.dimension_3_completed, self.dimension_4_completed]
+        return all(values)
+
+
+    def completed(self, fields):
+        values = [getattr(self, field) != '' and getattr(self, field) is not None for field in fields]
+        if all(values):
+            return True
+        return False
+
     @models.permalink
     def get_absolute_url(self):
         return ('detail', (), {'pk': self.pk})

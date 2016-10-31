@@ -32,6 +32,9 @@ def home(request):
     dataset_anne_candidature = [annee['annee_candidature__count'] for annee in annee_candidature]
     chart_data["labels"] = labels
 
+    search = False
+    if len(request.GET) > 0:
+        search = True
 
     annee_label2 = {item['annee_label']: item['annee_label__count'] for item in annee_label}
     annee_charte2 = {item['year']: item['id__count'] for item in annee_charte}
@@ -59,7 +62,8 @@ def home(request):
         'engaged_ecoquartier':engaged_ecoquartier,
         'logements': logements,
         'percent_renouvellement_urbain': percent_renouvellement_urbain,
-        'chart_data': chart_data
+        'chart_data': chart_data,
+        'search': search
     })
 
 

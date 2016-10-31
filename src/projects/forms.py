@@ -3,7 +3,7 @@ from dal import autocomplete
 from django.contrib.gis import forms
 from leaflet.forms.fields import GeometryCollectionField
 
-from .models import Project, Commune
+from .models import Project, Commune, Demarche, TypeOperation, Vocation, Tag
 
 
 class ProjectForm(forms.ModelForm):
@@ -28,6 +28,11 @@ class ProjectForm(forms.ModelForm):
         label="Localisation du projet",
         help_text=u"Dessiner sur la carte la zone où se trouve votre projet",
     )
+
+    type_operations = forms.ModelMultipleChoiceField(label=u"Type d'opérations", queryset=TypeOperation.objects.all(), widget=forms.CheckboxSelectMultiple(),required=False)
+    vocations = forms.ModelMultipleChoiceField(label=u"Vocations", queryset=Vocation.objects.all(), widget=forms.CheckboxSelectMultiple(),required=False)
+    demarches = forms.ModelMultipleChoiceField(label=u"Engagement dans d'autres démarches de développement durable", queryset=Demarche.objects.all(), widget=forms.CheckboxSelectMultiple(),required=False)
+    tags = forms.ModelMultipleChoiceField(label=u"Points forts du projet", queryset=Tag.objects.all(), widget=forms.CheckboxSelectMultiple(),required=False)
 
     class Meta:
         model = Project

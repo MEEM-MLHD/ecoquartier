@@ -118,6 +118,15 @@ class ProjectCreateView(CreateView):
         return super(ProjectCreateView, self).form_valid(form)
 
 
+class ProjectUpdateView(UpdateView):
+    model = Project
+    form_class = ProjectForm
+
+    # def form_valid(self, form):
+    #     form.instance.owner = self.request.user
+    #     return super(ProjectCreateView, self).form_valid(form)
+
+
 class ProjectEditorUpdateView(UpdateView):
     model = Project
     form_class = ProjectEditorForm

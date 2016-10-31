@@ -25,6 +25,7 @@
 {% for project in projects_owner %}
 <tr>
 	<td><a href="{% url 'detail' project.id %}">{{ project }}</a> </td>
+	<td><a href="{% url 'update' project.id %}">Modifier</a> </td>
 	<td><a href="{% url 'editors' project.id %}">Editer les droits</a> </td>
 </tr>
 {% endfor %}

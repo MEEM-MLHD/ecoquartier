@@ -31,6 +31,7 @@ class ZonageINSEE(models.Model):
 class Region(models.Model):
     label = models.CharField(max_length=255)
     stringers = models.ManyToManyField(Person, through="DREALStringer")
+    code_insee = models.CharField(max_length=255, default="")
 
     def __unicode__(self):
         return self.label
@@ -46,6 +47,7 @@ class Departement(models.Model):
     label = models.CharField(max_length=255)
     region = models.ForeignKey(Region, null=True)
     stringers = models.ManyToManyField(Person, through="DDTStringer")
+    code_insee = models.CharField(max_length=255, default="")
 
     def __unicode__(self):
         return self.label
@@ -654,6 +656,33 @@ class ProjectPhoto(models.Model):
     order = models.PositiveIntegerField()
     title = models.CharField(max_length=255, blank=True)
     photo = models.ImageField(upload_to='photos/%Y/%m/%d', max_length=1500)
+
+
+class Action(models.Model):
+    name = models.CharField(max_length=255)
+    engagement = models.IntegerField()
+    project = models.ForeignKey(Project)
+    TODO = '01'
+    IN_PROGRESS = '02'
+    DONE = '03'
+    STATE_CHOICES = (
+        (TODO, u'A faire'),
+        (IN_PROGRESS, u'En cours'),
+        (DONE, u'Fait'),
+    )
+    state = models.CharField(max_length=2, choices=STATE_CHOICES, default=TODO)
+
+
+class Document(models.Model):
+    file = models.FileField(upload_to='files/%Y/%m/%d')
+    title = models.CharField(max_length=255)
+    project = models.ForeignKey(Project)
+    engagement = models.IntegerField()
+    TYPE_CHOICES = (
+        ('fo', 'foo'),
+        ('ba', 'bar'),
+    )
+    type = models.CharField(max_length=2, choices=TYPE_CHOICES, default='fo')
 
 
 class Charte(models.Model):

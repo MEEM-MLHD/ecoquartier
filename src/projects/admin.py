@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from .models import Person, Project, ProjectPhoto, Statut, ZonageINSEE, Commune, Departement, Region, ContexteCommune, TypeOperation, Vocation, LabelEcoQuartier, Procedure, Charte, DREALStringer
+from .models import Person, Project, ProjectPhoto, Statut, ZonageINSEE, Commune, Departement, Region, ContexteCommune, TypeOperation, Vocation, LabelEcoQuartier, Procedure, Charte, DREALStringer, Action, Document
 from .models import CommissionNationale2009, CommissionNationale2011, CommissionNationale2013, CommissionNationale2014, CommissionNationale2015, CommissionNationale2016
 
 
@@ -13,6 +13,7 @@ class RegionAdmin(admin.ModelAdmin):
     inlines = [
         DREALStringerInline,
     ]
+    list_display = ('label', 'code_insee')
 
     actions = ['merge_regions', ]
     def merge_regions(self, request, queryset):
@@ -24,6 +25,11 @@ class RegionAdmin(admin.ModelAdmin):
 
 
     merge_regions.short_description = u"Réunir des régions"
+
+
+class DepartementAdmin(admin.ModelAdmin):
+    list_display = ('label', 'code_insee')
+    list_editable = ('code_insee', )
 
 
 class CharteAdmin(admin.ModelAdmin):
@@ -69,7 +75,7 @@ admin.site.register(CommissionNationale2016)
 admin.site.register(Statut)
 admin.site.register(ZonageINSEE)
 admin.site.register(Commune, CommuneAdmin)
-admin.site.register(Departement)
+admin.site.register(Departement, DepartementAdmin)
 admin.site.register(Region, RegionAdmin)
 admin.site.register(ContexteCommune)
 admin.site.register(TypeOperation, TypeOperationAdmin)
@@ -77,4 +83,6 @@ admin.site.register(Vocation, VocationAdmin)
 admin.site.register(LabelEcoQuartier)
 admin.site.register(Procedure)
 admin.site.register(Person)
+admin.site.register(Action)
+admin.site.register(Document)
 admin.site.register(Charte, CharteAdmin)

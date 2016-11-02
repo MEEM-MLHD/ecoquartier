@@ -5,9 +5,10 @@ from django.shortcuts import render, redirect
 from djgeojson.serializers import Serializer as GeoJSONSerializer
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, Q
+from django.forms import inlineformset_factory
 
-from .models import Project
+from .models import Project, Action, Document
 from .filters import ProjectFilter
 from .forms import ProjectForm, ProjectEditorForm, ProjectEngagement1Form, ProjectEngagement2Form, ProjectEngagement3Form, ProjectEngagement4Form, ProjectEngagement5Form, ProjectEngagement6Form, ProjectEngagement7Form, ProjectEngagement8Form, ProjectEngagement9Form, ProjectEngagement10Form, ProjectEngagement11Form, ProjectEngagement12Form, ProjectEngagement13Form, ProjectEngagement14Form, ProjectEngagement15Form, ProjectEngagement16Form, ProjectEngagement17Form, ProjectEngagement18Form, ProjectEngagement19Form, ProjectEngagement20Form
 
@@ -79,18 +80,41 @@ def profile(request):
 
 
 def engagement(request, pk, id):
+    engagement_id = int(id)
+    ActionFormSet = inlineformset_factory(Project, Action, fields=('name', 'state'), can_delete=True, extra=1)
+    DocumentFormSet = inlineformset_factory(Project, Document, fields=('file', 'title', 'type'), can_delete=True, extra=1)
     project = Project.objects.get(id=pk)
     if request.method == 'POST':
         form = eval('ProjectEngagement'+str(id)+'Form')(request.POST, instance=project)
         if form.is_valid():
             form.save()
+            action_formset = ActionFormSet(request.POST, instance=project, queryset=Action.objects.filter(engagement=engagement_id))
+            document_formset = DocumentFormSet(request.POST, request.FILES, instance=project, queryset=Document.objects.filter(engagement=engagement_id))
+            if action_formset.is_valid():
+                for form in action_formset:
+                    instance = form.save(commit=False)
+                    if instance.name != '':
+                        instance.engagement = engagement_id
+                        instance.save()
+            if document_formset.is_valid():
+                for form in document_formset:
+                    instance = form.save(commit=False)
+                    if instance.title != '':
+                        instance.project = project
+                        instance.engagement = engagement_id
+                        instance.save()
             return redirect('detail', pk=pk)
     else:
         form = eval('ProjectEngagement'+str(id)+'Form')(instance=project)
+        action_formset = ActionFormSet(instance=project, queryset=Action.objects.filter(engagement=engagement_id))
+        document_formset = DocumentFormSet(instance=project, queryset=Document.objects.filter(engagement=engagement_id))
+
     return render(request, 'projects/project_engagement_detail.html', {
         'project': project,
-        'engagement_id': int(id),
-        'form': form
+        'engagement_id': engagement_id,
+        'form': form,
+        'action_formset': action_formset,
+        'document_formset': document_formset
     })
 
 
@@ -104,7 +128,7 @@ class ProjectDetailView(DetailView):
           properties=('nom', 'description', 'commune_label', 'short_description', 'feature', 'url', 'state'))
         context = super(ProjectDetailView, self).get_context_data(**kwargs)
         context['geojson'] = geojson
-        if self.request.user == current_object.owner or self.request.user in current_object.editors:
+        if self.request.user == current_object.owner or self.request.user in current_object.editors.all():
             context['editable'] = True
         return context
 
@@ -122,9 +146,12 @@ class ProjectUpdateView(UpdateView):
     model = Project
     form_class = ProjectForm
 
-    # def form_valid(self, form):
-    #     form.instance.owner = self.request.user
-    #     return super(ProjectCreateView, self).form_valid(form)
+    def get_queryset(self):
+        base_qs = super(ProjectUpdateView, self).get_queryset()
+        if self.request.user.is_superuser:
+            return base_qs
+        else:
+            return base_qs.filter(Q(owner=self.request.user) | Q(editors__in=[self.request.user, ]))
 
 
 class ProjectEditorUpdateView(UpdateView):

@@ -19,7 +19,7 @@ class RegionAdmin(admin.ModelAdmin):
         region = queryset.first()
         if region and queryset.count() > 1:
             regions_to_delete = queryset.exclude(pk=region.id)
-            projects = Project.objects.filter(region__in=regions_to_delete).update(region=region)
+            Departement.objects.filter(region__in=regions_to_delete).update(region=region)
             regions_to_delete.delete()
 
 

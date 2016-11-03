@@ -249,10 +249,10 @@ class Project(models.Model):
     sources = models.TextField() #
     sources_details = models.TextField() #
     contact = models.TextField() #
-    project_manager_lastname = models.CharField("Nom du chef de projet", max_length=255, null=True, blank=True)
-    project_manager_firstname = models.CharField("Prénom du chef de projet", max_length=255, null=True, blank=True)
-    project_manager_mail = models.EmailField("Mail du chef de projet", max_length=255, null=True, blank=True)
-    project_manager_structure = models.CharField("Organisme du chef de projet", max_length=255, null=True, blank=True)
+    project_manager_lastname = models.CharField("Nom", max_length=255, null=True, blank=True)
+    project_manager_firstname = models.CharField("Prénom", max_length=255, null=True, blank=True)
+    project_manager_mail = models.EmailField("Mail", max_length=255, null=True, blank=True)
+    project_manager_structure = models.CharField("Organisme de rattachement", max_length=255, null=True, blank=True)
 
 
     sites_enlien = models.TextField() #

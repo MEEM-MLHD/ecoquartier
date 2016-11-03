@@ -15,10 +15,41 @@
 
 <div class="col-md-8">
 
-<h4>Ajouter un projet d'Ecoquartier</h4>
+<h4>Ajouter un projet d'ÉcoQuartier</h4>
 
-<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-    {% bootstrap_form form %}
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form_errors form %}
+
+    {% bootstrap_field form.nom %}
+
+    <fieldset class="form-group">
+      <legend>Localisation du projet</legend>
+      {% bootstrap_field form.commune %}
+      {% bootstrap_field form.communes %}
+      {% bootstrap_field form.coordonnees_geographiques %}
+    </fieldset>
+
+    <fieldset class="form-group">
+      <legend>Contact (Chef de projet)</legend>
+      {% bootstrap_field form.project_manager_lastname %}
+      {% bootstrap_field form.project_manager_firstname %}
+      {% bootstrap_field form.project_manager_mail %}
+      {% bootstrap_field form.project_manager_structure %}
+    </fieldset>
+
+    <fieldset class="form-group">
+      <legend>Caractéristiques</legend>
+    {% bootstrap_field form.type_operations %}
+    {% bootstrap_field form.vocations %}
+    {% bootstrap_field form.description %}
+    {% bootstrap_field form.demarches %}
+    {% bootstrap_field form.tags %}
+    </fieldset>
+
+    {% bootstrap_field form.charte %}
+    {% bootstrap_field form.european_network %}
+
     {% buttons %}
     <button type="submit" class="btn btn-block">
       Soumettre votre projet d'écoquartier

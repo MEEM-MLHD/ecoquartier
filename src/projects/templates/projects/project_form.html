@@ -15,7 +15,7 @@
 
 <div class="col-md-8">
 
-<h4>Ajouter un projet d'ÉcoQuartier</h4>
+<h2>Ajouter un projet d'ÉcoQuartier</h2>
 
 <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -86,4 +86,21 @@
 {% block after-body %}
   {{ block.super }}
   {{ form.media }}
+
+<script type="text/javascript">
+$(window).on("map:init", function (e) {
+   var map = e.detail.map;
+   map.on('map:loadfield', function () {
+      map.drawControlid_coordonnees_geographiques.setDrawingOptions({
+          rectangle: false,
+          marker:false,
+          polyline:false
+      });
+      map.removeControl(map.drawControlid_coordonnees_geographiques);
+      map.addControl(map.drawControlid_coordonnees_geographiques);
+   });
+});
+
+</script>
+
 {% endblock %}

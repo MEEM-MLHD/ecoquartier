@@ -252,7 +252,7 @@ class Project(models.Model):
     project_manager_lastname = models.CharField("Nom du chef de projet", max_length=255, null=True, blank=True)
     project_manager_firstname = models.CharField("Prénom du chef de projet", max_length=255, null=True, blank=True)
     project_manager_mail = models.EmailField("Mail du chef de projet", max_length=255, null=True, blank=True)
-    project_manager_structure = models.CharField("Structure du chef de projet", max_length=255, null=True, blank=True)
+    project_manager_structure = models.CharField("Organisme du chef de projet", max_length=255, null=True, blank=True)
 
 
     sites_enlien = models.TextField() #

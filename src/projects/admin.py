@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from .models import Person, Project, ProjectPhoto, Statut, ZonageINSEE, Commune, Departement, Region, ContexteCommune, TypeOperation, Vocation, LabelEcoQuartier, Procedure, Charte, DREALStringer, Action, Document
+from .models import Person, Project, ProjectPhoto, Statut, ZonageINSEE, Commune, Departement, Region, ContexteCommune, TypeOperation, Vocation, LabelEcoQuartier, Procedure, Charte, DREALStringer, Action, Document, Tag
 from .models import CommissionNationale2009, CommissionNationale2011, CommissionNationale2013, CommissionNationale2014, CommissionNationale2015, CommissionNationale2016
 
 
@@ -85,4 +85,5 @@ admin.site.register(Procedure)
 admin.site.register(Person)
 admin.site.register(Action)
 admin.site.register(Document)
+admin.site.register(Tag)
 admin.site.register(Charte, CharteAdmin)

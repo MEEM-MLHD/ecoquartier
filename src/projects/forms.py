@@ -52,19 +52,19 @@ class ProjectEditorForm(forms.ModelForm):
 class ProjectEngagement1Form(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['site', 'contexte_site', 'superficieha', 'surface_nonbatie',  'engagement', 'creation', 'realisation', 'autorisation', 'permis', 'debut', 'livraison', 'achevement', 'complementaire', 'programme_detail', 'etudes_prealables', 'opacrations_marquantes', 'habitants', 'logements', 'shon_logementsm', 'logements_sociau', 'equipements_publics', 'shon_equipementsm', 'commerces_services', 'shon_commercesm', 'bureaux_activites', 'shon_bureauxm', 'engagement_1', ]
+        fields = ['engagement_1']
 
 
 class ProjectEngagement2Form(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['procedure', 'procedure_detail', 'concertation', 'collectivite_ou_epci_porteur', 'maitrise_ouvrage', 'maitrise_oeuvre', 'partenariats', 'engagement_2']
+        fields = ['engagement_2']
 
 
 class ProjectEngagement3Form(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['coats', 'engagement_3']
+        fields = ['engagement_3']
 
 
 class ProjectEngagement4Form(forms.ModelForm):
@@ -82,43 +82,43 @@ class ProjectEngagement5Form(forms.ModelForm):
 class ProjectEngagement6Form(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['aspects_fonciers', 'densite_brute', 'densite_brute_logements', 'densite_logements', 'surface_nonbatie', 'engagement_6']
+        fields = ['engagement_6']
 
 
 class ProjectEngagement7Form(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['habitants', 'logements', 'shon_logementsm', 'logements_sociau', 'engagement_7']
+        fields = ['engagement_7']
 
 
 class ProjectEngagement8Form(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['coats', 'engagement_8']
+        fields = ['engagement_8']
 
 
 class ProjectEngagement9Form(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['opacrations_marquantes', 'engagement_9']
+        fields = ['engagement_9']
 
 
 class ProjectEngagement10Form(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['contexte_site', 'engagement_10']
+        fields = ['engagement_10']
 
 
 class ProjectEngagement11Form(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['equipements_publics', 'shon_equipementsm', 'commerces_services', 'shon_commercesm', 'bureaux_activites', 'shon_bureauxm', 'engagement_11']
+        fields = ['engagement_11']
 
 
 class ProjectEngagement12Form(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['equipements_publics', 'shon_equipementsm', 'commerces_services', 'shon_commercesm', 'bureaux_activites', 'shon_bureauxm', 'engagement_12']
+        fields = ['engagement_12']
 
 
 class ProjectEngagement13Form(forms.ModelForm):
@@ -167,3 +167,123 @@ class ProjectEngagement20Form(forms.ModelForm):
     class Meta:
         model = Project
         fields = ['engagement_20']
+
+
+class ProjectData1Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['site', 'contexte_site', 'superficieha', 'surface_nonbatie',  'engagement', 'creation', 'realisation', 'autorisation', 'permis', 'debut', 'livraison', 'achevement', 'etudes_prealables', 'opacrations_marquantes', 'habitants', 'logements', 'shon_logementsm', 'logements_sociau', 'logements_sociaux_detail', 'shon_equipementsm', 'equipements_publics', 'shon_commercesm', 'commerces_services', 'shon_bureauxm', 'bureaux_activites',]
+
+
+class ProjectData2Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['procedure', 'procedure_detail', 'concertation', 'collectivite_ou_epci_porteur', 'maitrise_ouvrage', 'maitrise_oeuvre', 'partenariats', ]
+
+
+class ProjectData3Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['coats', ]
+
+
+class ProjectData4Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = []
+
+
+class ProjectData5Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = []
+
+
+class ProjectData6Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['aspects_fonciers', 'densite_brute', 'densite_brute_logements', 'densite_logements', 'surface_nonbatie', ]
+
+
+class ProjectData7Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['habitants', 'logements', 'shon_logementsm', 'logements_sociau', ]
+
+
+class ProjectData8Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['coats', ]
+
+
+class ProjectData9Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['opacrations_marquantes', ]
+
+
+class ProjectData10Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['contexte_site', ]
+
+
+class ProjectData11Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['equipements_publics', 'shon_equipementsm', 'commerces_services', 'shon_commercesm', 'bureaux_activites', 'shon_bureauxm',]
+
+
+class ProjectData12Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['equipements_publics', 'shon_equipementsm', 'commerces_services', 'shon_commercesm', 'bureaux_activites', 'shon_bureauxm',]
+
+
+class ProjectData13Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = []
+
+
+class ProjectData14Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = []
+
+
+class ProjectData15Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = []
+
+
+class ProjectData16Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = []
+
+
+class ProjectData17Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = []
+
+
+class ProjectData18Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = []
+
+
+class ProjectData19Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = []
+
+
+class ProjectData20Form(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = []

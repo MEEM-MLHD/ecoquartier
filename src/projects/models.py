@@ -90,12 +90,18 @@ class TypeOperation(models.Model):
     def __unicode__(self):
         return self.label
 
+    class Meta:
+        ordering = ['label', ]
+
 
 class Vocation(models.Model):
     label = models.CharField(max_length=255)
     hide = models.BooleanField(default=False)
 
     objects = HideManager()
+
+    class Meta:
+        ordering = ['label', ]
 
     def __unicode__(self):
         return self.label
@@ -117,9 +123,15 @@ class Procedure(models.Model):
 
 class Tag(models.Model):
     label = models.CharField(max_length=255)
+    hide = models.BooleanField(default=False)
+
+    objects = HideManager()
 
     def __unicode__(self):
         return self.label
+
+    class Meta:
+        ordering = ['label', ]
 
 
 class Demarche(models.Model):
@@ -128,6 +140,9 @@ class Demarche(models.Model):
     def __unicode__(self):
         return self.label
 
+    class Meta:
+        ordering = ['label', ]
+
 
 class Echelle(models.Model):
     label = models.CharField(max_length=255)
@@ -135,6 +150,88 @@ class Echelle(models.Model):
     def __unicode__(self):
         return self.label
 
+engagement_1_help = u'''
+<div>
+LES DONNÉES QUALITATIVES
+DÉCRIRE VOTRE PROJET
+
+<h6>NOTION 1 : DIAGNOSTIC STRATÉGIQUE</h6>
+
+<ol>
+<li>Quels diagnostics ont été réalisés,et à quelles échelles ? Quels sont les champs couverts (sociaux,urbains,économiques et environnementaux) ? Quels sont les enjeux identi és pour le projet ?</li>
+<li>Comment les diagnostics ont-ils été mobilisés pour dé nir le projet,notamment en prenant en compte la complémentarité avec les caractéristiques des territoires voisins,les ressources locales,les attentes des habitants,usagers et acteurs socio- économiques ?</li>
+</ol>
+
+<h6>NOTION 2 : PROGRAMMATION</h6>
+
+<ol>
+<li>Comment la programmation intègre-t-elle les enjeux et les besoins des habitants, des usagers et des acteurs socio- économiques identi és dans les diagnostics, dans un souci d’équité ?</li>
+<li>En quoi la programmation est-elle en adéquation avec le contexte local ? Exemples : adéquation de la programmation des logements avec les revenus des ménages et les capacités des acteurs économiques et de la collectivité, de la programmation des équipements publics avec la population visée et l’état des équipements existants, de la programmation commerciale avec les besoins et l’offre existante....</li>
+<li>Quelles sont les possibilités d’ajustement de la programmation en fonction de l’évolution du contexte économique, politique,réglementaire,social ou climatique ?</li>
+</ol>
+
+</div>
+'''
+
+
+engagement_9_help = u'''
+<div>
+LES DONNÉES QUALITATIVES
+DÉCRIRE VOTRE PROJET
+</div>
+<h6>NOTION 1 : INSERTION URBAINE ET PAYSAGÈRE</h6>
+
+<ol>
+<li>Comment le projet s’articule-t-il à son environnement urbain et naturel ?
+Exemples : perspectives et points de vue, trame viaire, articulation avec les quartiers mitoyens,...</li>
+<li>Comment le projet prend-il en compte et exploite-t-il les éléments paysagers présents sur le site ?</li>
+</ol>
+<h6>NOTION 2 : QUALITÉ URBAINE ET ESPACES PUBLICS</h6>
+
+<ol>
+<li>Comment la composition et les formes urbaines participent-elles à la création d’un cadre de vie agréable?
+Exemples : maillage, structuration</li>
+<li>Quelle importance est accordée aux espaces publics et quels aménagements favorisant la qualité de vie sont proposés dans le projet ?
+Exemples : opérations d’espaces publics particulières,intégration de la multifonctionnalité ...</li>
+<li>Comment la nature en ville participe-t-elle à la qualité du cadre de vie ?</li>
+</ol>
+
+<h6>NOTION 3 : QUALITÉ ET CRÉATIVITÉ ARCHITECTURALE</h6>
+
+<ol>
+<li>Comment les îlots et formes bâties participent-ils à une qualité architecturale d’ensemble du projet ?</li>
+<li>De quelle manière favorisez-vous la création et la qualité architecturales dans les projets ?</li>
+</ol>
+
+Exemples : projets architecturaux spécifiques, consultation d’équipes mixtes d’architectes-promoteurs-urbanistes, concours d’idées,...
+'''
+
+context_site_help = u'''
+<p>
+La collectivité fait-elle partie d’une intercommunalité ? Si oui,de quel type d’EPCI s’agit-il ? Quel est le nom de cet EPCI ?
+<br>
+Quels sont les éléments de cadrage et de plani cation valables sur le territoire de la collectivité ?
+<br>
+Le périmètre opérationnel de l’EcoQuartier est-il soumis à des orientations d’aménagement ?
+<br>
+Si oui, précisez lesquelles.
+<br>
+Le site de l’EcoQuartier est-il inclus dans un périmètre de protection ou dans une zone à enjeux en termes de patrimoine : périmètre de protection autour des monuments historiques ? Plan de Sauvegarde et de Mise en Valeur (PSMV)? Zone de protection du patrimoine architectural et paysager (ZPPAUP) / Aire de valorisation de l’Architecture et du Patrimoine (AVAP) ? Autres : précisez lesquelles.
+<br>
+Le site de l’EcoQuartier est-il inclus dans un périmètre de protection ou dans une zone à enjeux naturels et paysagers : Zone naturelle d’intérêt Ecologique, Faunistique et Floristiques (ZNIEFF) ? NATURA 2000 ? Espace Boisé Classé (EBC) ? Espace Naturel Sensible (ENS) ? Autres : précisez lesquelles.
+<br>
+Le site de l’EcoQuartier est-il inclus dans un périmètre faisant l’objet de conventions particulières : Périmètre Agence Nationale pour la Rénovation Urbaine (ANRU) ? Convention Programme National de Requali cation des Quartiers Anciens Dégradés (PNRQAD) ? Opération Programmée d’Amélioration de l’Habitat (OPAH) ? Zone Franche Urbaine (ZFU) ? Autres : précisez lesquelles ? Le site de l’EcoQuartier est-il soumis à des servitudes particulières ? Si oui,précisez lesquelles.
+</p>
+'''
+
+
+logements_help = u'''
+<p>
+Quel est le nombre de logements dans l’EcoQuartier ?
+<br>
+Préciser le nombre total de logements prévus à terme dans l’opération (y compris logements réhabilités ou rénovés, à préciser dans ce cas dans le détail de l’opération)
+</p>
+'''
 
 class Project(models.Model):
 
@@ -156,24 +253,25 @@ class Project(models.Model):
     adresse = models.TextField() #
     systeme_projection = models.CharField(max_length=255) #
     coordonnees_geographiques = models.GeometryCollectionField(blank=True, null=True) #
-    site = models.TextField() #
-    contexte_site = models.TextField() #
+    site = models.TextField("Caractéristiques initiales du site", help_text=u"Préciser les caractéristiques initiales du site : par exemple, terrains agricoles, site militaire, friches industrielles, quartier d’habitat social...") #
+    contexte_site = models.TextField("Contexte du site", help_text=context_site_help) #
     type_operations = models.ManyToManyField(TypeOperation, verbose_name="Type d'opérations") #
     type_operation_autre = models.TextField() #
     vocations = models.ManyToManyField(Vocation) #
     vocation_autre = models.TextField() #
-    superficieha = models.FloatField(null=True) #
-    surface_nonbatie = models.FloatField(null=True) #
-    habitants = models.IntegerField(default=0) #
-    logements = models.IntegerField(default=0) #
-    shon_logementsm = models.IntegerField(default=0) #
-    logements_sociau = models.IntegerField(null=True, blank=True) #
-    equipements_publics = models.TextField() #
-    shon_equipementsm = models.IntegerField(null=True, blank=True) #
-    commerces_services = models.TextField() #
-    shon_commercesm = models.IntegerField(null=True, blank=True)
-    bureaux_activites = models.TextField()
-    shon_bureauxm = models.IntegerField(null=True, blank=True)
+    superficieha = models.FloatField(u"Superficie de l'opération", help_text=u"Quelle est la superficie de l'EcoQuartier ? (ha)", null=True) #
+    surface_nonbatie = models.FloatField(u"Surface non bâtie publique", help_text=u"Toute surface non bâtie appartenant au domaine public, notamment voirie, espaces verts, espaces publics", null=True) #
+    habitants = models.IntegerField(u"Nombre d'habitants prévus", default=0) #
+    logements = models.IntegerField(u"Nombre de logements", help_text=logements_help , default=0) #
+    shon_logementsm = models.IntegerField(u"SHON logement", help_text=u"Surface hors œuvre net des logements", default=0) #
+    logements_sociau = models.IntegerField(u"Nombre de logements sociaux", help_text=u"", null=True, blank=True) #
+    logements_sociaux_detail = models.TextField(u"Logements sociaux détail")
+    equipements_publics = models.TextField(u"Détail équipements publics", help_text=u"Précisions sur les équipements publics considérés") #
+    shon_equipementsm = models.IntegerField(u"Surface équipements publics", null=True, blank=True) #
+    commerces_services = models.TextField(u"Détail commerces et services", help_text=u"Préciser le type de commerces et services programmés dans l'opération") #
+    shon_commercesm = models.IntegerField(u"Surface de plancher des commerces et services", null=True, blank=True)
+    bureaux_activites = models.TextField(u"Détail bureaux et activités", help_text=u"Préciser le type d'activités prévues dans l'opération")
+    shon_bureauxm = models.IntegerField(u"Surface de plancher bureaux et activités", null=True, blank=True)
     programme_detail = models.TextField() #
     densite_brute = models.IntegerField(null=True, blank=True) #
     densite_brute_logements = models.IntegerField(null=True, blank=True) #
@@ -235,16 +333,16 @@ class Project(models.Model):
     maitrise_ouvrage = models.TextField() #
     maitrise_oeuvre = models.TextField() #
     partenariats = models.TextField() #
-    opacrations_marquantes = models.TextField() #
-    engagement = models.IntegerField(null=True, blank=True) #
-    creation = models.IntegerField(null=True, blank=True) #
-    realisation = models.IntegerField(null=True, blank=True) #
-    autorisation = models.IntegerField(null=True, blank=True) #
-    permis = models.IntegerField(null=True, blank=True) #
-    debut = models.IntegerField(null=True, blank=True) #
-    livraison = models.IntegerField(null=True, blank=True) #
-    achevement = models.IntegerField(null=True, blank=True) #
-    complementaire = models.IntegerField(null=True, blank=True) #
+    opacrations_marquantes = models.TextField(u"Opérations marquantes du projet", help_text=u"<i>Si  au  sein  de  l’opération  d’aménagement,  une  ou  plusieurs  constructions  ou  espaces  publics  majeurs  méritent  d’être  remarquées,  vous  pouvez  nous  indiquer  ici  tous  les  éléments  nécessaires  (nom  du  bâtiment  ou  de  l’espace  public,  fonction,  maîtrise  d’ouvrage  et  maîtrise  d’œuvre,  particularités  de  l’opération, autres éléments ou photographies en votre possession...)</i>") #
+    engagement = models.IntegerField("Date d'engagement de l'opération", help_text=u"L’année d’engagement de l’opération : année de la première délibération concernant l’opération", null=True, blank=True) #
+    creation = models.IntegerField(u"Date de création de la ZAC", help_text=u"L’année de création de la ZAC (si ZAC)", null=True, blank=True) #
+    realisation = models.IntegerField(u"Date de réalisation de la ZAC", help_text="Année de réalisation de la ZAC (si ZAC)", null=True, blank=True) #
+    autorisation = models.IntegerField(u"Date d'autorisation d'aménager", help_text=u"Année d’autorisation d’aménager (si permis d’aménager)", null=True, blank=True) #
+    permis = models.IntegerField(u"Date du permis de construire", help_text=u"année du permis de construire (si opération se limite à un permis ou un permis groupé)", null=True, blank=True) #
+    debut = models.IntegerField(u"Date du début des travaux", help_text=u"année du début des travaux", null=True, blank=True) #
+    livraison = models.IntegerField(u"Date de livraison des premiers bâtiments",help_text=u"Année de livraison des premiers bâtiments", null=True, blank=True) #
+    achevement = models.IntegerField(u"Date d'achèvement de l'opération", help_text=u"Année d’achèvement de l’opération", null=True, blank=True) #
+    complementaire = models.IntegerField(u"Date complémentaire", help_text=u"Autre date importante non citée ci-dessus", null=True, blank=True) #
     coats = models.TextField() #
     sources = models.TextField() #
     sources_details = models.TextField() #
@@ -341,7 +439,7 @@ class Project(models.Model):
     ambition_19 = models.TextField()
     ambition_20 = models.TextField()
     synthese_demarche_et_processus = models.TextField()
-    engagement_1 = models.TextField()
+    engagement_1 = models.TextField(help_text=engagement_1_help)
     engagement_2 = models.TextField()
     engagement_3 = models.TextField()
     engagement_4 = models.TextField()
@@ -350,7 +448,7 @@ class Project(models.Model):
     engagement_6 = models.TextField()
     engagement_7 = models.TextField()
     engagement_8 = models.TextField()
-    engagement_9 = models.TextField()
+    engagement_9 = models.TextField(help_text=engagement_9_help)
     engagement_10 = models.TextField()
     synthese_developpement_territorial = models.TextField()
     engagement_11 = models.TextField()
@@ -659,28 +757,30 @@ class ProjectPhoto(models.Model):
 
 
 class Action(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField("Nom de l'action", max_length=255)
     engagement = models.IntegerField()
     project = models.ForeignKey(Project)
     TODO = '01'
     IN_PROGRESS = '02'
     DONE = '03'
     STATE_CHOICES = (
-        (TODO, u'A faire'),
+        (TODO, u'A réaliser'),
         (IN_PROGRESS, u'En cours'),
-        (DONE, u'Fait'),
+        (DONE, u'Réalisé'),
     )
-    state = models.CharField(max_length=2, choices=STATE_CHOICES, default=TODO)
+    state = models.CharField(u"Etat de l'action",max_length=2, choices=STATE_CHOICES, default=TODO)
 
 
 class Document(models.Model):
-    file = models.FileField(upload_to='files/%Y/%m/%d')
-    title = models.CharField(max_length=255)
+    file = models.FileField("Fichier", upload_to='files/%Y/%m/%d')
+    title = models.CharField("Titre", max_length=255)
     project = models.ForeignKey(Project)
     engagement = models.IntegerField()
     TYPE_CHOICES = (
-        ('fo', 'foo'),
-        ('ba', 'bar'),
+        ('ph', 'Photo'),
+        ('pl', 'Plan'),
+        ('et', 'Etude, diagnostic'),
+        ('pa', 'Planification'),
     )
     type = models.CharField(max_length=2, choices=TYPE_CHOICES, default='fo')
 

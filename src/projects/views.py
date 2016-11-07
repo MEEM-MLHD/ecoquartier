@@ -10,7 +10,7 @@ from django.forms import inlineformset_factory
 
 from .models import Project, Action, Document
 from .filters import ProjectFilter
-from .forms import ProjectForm, ProjectEditorForm, ProjectEngagement1Form, ProjectEngagement2Form, ProjectEngagement3Form, ProjectEngagement4Form, ProjectEngagement5Form, ProjectEngagement6Form, ProjectEngagement7Form, ProjectEngagement8Form, ProjectEngagement9Form, ProjectEngagement10Form, ProjectEngagement11Form, ProjectEngagement12Form, ProjectEngagement13Form, ProjectEngagement14Form, ProjectEngagement15Form, ProjectEngagement16Form, ProjectEngagement17Form, ProjectEngagement18Form, ProjectEngagement19Form, ProjectEngagement20Form
+from .forms import ProjectForm, ProjectEditorForm, ProjectEngagement1Form, ProjectEngagement2Form, ProjectEngagement3Form, ProjectEngagement4Form, ProjectEngagement5Form, ProjectEngagement6Form, ProjectEngagement7Form, ProjectEngagement8Form, ProjectEngagement9Form, ProjectEngagement10Form, ProjectEngagement11Form, ProjectEngagement12Form, ProjectEngagement13Form, ProjectEngagement14Form, ProjectEngagement15Form, ProjectEngagement16Form, ProjectEngagement17Form, ProjectEngagement18Form, ProjectEngagement19Form, ProjectEngagement20Form, ProjectData1Form, ProjectData2Form, ProjectData3Form, ProjectData4Form, ProjectData5Form, ProjectData6Form, ProjectData7Form, ProjectData8Form, ProjectData9Form, ProjectData10Form, ProjectData11Form, ProjectData12Form, ProjectData13Form, ProjectData14Form, ProjectData15Form, ProjectData16Form, ProjectData17Form, ProjectData18Form, ProjectData19Form, ProjectData20Form
 
 
 def home(request):
@@ -85,9 +85,11 @@ def engagement(request, pk, id):
     DocumentFormSet = inlineformset_factory(Project, Document, fields=('file', 'title', 'type'), can_delete=True, extra=1)
     project = Project.objects.get(id=pk)
     if request.method == 'POST':
-        form = eval('ProjectEngagement'+str(id)+'Form')(request.POST, instance=project)
-        if form.is_valid():
-            form.save()
+        engagement_form = eval('ProjectEngagement'+str(id)+'Form')(request.POST, instance=project)
+        data_form = eval('ProjectData'+str(id)+'Form')(request.POST, instance=project)
+        if engagement_form.is_valid() and data_form.is_valid():
+            engagement_form.save()
+            data_form.save()
             action_formset = ActionFormSet(request.POST, instance=project, queryset=Action.objects.filter(engagement=engagement_id))
             document_formset = DocumentFormSet(request.POST, request.FILES, instance=project, queryset=Document.objects.filter(engagement=engagement_id))
             if action_formset.is_valid():
@@ -105,14 +107,16 @@ def engagement(request, pk, id):
                         instance.save()
             return redirect('detail', pk=pk)
     else:
-        form = eval('ProjectEngagement'+str(id)+'Form')(instance=project)
+        engagement_form = eval('ProjectEngagement'+str(id)+'Form')(instance=project)
+        data_form = eval('ProjectData'+str(id)+'Form')(instance=project)
         action_formset = ActionFormSet(instance=project, queryset=Action.objects.filter(engagement=engagement_id))
         document_formset = DocumentFormSet(instance=project, queryset=Document.objects.filter(engagement=engagement_id))
 
     return render(request, 'projects/project_engagement_detail.html', {
         'project': project,
         'engagement_id': engagement_id,
-        'form': form,
+        'engagement_form': engagement_form,
+        'data_form': data_form,
         'action_formset': action_formset,
         'document_formset': document_formset
     })

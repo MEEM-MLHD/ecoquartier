@@ -3,23 +3,39 @@
 
 {% block body %}
 
-<h2><a href="{% url 'detail' project.id %}">{{ project.nom }}</a></h2>
+<h2>EcoQuartier <a href="{% url 'detail' project.id %}">{{ project.nom }}</a></h2>
 
-<h3>Engagement {{ engagement_id }}</h3>
-
-{{ project.description }}
+<h3>{{ engagement_id }}.
+    {% if engagement_id == 9 %}
+    Mettre en œuvre une qualité urbaine, paysagère et architecturale
+    {% endif %}
+    {% if engagement_id == 1 %}
+    Réaliser les projets répondant aux besoins de tous s’appuyant sur les ressources et contraintes du territoire
+    {% endif %}
+</h3>
 
 {% include "projects/engagement_outline.html" %}
 
+
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#data" role="tab">Données du projet</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#engagement" role="tab">Rédaction de l'engagement et actions</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#documents" role="tab">Documents</a>
+  </li>
+</ul>
+
 <form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-
-    <h4>Actions associées à l'engagement</h4>
-    {% bootstrap_formset action_formset %}
-    <h4>Documents associés à l'engagement</h4>
-    {% bootstrap_formset document_formset %}
-
+{% csrf_token %}
+<div class="tab-content">
+  <div class="tab-pane active" id="data" role="tabpanel">{% bootstrap_form data_form %}</div>
+  <div class="tab-pane" id="engagement" role="tabpanel">{% bootstrap_form engagement_form %}{% bootstrap_formset action_formset %}</div>
+  <div class="tab-pane" id="documents" role="tabpanel">{% bootstrap_formset document_formset %}</div>
+</div>
 
     {% buttons %}
     <button type="submit" class="btn btn-block">

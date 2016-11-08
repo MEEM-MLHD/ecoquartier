@@ -89,8 +89,9 @@
   {{ form.media }}
 
 <script type="text/javascript">
+var map;
 $(window).on("map:init", function (e) {
-   var map = e.detail.map;
+   map = e.detail.map;
    map.on('map:loadfield', function () {
       map.drawControlid_coordonnees_geographiques.setDrawingOptions({
           rectangle: false,
@@ -102,6 +103,17 @@ $(window).on("map:init", function (e) {
    });
 });
 
+</script>
+
+<script type="text/javascript">
+  $("#id_commune").on('select2:select', function(e){
+    var url = "https://geo.api.gouv.fr/communes?fields=centre&nom="+e.params.data.text;
+    console.log(url)
+    $.get(url, function(data){
+      var coord = data[0].centre.coordinates
+      map.setView(new L.LatLng(coord[1], coord[0]), 16);
+    })
+  })
 </script>
 
 {% endblock %}

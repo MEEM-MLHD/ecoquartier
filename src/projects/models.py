@@ -27,6 +27,9 @@ class ZonageINSEE(models.Model):
     def __unicode__(self):
         return self.label
 
+    class Meta:
+        ordering = ['label', ]
+
 
 class Region(models.Model):
     label = models.CharField(max_length=255)

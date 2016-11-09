@@ -155,8 +155,7 @@ class Echelle(models.Model):
 
 engagement_1_help = u'''
 <div>
-LES DONNÉES QUALITATIVES
-DÉCRIRE VOTRE PROJET
+<h5>Les données qualitatives / Décrire votre projet</h5>
 
 <h6>NOTION 1 : DIAGNOSTIC STRATÉGIQUE</h6>
 
@@ -179,9 +178,7 @@ DÉCRIRE VOTRE PROJET
 
 engagement_9_help = u'''
 <div>
-LES DONNÉES QUALITATIVES
-DÉCRIRE VOTRE PROJET
-</div>
+<h5>Les données qualitatives / Décrire votre projet</h5>
 <h6>NOTION 1 : INSERTION URBAINE ET PAYSAGÈRE</h6>
 
 <ol>
@@ -205,26 +202,26 @@ Exemples : opérations d’espaces publics particulières,intégration de la 
 <li>Comment les îlots et formes bâties participent-ils à une qualité architecturale d’ensemble du projet ?</li>
 <li>De quelle manière favorisez-vous la création et la qualité architecturales dans les projets ?</li>
 </ol>
-
+<p>
 Exemples : projets architecturaux spécifiques, consultation d’équipes mixtes d’architectes-promoteurs-urbanistes, concours d’idées,...
+</p>
+</div>
 '''
 
 context_site_help = u'''
-<p>
-La collectivité fait-elle partie d’une intercommunalité ? Si oui,de quel type d’EPCI s’agit-il ? Quel est le nom de cet EPCI ?
-<br>
-Quels sont les éléments de cadrage et de plani cation valables sur le territoire de la collectivité ?
-<br>
-Le périmètre opérationnel de l’EcoQuartier est-il soumis à des orientations d’aménagement ?
-<br>
-Si oui, précisez lesquelles.
-<br>
-Le site de l’EcoQuartier est-il inclus dans un périmètre de protection ou dans une zone à enjeux en termes de patrimoine : périmètre de protection autour des monuments historiques ? Plan de Sauvegarde et de Mise en Valeur (PSMV)? Zone de protection du patrimoine architectural et paysager (ZPPAUP) / Aire de valorisation de l’Architecture et du Patrimoine (AVAP) ? Autres : précisez lesquelles.
-<br>
-Le site de l’EcoQuartier est-il inclus dans un périmètre de protection ou dans une zone à enjeux naturels et paysagers : Zone naturelle d’intérêt Ecologique, Faunistique et Floristiques (ZNIEFF) ? NATURA 2000 ? Espace Boisé Classé (EBC) ? Espace Naturel Sensible (ENS) ? Autres : précisez lesquelles.
-<br>
-Le site de l’EcoQuartier est-il inclus dans un périmètre faisant l’objet de conventions particulières : Périmètre Agence Nationale pour la Rénovation Urbaine (ANRU) ? Convention Programme National de Requali cation des Quartiers Anciens Dégradés (PNRQAD) ? Opération Programmée d’Amélioration de l’Habitat (OPAH) ? Zone Franche Urbaine (ZFU) ? Autres : précisez lesquelles ? Le site de l’EcoQuartier est-il soumis à des servitudes particulières ? Si oui,précisez lesquelles.
-</p>
+<ul>
+<li>La collectivité fait-elle partie d’une intercommunalité ? Si oui, de quel type d’EPCI s’agit-il ? Quel est le nom de cet EPCI ?</li>
+
+<li>Quels sont les éléments de cadrage et de plani cation valables sur le territoire de la collectivité ?</li>
+
+<li>Le périmètre opérationnel de l’EcoQuartier est-il soumis à des orientations d’aménagement ? Si oui, précisez lesquelles.</li>
+
+<li>Le site de l’EcoQuartier est-il inclus dans un périmètre de protection ou dans une zone à enjeux en termes de patrimoine : périmètre de protection autour des monuments historiques ? Plan de Sauvegarde et de Mise en Valeur (PSMV)? Zone de protection du patrimoine architectural et paysager (ZPPAUP) / Aire de valorisation de l’Architecture et du Patrimoine (AVAP) ? Autres : précisez lesquelles.</li>
+
+<li>Le site de l’EcoQuartier est-il inclus dans un périmètre de protection ou dans une zone à enjeux naturels et paysagers : Zone naturelle d’intérêt Ecologique, Faunistique et Floristiques (ZNIEFF) ? NATURA 2000 ? Espace Boisé Classé (EBC) ? Espace Naturel Sensible (ENS) ? Autres : précisez lesquelles.</li>
+
+<li>Le site de l’EcoQuartier est-il inclus dans un périmètre faisant l’objet de conventions particulières : Périmètre Agence Nationale pour la Rénovation Urbaine (ANRU) ? Convention Programme National de Requali cation des Quartiers Anciens Dégradés (PNRQAD) ? Opération Programmée d’Amélioration de l’Habitat (OPAH) ? Zone Franche Urbaine (ZFU) ? Autres : précisez lesquelles ? Le site de l’EcoQuartier est-il soumis à des servitudes particulières ? Si oui, précisez lesquelles.</li>
+</ul>
 '''
 
 

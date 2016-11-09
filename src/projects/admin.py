@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from .models import Person, Project, ProjectPhoto, Statut, ZonageINSEE, Commune, Departement, Region, ContexteCommune, TypeOperation, Vocation, LabelEcoQuartier, Procedure, Charte, DREALStringer, Action, Document, Tag
+from .models import Person, Project, ProjectPhoto, Statut, ZonageINSEE, Commune, Departement, Region, ContexteCommune, TypeOperation, Vocation, LabelEcoQuartier, Procedure, Charte, DREALStringer, DDTStringer, Action, Document, Tag
 from .models import CommissionNationale2009, CommissionNationale2011, CommissionNationale2013, CommissionNationale2014, CommissionNationale2015, CommissionNationale2016
 
 
@@ -27,7 +27,14 @@ class RegionAdmin(admin.ModelAdmin):
     merge_regions.short_description = u"Réunir des régions"
 
 
+class DDTStringerInline(admin.TabularInline):
+    model = DDTStringer
+
+
 class DepartementAdmin(admin.ModelAdmin):
+    inlines = [
+        DDTStringerInline,
+    ]
     list_display = ('label', 'code_insee')
     list_editable = ('code_insee', )
 

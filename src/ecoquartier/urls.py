@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^accounts/profile/', views.profile, name='profile'),
     url(r'^detail/(?P<pk>\d+)$', views.ProjectDetailView.as_view(), name='detail'),
+    url(r'^interlocuteurs/(?P<code_insee>\w+)$', views.interlocuteurs, name='interlocuteurs'),
     url(r'^detail/(?P<pk>\d+)/engagement/(?P<id>\d+)', views.engagement, name='engagement'),
     url(r'^create/$', login_required(views.ProjectCreateView.as_view()), name='create'),
     url(r'^update/(?P<pk>\d+)$', login_required(views.ProjectUpdateView.as_view()), name='update'),

@@ -7,7 +7,7 @@ from django.core.management import call_command
 
 
 def loadfixture(apps, schema_editor):
-    call_command('loaddata', 'initial_data.json')
+    call_command('loaddata', 'data.json')
 
 
 class Migration(migrations.Migration):

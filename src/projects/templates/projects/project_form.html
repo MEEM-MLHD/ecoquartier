@@ -63,12 +63,12 @@
 </div>
 
 <div class="col-md-5">
-<div class="alert alert-warning" role="alert">
+<div class="alert alert-warning" role="alert" id="contacts" style="display: none;">
   <h5 class="alert-heading">Besoin d’informations ?</h5>
   <p>Vos référents EQ à la DREAL/DDT peuvent vous aider</p>
   <ul class="m-b-0">
-  <li>Contact DREAL :  XXX</li>
-  <li>Contact DDT : XXX</li>
+  <li>Contact DREAL : <span id="contact-dreal"></span></li>
+  <li>Contact DDT : <span id="contact-ddt"></span></li>
   </ul>
 </div>
 <div class="alert alert-warning" role="alert">
@@ -76,7 +76,7 @@
   <div>{% leaflet_map "project_map" %}</div>
 </div>
 <div class="alert alert-warning" role="alert">
-  <p class="m-b-0"><a class="alert-warning" href="http://www.ecoquartiers.logement.gouv.fr">Agenda Ville durable</a></p>
+  <p class="m-b-0"><a target="_blank" class="alert-warning" href="http://www.ecoquartiers.logement.gouv.fr">Agenda Ville durable</a></p>
 </div>
 </div>
 
@@ -147,12 +147,21 @@ if(e.detail.id === 'project_map'){
 </script>
 
 <script type="text/javascript">
+  $('#contacts').hide();
   $("#id_commune").on('select2:select', function(e){
-    var url = "https://geo.api.gouv.fr/communes?fields=centre&nom="+e.params.data.text;
+    var url = "https://geo.api.gouv.fr/communes?fields=centre,region,departement&nom="+e.params.data.text;
     $.get(url, function(data){
       var coord = data[0].centre.coordinates
       map.setView(new L.LatLng(coord[1], coord[0]), 12);
       map2.setView(new L.LatLng(coord[1], coord[0]), 9);
+      var departement_code = data[0].departement.code;
+      var region_code = data[0].region.code;
+      var url_mask = "{% url 'interlocuteurs' 11 %}".replace(/11/, departement_code);
+      $.get(url_mask, function(data){
+        $('#contacts').show();
+        $('#contact-ddt').text(data.ddt[0].person__mail);
+        $('#contact-dreal').text(data.dreal[0].person__mail);
+      })
     })
   })
 </script>

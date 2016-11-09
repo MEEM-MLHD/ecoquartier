@@ -8,13 +8,14 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.db.models import Count, Sum, Q
 from django.forms import inlineformset_factory
 
-from .models import Project, Action, Document
+from .models import Project, Action, Document, Region
 from .filters import ProjectFilter
 from .forms import ProjectForm, ProjectEditorForm, ProjectEngagement1Form, ProjectEngagement2Form, ProjectEngagement3Form, ProjectEngagement4Form, ProjectEngagement5Form, ProjectEngagement6Form, ProjectEngagement7Form, ProjectEngagement8Form, ProjectEngagement9Form, ProjectEngagement10Form, ProjectEngagement11Form, ProjectEngagement12Form, ProjectEngagement13Form, ProjectEngagement14Form, ProjectEngagement15Form, ProjectEngagement16Form, ProjectEngagement17Form, ProjectEngagement18Form, ProjectEngagement19Form, ProjectEngagement20Form, ProjectData1Form, ProjectData2Form, ProjectData3Form, ProjectData4Form, ProjectData5Form, ProjectData6Form, ProjectData7Form, ProjectData8Form, ProjectData9Form, ProjectData10Form, ProjectData11Form, ProjectData12Form, ProjectData13Form, ProjectData14Form, ProjectData15Form, ProjectData16Form, ProjectData17Form, ProjectData18Form, ProjectData19Form, ProjectData20Form
 
 
 def home(request):
-    f = ProjectFilter(request.GET, queryset=Project.objects.all().order_by('-mise_a_jour'))
+    queryset = Project.objects.all().order_by('-mise_a_jour')
+    f = ProjectFilter(request.GET, queryset=queryset)
     label_ecoquartier = Project.objects.filter(label_ecoquartier__id=3).count()
     label_ecoquartier_engage = Project.objects.filter(label_ecoquartier__id=2).count()
     engaged_ecoquartier = Project.objects.filter(label_ecoquartier__id=2).count()

@@ -13,7 +13,7 @@
 <div class="container">
 <div class="row">
 
-<div class="col-md-8">
+<div class="col-md-7">
 
 <h2>Ajouter un projet d'ÉcoQuartier</h2>
 
@@ -51,7 +51,7 @@
     {% bootstrap_field form.european_network %}
 
     <div class="alert alert-info">
-      Vous faites désormais partie du club EcoQuartier, à ce titre vous recevrez la newsletter ainsi que les invitations au <a href="http://www.ecoquartiers.logement.gouv.fr/clubs-regionaux-r550.html">club EcoQuartier de votre région</a> et au <a href="http://www.ecoquartiers.logement.gouv.fr/club-ecoquartier-r7.html">club EcoQuartier</a> national (formations, visites et journées thématiques).
+      Vous faites désormais partie du club EcoQuartier, à ce titre vous recevrez la newsletter ainsi que les invitations au <a class="alert-info" href="http://www.ecoquartiers.logement.gouv.fr/clubs-regionaux-r550.html">club EcoQuartier de votre région</a> et au <a href="http://www.ecoquartiers.logement.gouv.fr/club-ecoquartier-r7.html">club EcoQuartier</a> national (formations, visites et journées thématiques).
     </div>
 
     {% buttons %}
@@ -62,7 +62,7 @@
 </form>
 </div>
 
-<div class="col-md-4">
+<div class="col-md-5">
 <div class="alert alert-warning" role="alert">
   <h5 class="alert-heading">Besoin d’informations ?</h5>
   <p>Vos référents EQ à la DREAL/DDT peuvent vous aider</p>
@@ -72,10 +72,11 @@
   </ul>
 </div>
 <div class="alert alert-warning" role="alert">
-  <p class="m-b-0">Ils font la ville et les territoires durables dans votre région !</p>
+  <p class="m-b-0">Ils font la ville et les territoires durables autour de vous !</p>
+  <div>{% leaflet_map "project_map" %}</div>
 </div>
 <div class="alert alert-warning" role="alert">
-  <p class="m-b-0"><a href="http://www.ecoquartiers.logement.gouv.fr">Agenda Ville durable</a></p>
+  <p class="m-b-0"><a class="alert-warning" href="http://www.ecoquartiers.logement.gouv.fr">Agenda Ville durable</a></p>
 </div>
 </div>
 
@@ -89,8 +90,9 @@
   {{ form.media }}
 
 <script type="text/javascript">
-var map;
+var map, map2;
 $(window).on("map:init", function (e) {
+if(e.detail.id === 'id_coordonnees_geographiques_map'){
    map = e.detail.map;
    map.on('map:loadfield', function () {
       map.drawControlid_coordonnees_geographiques.setDrawingOptions({
@@ -101,6 +103,45 @@ $(window).on("map:init", function (e) {
       map.removeControl(map.drawControlid_coordonnees_geographiques);
       map.addControl(map.drawControlid_coordonnees_geographiques);
    });
+}
+if(e.detail.id === 'project_map'){
+  var layer = L.geoJson();
+  map2 = e.detail.map;
+  map2.addLayer(layer);
+  $.getJSON("{% url 'data' %}", function (data) {
+      //layer.addData(data);
+      function onEachFeature(feature, layer) {
+      if (feature.properties) {
+          var content_img = '';
+          if(feature.properties.feature !== null){
+          var content_img = "<img src='"+feature.properties.feature+"' style='width:100%' />"
+          }
+          var content = content_img+'<b>'+feature.properties.nom+" ("+feature.properties.commune_label+") </b><br>"+feature.properties.short_description + "<br/><br/><div> <a target='_blank' href='"+feature.properties.url+"' class='btn btn-outline-primary btn-block btn-sm' role='button'>Détail</a> </div>";
+
+          layer.bindPopup(content);
+          }
+      }
+      L.geoJson(data, {
+        style: function(feature) {
+          switch (feature.properties.state) {
+              case 'labeled':
+                return {color: "rgba(99, 255, 132, 0.8)", "opacity": 1, fillColor:"rgba(99, 255, 132, 0.8)"};
+              case 'engaged':
+                return {color: "rgba(99, 125, 132, 0.4)", "opacity": 1, fillColor:"rgba(99, 125, 132, 0.4)"};
+              case 'charte':
+                return {color: "rgba(99, 0, 132, 0.2)", "opacity": 1, fillColor:"#dddddd"};
+              case 'none':
+                return {color: "rgba(100, 100, 100, 0.2)", "opacity": 1, fillColor:"#dddddd"};
+          }
+        },
+        onEachFeature: onEachFeature,
+        pointToLayer: function(feature, latlng) {
+          return new L.CircleMarker(latlng, {radius: 1, fillOpacity: 0.85});
+        }
+      }).addTo(map2);
+  });
+}
+
 });
 
 </script>
@@ -108,10 +149,10 @@ $(window).on("map:init", function (e) {
 <script type="text/javascript">
   $("#id_commune").on('select2:select', function(e){
     var url = "https://geo.api.gouv.fr/communes?fields=centre&nom="+e.params.data.text;
-    console.log(url)
     $.get(url, function(data){
       var coord = data[0].centre.coordinates
       map.setView(new L.LatLng(coord[1], coord[0]), 12);
+      map2.setView(new L.LatLng(coord[1], coord[0]), 9);
     })
   })
 </script>

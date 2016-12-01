@@ -11,7 +11,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.db.models import Count, Sum, Q
 from django.forms import inlineformset_factory
 
-from .models import Project, Action, Document, Region, Departement
+from .models import Project, Action, Document, Region, Departement, PartenaireDetail, MaitreOeuvre
 from .filters import ProjectFilter
 from .forms import GlobalProjectForm, ProjectForm, ProjectEditorForm, ProjectEngagement1Form, ProjectEngagement2Form, ProjectEngagement3Form, ProjectEngagement4Form, ProjectEngagement5Form, ProjectEngagement6Form, ProjectEngagement7Form, ProjectEngagement8Form, ProjectEngagement9Form, ProjectEngagement10Form, ProjectEngagement11Form, ProjectEngagement12Form, ProjectEngagement13Form, ProjectEngagement14Form, ProjectEngagement15Form, ProjectEngagement16Form, ProjectEngagement17Form, ProjectEngagement18Form, ProjectEngagement19Form, ProjectEngagement20Form, ProjectData1Form, ProjectData2Form, ProjectData3Form, ProjectData4Form, ProjectData5Form, ProjectData6Form, ProjectData7Form, ProjectData8Form, ProjectData9Form, ProjectData10Form, ProjectData11Form, ProjectData12Form, ProjectData13Form, ProjectData14Form, ProjectData15Form, ProjectData16Form, ProjectData17Form, ProjectData18Form, ProjectData19Form, ProjectData20Form
 
@@ -144,6 +144,10 @@ class ProjectDetailView(DetailView):
         context = super(ProjectDetailView, self).get_context_data(**kwargs)
         context['geojson'] = geojson
         context['form'] = GlobalProjectForm
+        FormSet = inlineformset_factory(Project, PartenaireDetail, fields='__all__', can_delete=True, extra=1)
+        context['formset'] = FormSet(instance=current_object)
+        FormSet2 = inlineformset_factory(Project, MaitreOeuvre, fields='__all__', can_delete=True, extra=1)
+        context['formset_2'] = FormSet2(instance=current_object)
         if self.request.user == current_object.owner or self.request.user in current_object.editors.all():
             context['editable'] = True
         return context

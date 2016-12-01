@@ -809,6 +809,7 @@ class Action(models.Model):
 
 
 class MaitreOeuvre(models.Model):
+    project = models.ForeignKey(Project, null=True, blank=True)
     nom = models.CharField("Nom", max_length=255)
     mail = models.CharField("Mail", max_length=255)
     FONCTION_CHOICES = (

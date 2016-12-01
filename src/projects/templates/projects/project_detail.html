@@ -39,12 +39,31 @@
 
 <div class="col-md-8">
 
-<p>Pour lire votre projet au prisme des 20 engagements de la charte et/ou renseigner le dossier de candidature au label EcoQuartier, vous devez cliquer sur chacun des 20 engagements
-</p>
+<div class="alert alert-info" role="alert">
+Pour lire votre projet au prisme des 20 engagements de la charte et/ou renseigner le dossier de candidature au label EcoQuartier, vous devez cliquer sur chacun des 20 engagements
+</div>
+
 
 {% include "projects/engagement_outline_large.html" %}
 
-{{ form.as_p }}
+<hr>
+
+<form action="" method="post" enctype="multipart/form-data">
+
+<h3>Les acteurs du projets</h3>
+
+{% bootstrap_form form %}
+
+<h4>Maitre d'œuvre</h4>
+{% bootstrap_formset formset_2 %}
+
+<h4>Partenaires</h4>
+{% bootstrap_formset formset %}
+
+<input class="btn btn-block btn-primary" type="submit" />
+
+</form>
+
 
 {% if object.dimensions_completed %}
 <div class="alert alert-info">

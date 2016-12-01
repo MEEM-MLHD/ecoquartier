@@ -31,7 +31,7 @@
     </fieldset>
 
     <fieldset class="form-group">
-      <legend>Contact (Chef de projet)</legend>
+      <legend>Contact Commune</legend>
       {% bootstrap_field form.project_manager_lastname %}
       {% bootstrap_field form.project_manager_firstname %}
       {% bootstrap_field form.project_manager_mail %}
@@ -39,11 +39,24 @@
     </fieldset>
 
     <fieldset class="form-group">
+      <legend>Contact Aménageur</legend>
+      {% bootstrap_field form.project_developer_lastname %}
+      {% bootstrap_field form.project_developer_firstname %}
+      {% bootstrap_field form.project_developer_mail %}
+      {% bootstrap_field form.project_developer_structure %}
+    </fieldset>
+
+
+
+    <fieldset class="form-group">
       <legend>Caractéristiques</legend>
+    {% bootstrap_field form.plusieurs_tranches %}
     {% bootstrap_field form.type_operations %}
     {% bootstrap_field form.vocations %}
+    {% bootstrap_field form.procedure %}
     {% bootstrap_field form.description %}
     {% bootstrap_field form.demarches %}
+    {% bootstrap_field form.demarches_autres %}
     {% bootstrap_field form.tags %}
     </fieldset>
 

@@ -8,8 +8,9 @@ from .models import Project, Commune, Demarche, TypeOperation, Vocation, Tag
 
 class ProjectForm(forms.ModelForm):
     european_network = forms.BooleanField(
-        label=u"Etre visible sur le réseau européen des villes et territoires durables (<a target='_blank' href='http://rfsc.eu/'>RFSC</a>)",
-        required=False
+        label=u"Etre visible sur le réseau européen des villes et territoires durables (<a target='_blank' href='http://rfsc.eu/fr/'>RFSC</a>)",
+        required=False,
+        help_text=u"En cochant cette case, la fiche d'identité de votre projet sera visible sur le site du 'cadre de référence des villes et territoires durables', favorisant la mise en réseau des collectivités européennes ayant des expériences en matière d'aménagement durable."
     )
     commune = forms.ModelChoiceField(
         label="Commune principale",
@@ -29,14 +30,14 @@ class ProjectForm(forms.ModelForm):
         help_text=u"Dessiner sur la carte la zone où se trouve votre projet",
     )
 
-    type_operations = forms.ModelMultipleChoiceField(label=u"Type d'opérations", queryset=TypeOperation.objects.all(), widget=forms.CheckboxSelectMultiple(),required=False)
-    vocations = forms.ModelMultipleChoiceField(label=u"Vocations", queryset=Vocation.objects.all(), widget=forms.CheckboxSelectMultiple(),required=False)
-    demarches = forms.ModelMultipleChoiceField(label=u"Engagement dans d'autres démarches de développement durable", queryset=Demarche.objects.all(), widget=forms.CheckboxSelectMultiple(),required=False)
-    tags = forms.ModelMultipleChoiceField(label=u"Points forts du projet", queryset=Tag.objects.all(), widget=forms.CheckboxSelectMultiple(),required=False)
+    type_operations = forms.ModelMultipleChoiceField(label=u"Type d'opérations (plusieurs choix possibles)", queryset=TypeOperation.objects.all(), widget=forms.CheckboxSelectMultiple(),required=False)
+    vocations = forms.ModelMultipleChoiceField(label=u"Vocations (plusieurs choix possibles)", queryset=Vocation.objects.all(), widget=forms.CheckboxSelectMultiple(),required=False)
+    demarches = forms.ModelMultipleChoiceField(label=u"Engagement dans d'autres démarches de développement durable (plusieurs choix possibles)", queryset=Demarche.objects.all(), widget=forms.CheckboxSelectMultiple(),required=False)
+    tags = forms.ModelMultipleChoiceField(label=u"Points forts du projet (plusieurs choix possibles dans la limite de 5)", queryset=Tag.objects.all(), widget=forms.CheckboxSelectMultiple(),required=False)
 
     class Meta:
         model = Project
-        fields = ['nom', 'commune', 'communes', 'project_manager_lastname', 'project_manager_firstname', 'project_manager_mail', 'project_manager_structure', 'coordonnees_geographiques', 'type_operations', 'vocations', 'description', 'demarches', 'tags', 'charte']
+        fields = ['nom', 'commune', 'communes', 'project_manager_lastname', 'project_manager_firstname', 'project_manager_mail', 'project_manager_structure', 'project_developer_lastname', 'project_developer_firstname', 'project_developer_mail', 'project_developer_structure', 'plusieurs_tranches', 'coordonnees_geographiques', 'type_operations', 'vocations', 'procedure', 'description', 'demarches', 'demarches_autres', 'tags', 'charte']
 
 
 class ProjectEditorForm(forms.ModelForm):
@@ -47,6 +48,12 @@ class ProjectEditorForm(forms.ModelForm):
         widgets = {
             'editors': autocomplete.ModelSelect2Multiple(url='editor-autocomplete')
         }
+
+
+class GlobalProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['plan_situation_1_5000', 'plan_masse_1_1000', 'plan_masse_1_500', 'plan_detaille', 'maitrise_ouvrage_structure', 'maitrise_ouvrage_nom',]
 
 
 class ProjectEngagement1Form(forms.ModelForm):

@@ -33,12 +33,18 @@
 
 {% if editable %}
 
+
 <div class="row">
 
 
 <div class="col-md-8">
 
+<p>Pour lire votre projet au prisme des 20 engagements de la charte et/ou renseigner le dossier de candidature au label EcoQuartier, vous devez cliquer sur chacun des 20 engagements
+</p>
+
 {% include "projects/engagement_outline_large.html" %}
+
+{{ form.as_p }}
 
 {% if object.dimensions_completed %}
 <div class="alert alert-info">
@@ -69,6 +75,11 @@ je souhaite soumettre ma candidature à la démarche de labellisation EQ.
     <li>Les enseignements des EcoQuartiers</li>
     <li>Fiches projets labellisés</li>
     <li>Grilles contextualisées</li>
+    </ul>
+  </div>
+  <div class="alert alert-info" role="alert">
+    <h5 class="alert-heading">Dernières modifications du projet</h5><ul class="m-b-0">
+    <li>Liste des dernières modifications</li>
     </ul>
   </div>
 </div>

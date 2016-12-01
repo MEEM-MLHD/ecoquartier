@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -128,7 +129,11 @@ LEAFLET_CONFIG = {
     'DEFAULT_ZOOM': 6,
     'MIN_ZOOM': 3,
     'MAX_ZOOM': 18,
-    'TILES': 'http://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'
+    'TILES': [(u'Parcellaire grande échelle', 'http://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {'attribution': '&copy; IGN'}),
+              ('Orthophoto', 'http://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {'attribution': '&copy; IGN'}),
+              ('Scan25', 'http://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {'attribution': '&copy; IGN'}),
+              ('Parcellaire', 'http://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {'attribution': '&copy; IGN'}),
+    ]
 }
 
 FILTERS_HELP_TEXT_FILTER = None
@@ -148,3 +153,4 @@ EMAIL_HOST_PASSWORD = '174e2ae501eb46efa911e908e0b26487'
 EMAIL_HOST_USER = '2f86dfe1d9515812f45437ec221a2e25'
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL='samuel.goldszmidt@gmail.com'
+

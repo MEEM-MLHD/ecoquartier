@@ -5,13 +5,48 @@
 
 <h2>EcoQuartier <a href="{% url 'detail' project.id %}">{{ project.nom }}</a></h2>
 
-<h3>{{ engagement_id }}.
-    {% if engagement_id == 9 %}
-    Mettre en œuvre une qualité urbaine, paysagère et architecturale
-    {% endif %}
-    {% if engagement_id == 1 %}
-    Réaliser les projets répondant aux besoins de tous s’appuyant sur les ressources et contraintes du territoire
-    {% endif %}
+<p><a href="{% url 'detail' project.id %}">Retourner à la page générale de votre projet</a></p>
+
+<h3>
+{% if engagement_id == 1 %}Engagement 1 : Réaliser les projets répondant aux besoins de tous en s’appuyant sur les ressources et contraintes du territoire{% endif %}
+
+{% if engagement_id == 2 %}Engagement 2 : Formaliser et mettre en œuvre un processus participatif de pilotage et une gouvernance élargie créant les conditions d’une mobilisation citoyenne{% endif %}
+
+{% if engagement_id == 3 %}Engagement 3 : Intégrer la dimension financière tout au long du projet dans une approche en coût global{% endif %}
+
+{% if engagement_id == 4 %}Engagement 4 : Prendre en compte les pratiques des usagers et les contraintes des gestionnaires tout au long du projet{% endif %}
+
+{% if engagement_id == 5 %}Engagement 5 : Mettre en œuvre, à toutes les étapes du projet et à l’usage, des démarches d’évaluation et d’amélioration continue{% endif %}
+
+{% if engagement_id == 6 %}Engagement 6 : Travailler en priorité sur la ville existante et proposer des formes urbaines adaptées pour lutter contre l’étalement urbain{% endif %}
+
+{% if engagement_id == 7 %}Engagement 7 : Mettre en œuvre les conditions du vivre-ensemble et de la solidarité{% endif %}
+
+{% if engagement_id == 8 %}Engagement 8 : Assurer un cadre de vie sûr et qui intègre les grands enjeux de santé, notamment la qualité de l’air{% endif %}
+
+{% if engagement_id == 9 %}Engagement 9 : Mettre en œuvre une qualité urbaine, paysagère et architecturale{% endif %}
+
+{% if engagement_id == 10 %}Engagement 10 : Valoriser le patrimoine (naturel et bâti), l’histoire et l’identité du site{% endif %}
+
+{% if engagement_id == 11 %}Engagement 11 : Contribuer à un développement économique local, équilibré et solidaire{% endif %}
+
+{% if engagement_id == 12 %}Engagement 12 : Favoriser la diversité des fonctions et leur proximité{% endif %}
+
+{% if engagement_id == 13 %}Engagement 13 : Optimiser l’utilisation des ressources et développer les filières locales et les circuits courts{% endif %}
+
+{% if engagement_id == 14 %}Engagement 14 : Favoriser les modes actifs, les transports collectifs et les offres alternatives de déplacement{% endif %}
+
+{% if engagement_id == 15 %}Engagement 15 : Favoriser la transition numérique vers la ville intelligente{% endif %}
+
+{% if engagement_id == 16 %}Engagement 16 : Produire un urbanisme permettant d’anticiper et de s’adapter aux risques et aux changements climatiques{% endif %}
+
+{% if engagement_id == 17 %}Engagement 17 : Viser la sobriété énergétique et la diversification des ressources au profit des énergies renouvelables et de récupération{% endif %}
+
+{% if engagement_id == 18 %}Engagement 18 : Limiter la production des déchets, développer et consolider des filières de valorisation et de recyclage dans une logique d’économie circulaire{% endif %}
+
+{% if engagement_id == 19 %}Engagement 19 : Préserver la ressource en eau et en assurer une gestion qualitative et économe{% endif %}
+
+{% if engagement_id == 20 %}Engagement 20 : Préserver et valoriser la biodiversité, les sols et les milieux naturels{% endif %}
 </h3>
 
 {% include "projects/engagement_outline.html" %}
@@ -33,7 +68,12 @@
 {% csrf_token %}
 <div class="tab-content">
   <div class="tab-pane active" id="data" role="tabpanel">{% bootstrap_form data_form %}</div>
-  <div class="tab-pane" id="engagement" role="tabpanel">{% bootstrap_form engagement_form %}{% bootstrap_formset action_formset %}</div>
+  <div class="tab-pane" id="engagement" role="tabpanel">{% bootstrap_form engagement_form %}
+<h4>Actions</h4>
+<div class="alert alert-info" role="alert">
+Votre réponse à l'engagement se traduit par différentes actions opérationnelles. Nous vous proposons de préciser ces actions, ainsi que leur état d'avancement. Pour actualiser votre dossier, il ne sera pas nécessaire de revenir sur la rédaction de l'engagement si cela n'a pas lieu d'être, il vous suffira d'actualiser l'état d'avancement de vos actions, voire d'en rajouter si nécessaire.
+</div>
+  {% bootstrap_formset action_formset %}</div>
   <div class="tab-pane" id="documents" role="tabpanel">{% bootstrap_formset document_formset %}</div>
 </div>
 

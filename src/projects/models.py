@@ -153,6 +153,7 @@ class Echelle(models.Model):
     def __unicode__(self):
         return self.label
 
+
 engagement_1_help = u'''
 <div>
 <h5>Les données qualitatives / Décrire votre projet</h5>
@@ -209,6 +210,7 @@ Exemples : projets architecturaux spécifiques, consultation d’équipes mixt
 '''
 
 context_site_help = u'''
+<p>Précisez en 10 lignes maximum : </p>
 <ul>
 <li>La collectivité fait-elle partie d’une intercommunalité ? Si oui, de quel type d’EPCI s’agit-il ? Quel est le nom de cet EPCI ?</li>
 
@@ -233,6 +235,10 @@ Préciser le nombre total de logements prévus à terme dans l’opération 
 </p>
 '''
 
+class Partenaire(models.Model):
+    name = models.CharField(max_length=255)
+
+
 class Project(models.Model):
 
     owner = models.ForeignKey(User, null=True, blank=True, related_name="owner")
@@ -253,9 +259,9 @@ class Project(models.Model):
     adresse = models.TextField() #
     systeme_projection = models.CharField(max_length=255) #
     coordonnees_geographiques = models.GeometryCollectionField(blank=True, null=True) #
-    site = models.TextField("Caractéristiques initiales du site", help_text=u"Préciser les caractéristiques initiales du site : par exemple, terrains agricoles, site militaire, friches industrielles, quartier d’habitat social...") #
+    site = models.TextField("Caractéristiques initiales du site", help_text=u"Préciser en 5 lignes maximum les caractéristiques initiales du site : par exemple, terrains agricoles, site militaire, friches industrielles, quartier d’habitat social...") #
     contexte_site = models.TextField("Contexte du site", help_text=context_site_help) #
-    type_operations = models.ManyToManyField(TypeOperation, verbose_name="Type d'opérations") #
+    type_operations = models.ManyToManyField(TypeOperation, verbose_name="Type d'opérations (plusieurs choix possibles)", help_text="Plusieurs choix possibles") #
     type_operation_autre = models.TextField() #
     vocations = models.ManyToManyField(Vocation) #
     vocation_autre = models.TextField() #
@@ -282,6 +288,7 @@ class Project(models.Model):
     charte = models.FileField(upload_to='charte/%Y/%m/%d/', null=True, blank=True, verbose_name="Charte ÉcoQuartier")
     charte_date = models.DateField(null=True, blank=True)
     demarches = models.ManyToManyField(Demarche, verbose_name=u"Engagement dans d'autres démarches de développement durable")
+    demarches_autres = models.CharField(u"Autres démarches", max_length=255, null=True, blank=True)
     echelle = models.ForeignKey(Echelle, null=True, blank=True)
 
     def is_economie_circulaire(self):
@@ -352,6 +359,12 @@ class Project(models.Model):
     project_manager_mail = models.EmailField("Mail", max_length=255, null=True, blank=True)
     project_manager_structure = models.CharField("Organisme de rattachement", max_length=255, null=True, blank=True)
 
+    project_developer_lastname = models.CharField("Nom", max_length=255, null=True, blank=True)
+    project_developer_firstname = models.CharField("Prénom", max_length=255, null=True, blank=True)
+    project_developer_mail = models.EmailField("Mail", max_length=255, null=True, blank=True)
+    project_developer_structure = models.CharField("Organisme de rattachement", max_length=255, null=True, blank=True)
+
+    plusieurs_tranches = models.BooleanField(u"L'opération comporte plusieurs tranches", default=False)
 
     sites_enlien = models.TextField() #
     documents = models.TextField() #
@@ -439,7 +452,7 @@ class Project(models.Model):
     ambition_19 = models.TextField()
     ambition_20 = models.TextField()
     synthese_demarche_et_processus = models.TextField()
-    engagement_1 = models.TextField(help_text=engagement_1_help)
+    engagement_1 = models.TextField("Engagement 1 (2000 signes maximum sans compter les espaces)", help_text=engagement_1_help)
     engagement_2 = models.TextField()
     engagement_3 = models.TextField()
     engagement_4 = models.TextField()
@@ -567,6 +580,24 @@ class Project(models.Model):
     commentaires = models.TextField()
 
     objects = models.GeoManager()
+
+
+    plan_situation_1_5000 = models.FileField(upload_to="upload", null=True, blank=True)
+    plan_masse_1_1000 = models.FileField(upload_to="upload", null=True, blank=True)
+    plan_masse_1_500 = models.FileField(upload_to="upload", null=True, blank=True)
+    plan_detaille = models.FileField(upload_to="upload", null=True, blank=True)
+
+    MAITRISE_OUVRAGE_STRUCTURE_CHOICES = (
+        ('RC', u'régie communale'),
+        ('SM', u'SEM'),
+        ('SP', u'SPLA'),
+        ('AP', u'Aménageur privé'),
+    )
+
+    maitrise_ouvrage_structure = models.CharField(max_length=2, choices=MAITRISE_OUVRAGE_STRUCTURE_CHOICES, null=True, blank=True)
+    maitrise_ouvrage_nom = models.CharField(max_length=255, null=True, blank=True)
+
+    partenaires = models.ManyToManyField(Partenaire, through='PartenaireDetail')
 
     @property
     def commune_label(self):
@@ -749,6 +780,12 @@ class Project(models.Model):
         super(Project, self).save(*args, **kwargs)
 
 
+class PartenaireDetail(models.Model):
+    partenaire = models.ForeignKey(Partenaire, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    detail = models.CharField(max_length=64)
+
+
 class ProjectPhoto(models.Model):
     project = models.ForeignKey(Project)
     order = models.PositiveIntegerField()
@@ -769,6 +806,24 @@ class Action(models.Model):
         (DONE, u'Réalisé'),
     )
     state = models.CharField(u"Etat de l'action",max_length=2, choices=STATE_CHOICES, default=TODO)
+
+
+class MaitreOeuvre(models.Model):
+    nom = models.CharField("Nom", max_length=255)
+    mail = models.CharField("Mail", max_length=255)
+    FONCTION_CHOICES = (
+        ('AR', 'Architecte'),
+        ('UR', 'Urbaniste'),
+        ('PA', 'Paysagiste'),
+        ('EC', 'Ecologue'),
+        ('BE', 'BE'),
+    )
+    fonction = models.CharField(max_length=2, choices=FONCTION_CHOICES)
+    COMPETENCE_CHOICES = (
+        ('PO', u'Aménagement en site pollué'),
+        ('PR', u'Aménagement en site protégé'),
+    )
+    competence = models.CharField(max_length=2, choices=COMPETENCE_CHOICES)
 
 
 class Document(models.Model):

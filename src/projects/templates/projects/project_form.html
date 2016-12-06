@@ -38,7 +38,8 @@
       {% bootstrap_field form.project_manager_structure %}
     </fieldset>
 
-    <fieldset class="form-group">
+    <button class="btn btn-small" id="add-contact">Ajouter un contact</button>
+    <fieldset class="form-group" id="more-contact">
       <legend>Contact Aménageur</legend>
       {% bootstrap_field form.project_developer_lastname %}
       {% bootstrap_field form.project_developer_firstname %}
@@ -178,5 +179,16 @@ if(e.detail.id === 'project_map'){
     })
   })
 </script>
+
+    <script type="text/javascript">
+    $( document ).ready(function() {
+      $('#more-contact').hide()
+      $('#add-contact').click(function(e){
+        e.preventDefault();
+        $('#add-contact').hide();
+        $('#more-contact').show();
+      })
+    })
+    </script>
 
 {% endblock %}

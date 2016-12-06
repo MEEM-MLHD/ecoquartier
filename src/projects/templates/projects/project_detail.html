@@ -50,17 +50,29 @@ Pour lire votre projet au prisme des 20 engagements de la charte et/ou renseigne
 
 <form action="" method="post" enctype="multipart/form-data">
 
-<h3>Les acteurs du projets</h3>
+    <fieldset class="form-group">
+      <legend>Les documents de base du projet</legend>
+      {% bootstrap_field form.plan_situation_1_5000 %}
+      {% bootstrap_field form.plan_masse_1_1000 %}
+      {% bootstrap_field form.plan_masse_1_500 %}
+      {% bootstrap_field form.plan_detaille %}
+    </fieldset>
 
-{% bootstrap_form form %}
+<button class="btn btn-block btn-primary" type="submit" >Enregistrer</button>
 
-<h4>Maitre d'œuvre</h4>
-{% bootstrap_formset formset_2 %}
+<hr>
 
-<h4>Partenaires</h4>
-{% bootstrap_formset formset %}
+    <fieldset class="form-group">
+      <legend>Les acteurs du projets</legend>
+      {% bootstrap_field form.maitrise_ouvrage_structure %}
+      {% bootstrap_field form.maitrise_ouvrage_nom %}
+      <h6>Maitre d'œuvre</h6>
+      {% bootstrap_formset formset_2 %}
+      <h6>Partenaires</h6>
+      {% bootstrap_formset formset %}
+    </fieldset>
 
-<input class="btn btn-block btn-primary" type="submit" />
+<button class="btn btn-block btn-primary" type="submit" >Enregistrer</button>
 
 </form>
 

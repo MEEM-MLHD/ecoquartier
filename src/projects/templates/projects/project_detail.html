@@ -58,21 +58,46 @@ Pour lire votre projet au prisme des 20 engagements de la charte et/ou renseigne
       {% bootstrap_field form.plan_detaille %}
     </fieldset>
 
-<button class="btn btn-block btn-primary" type="submit" >Enregistrer</button>
+<button class="btn btn-block btn-primary" type="submit">Mettre à jour les documents</button>
 
 <hr>
 
-    <fieldset class="form-group">
-      <legend>Les acteurs du projets</legend>
-      {% bootstrap_field form.maitrise_ouvrage_structure %}
-      {% bootstrap_field form.maitrise_ouvrage_nom %}
-      <h6>Maitre d'œuvre</h6>
-      {% bootstrap_formset formset_2 %}
-      <h6>Partenaires</h6>
-      {% bootstrap_formset formset %}
-    </fieldset>
+<h3>Les acteurs du projet</h3>
 
-<button class="btn btn-block btn-primary" type="submit" >Enregistrer</button>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab"  href="#moa">MOA</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab"  href="#moe">MOE</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab"  href="#partners">Partenaires</a>
+  </li>
+</ul>
+
+<div class="tab-content">
+
+<div class="tab-pane active" id="moa" role="tabpanel">
+<fieldset class="form-group">
+  {% bootstrap_field form.maitrise_ouvrage_structure %}
+      {% bootstrap_field form.maitrise_ouvrage_nom %}
+</fieldset>
+</div>
+<div class="tab-pane" id="moe" role="tabpanel">
+<fieldset class="form-group">
+  {% bootstrap_formset formset_2 %}
+  </fieldset>
+</div>
+<div class="tab-pane" id="partners" role="tabpanel">
+<fieldset class="form-group">
+  {% bootstrap_formset formset %}
+  </fieldset>
+</div>
+
+</div>
+
+<button class="btn btn-block btn-primary" type="submit" >Mettre à jour les acteurs</button>
 
 </form>
 

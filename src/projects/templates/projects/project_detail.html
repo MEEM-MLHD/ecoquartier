@@ -19,10 +19,56 @@
 
 <h2>{{ object.nom }}</h2>
 
-{% leaflet_map "yourmap" %}
-
 {{ object.description }}
 
+
+<div class="row">
+
+
+<div class="col-md-8">
+
+<h3>Avancement dans la démarche</h3>
+
+<table class="table">
+<tr>
+  <td>EcoQuartier ★­ la charte</td>
+  <td>EcoQuartier ★★ ­ l'engagement</td>
+  <td>EcoQuartier ★★★ ­ Le label</td>
+  <td>EcoQuartier ★★★★ ­ l'évaluation</td>
+</tr>
+<tr>
+  <td>
+    <input type="checkbox" disabled> Dépôt de la charte signée <br>
+    <input type="checkbox" disabled checked> Fiche identité du projet
+  </td>
+  <td>
+    <input type="checkbox" disabled> Les 20 engagements ★★ <br>
+    <input type="checkbox" disabled> Visite de terrain <br>
+    <input type="checkbox" disabled> Expertise <br>
+    <input type="checkbox" disabled> Délibération
+  </td>
+  <td>
+    <input type="checkbox" disabled> Les 20 engagements ★★★ <br>
+    <input type="checkbox" disabled> Visite de terrain <br>
+    <input type="checkbox" disabled> Expertise <br>
+    <input type="checkbox" disabled> Délibération
+  </td>
+  <td>
+    <input type="checkbox" disabled> Auto­évaluation du projet
+  </td>
+</tr>
+</table>
+
+<hr>
+
+
+</div>
+
+
+
+<div class="col-md-4">
+
+{% leaflet_map "yourmap" %}
 
 <div>
 {% for photo in object.projectphoto_set.all %}
@@ -30,6 +76,11 @@
 {% endfor %}
 </div>
 
+<br>
+
+</div>
+
+</div>
 
 {% if editable %}
 

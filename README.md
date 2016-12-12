@@ -92,3 +92,8 @@ Shouldn't be needed
 
 createdb ecoquartier
 psql ecoquartier
+
+DUMP data
+
+docker-compose exec db bash
+and inside container : pg_dump -C -c -O -x -U postgre postgre > test.sql
